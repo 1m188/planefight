@@ -1,4 +1,43 @@
 <RCC>
-    <qresource prefix="planeFight">
+    <qresource prefix="/planeFight">
+        <file>Resources/again.png</file>
+        <file>Resources/background.png</file>
+        <file>Resources/bomb.png</file>
+        <file>Resources/bomb_supply.png</file>
+        <file>Resources/bullet_supply.png</file>
+        <file>Resources/bullet1.png</file>
+        <file>Resources/bullet2.png</file>
+        <file>Resources/enemy1.png</file>
+        <file>Resources/enemy1_down1.png</file>
+        <file>Resources/enemy1_down2.png</file>
+        <file>Resources/enemy1_down3.png</file>
+        <file>Resources/enemy1_down4.png</file>
+        <file>Resources/enemy2.png</file>
+        <file>Resources/enemy2_down1.png</file>
+        <file>Resources/enemy2_down2.png</file>
+        <file>Resources/enemy2_down3.png</file>
+        <file>Resources/enemy2_down4.png</file>
+        <file>Resources/enemy2_hit.png</file>
+        <file>Resources/enemy3_down1.png</file>
+        <file>Resources/enemy3_down2.png</file>
+        <file>Resources/enemy3_down3.png</file>
+        <file>Resources/enemy3_down4.png</file>
+        <file>Resources/enemy3_down5.png</file>
+        <file>Resources/enemy3_down6.png</file>
+        <file>Resources/enemy3_hit.png</file>
+        <file>Resources/enemy3_n1.png</file>
+        <file>Resources/enemy3_n2.png</file>
+        <file>Resources/gameover.png</file>
+        <file>Resources/life.png</file>
+        <file>Resources/me_destroy_1.png</file>
+        <file>Resources/me_destroy_2.png</file>
+        <file>Resources/me_destroy_3.png</file>
+        <file>Resources/me_destroy_4.png</file>
+        <file>Resources/me1.png</file>
+        <file>Resources/me2.png</file>
+        <file>Resources/pause_nor.png</file>
+        <file>Resources/pause_pressed.png</file>
+        <file>Resources/resume_nor.png</file>
+        <file>Resources/resume_pressed.png</file>
     </qresource>
 </RCC>
