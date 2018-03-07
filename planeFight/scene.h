@@ -14,7 +14,7 @@ public:
 	~Scene();
 
 private:
-	
+	QPixmap backgroundImg;
 };
 
 #endif // SCENE_H
