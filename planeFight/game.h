@@ -15,8 +15,15 @@ private:
 	bool isPaused;
 
 public:
-	virtual void setPaused(bool) = 0;
-	virtual bool isCollided(double, double, double, double, double, double, double, double) = 0;
+	bool getPaused();
+	void setPaused(bool);
+	bool isCollided(double, double, double, double, double, double, double, double);
+
+signals:
+	void collided();
+
+public slots:
+	virtual void beCollided() = 0;
 };
 
 #endif // GAME_H

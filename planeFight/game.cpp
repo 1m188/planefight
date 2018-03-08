@@ -11,6 +11,11 @@ Game::~Game()
 
 }
 
+bool Game::getPaused()
+{
+	return isPaused;
+}
+
 void Game::setPaused(bool paused)
 {
 	isPaused = paused;
