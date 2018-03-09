@@ -13,6 +13,9 @@ Scene::Scene(QWidget *parent)
 	p.setBrush(QPalette::Background, QBrush(backgroundImg));
 	setPalette(p);
 
+	setCursor(Qt::BlankCursor);
+	Player *player = new Player(this);
+
 	show();
 }
 

@@ -25,6 +25,7 @@ void Plane::imgChange()
 		if (img.first.size() > 0)
 		{
 			setPixmap(img.first.at(img.second));
+			resize(pixmap()->size());
 			img.second++;
 			if (img.second >= img.first.size())
 			{
@@ -41,11 +42,16 @@ void Plane::destroyImgChange()
 		if (destroyImg.first.size() > 0)
 		{
 			setPixmap(destroyImg.first.at(destroyImg.second));
+			resize(pixmap()->size());
 			destroyImg.second++;
 			if (destroyImg.second >= destroyImg.first.size())
 			{
 				deleteLater();
 			}
+		}
+		else
+		{
+			deleteLater();
 		}
 	}
 }
@@ -53,4 +59,24 @@ void Plane::destroyImgChange()
 void Plane::beCollided()
 {
 	life--;
+}
+
+void Plane::setLife(int l)
+{
+	life = l;
+}
+
+const int Plane::getLife() const
+{
+	return life;
+}
+
+void Plane::addImg(QPixmap i)
+{
+	img.first.append(i);
+}
+
+void Plane::addDestroyImg(QPixmap d)
+{
+	destroyImg.first.append(d);
 }

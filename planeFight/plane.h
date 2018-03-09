@@ -13,16 +13,21 @@ public:
 	virtual ~Plane();
 
 private:
+	int life;
+
+	QPair<QVector<QPixmap>, int> img;
+	QPair<QVector<QPixmap>, int> destroyImg;
+
 	QTimer *imgChangeTimer;
 	QTimer *destroyImgChangeTimer;
 	QTimer *productBulletTimer;
 	QTimer *moveTimer;
 
 public:
-	int life;
-
-	QPair<QVector<QPixmap>, int> img;
-	QPair<QVector<QPixmap>, int> destroyImg;
+	void setLife(int);
+	const int getLife() const;
+	void addImg(QPixmap);
+	void addDestroyImg(QPixmap);
 
 private slots:
 	void imgChange();

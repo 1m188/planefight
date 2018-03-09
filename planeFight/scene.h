@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "QApplication"
 #include "QDeskTopWidget"
+#include "player.h"
 
 class Scene : public QWidget
 {

@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <QLabel>
+#include "QDebug"
 
 class Game : public QLabel
 {
@@ -15,9 +16,9 @@ private:
 	bool isPaused;
 
 public:
-	bool getPaused();
+	const bool getPaused() const;
 	void setPaused(bool);
-	bool isCollided(double, double, double, double, double, double, double, double);
+	const bool isCollided(double, double, double, double, double, double, double, double) const;
 
 signals:
 	void collided();
