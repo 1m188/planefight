@@ -27,11 +27,14 @@
     <Filter Include="游戏接口类">
       <UniqueIdentifier>{46491b8f-f9ad-441f-b1de-c5d6e3c28f64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="飞机类">
+    <Filter Include="游戏接口类\飞机类">
       <UniqueIdentifier>{dd3e9b15-75a3-4d23-9004-71c0abc818a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="玩家类">
+    <Filter Include="游戏接口类\飞机类\玩家类">
       <UniqueIdentifier>{031e86b8-69c8-4bd9-8179-1886770a75ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏接口类\飞机类\敌机类">
+      <UniqueIdentifier>{23fc1eb9-e7fa-4be7-957a-da435abe180b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +67,7 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="plane.cpp">
-      <Filter>飞机类</Filter>
+      <Filter>游戏接口类\飞机类</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_player.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -73,7 +76,16 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
-      <Filter>玩家类</Filter>
+      <Filter>游戏接口类\飞机类\玩家类</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_enemy.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_enemy.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>游戏接口类\飞机类\敌机类</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,10 +99,13 @@
       <Filter>游戏接口类</Filter>
     </CustomBuild>
     <CustomBuild Include="plane.h">
-      <Filter>飞机类</Filter>
+      <Filter>游戏接口类\飞机类</Filter>
     </CustomBuild>
     <CustomBuild Include="player.h">
-      <Filter>玩家类</Filter>
+      <Filter>游戏接口类\飞机类\玩家类</Filter>
+    </CustomBuild>
+    <CustomBuild Include="enemy.h">
+      <Filter>游戏接口类\飞机类\敌机类</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>
