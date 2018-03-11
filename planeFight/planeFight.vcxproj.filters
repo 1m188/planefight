@@ -36,6 +36,18 @@
     <Filter Include="游戏接口类\飞机类\敌机类">
       <UniqueIdentifier>{23fc1eb9-e7fa-4be7-957a-da435abe180b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="游戏接口类\飞机类\敌机类\第一种敌机">
+      <UniqueIdentifier>{e2ab2808-3912-4325-80da-6959953397da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏接口类\飞机类\敌机类\第二种敌机">
+      <UniqueIdentifier>{e7f6db76-b6d5-4325-9df0-4d60af978732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏接口类\飞机类\敌机类\第三种敌机">
+      <UniqueIdentifier>{f16c79e9-cb28-4662-91b2-36cd0c408c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏接口类\子弹类">
+      <UniqueIdentifier>{7661e896-1a7d-41b8-a484-b2a57a0c7127}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_planefight.cpp">
@@ -87,6 +99,33 @@
     <ClCompile Include="enemy.cpp">
       <Filter>游戏接口类\飞机类\敌机类</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_enemysolider.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_enemysolider.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="enemysolider.cpp">
+      <Filter>游戏接口类\飞机类\敌机类\第一种敌机</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_enemyleader.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_enemyleader.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyleader.cpp">
+      <Filter>游戏接口类\飞机类\敌机类\第二种敌机</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_enemygeneral.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_enemygeneral.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="enemygeneral.cpp">
+      <Filter>游戏接口类\飞机类\敌机类\第三种敌机</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="planefight.qrc">
@@ -106,6 +145,15 @@
     </CustomBuild>
     <CustomBuild Include="enemy.h">
       <Filter>游戏接口类\飞机类\敌机类</Filter>
+    </CustomBuild>
+    <CustomBuild Include="enemysolider.h">
+      <Filter>游戏接口类\飞机类\敌机类\第一种敌机</Filter>
+    </CustomBuild>
+    <CustomBuild Include="enemyleader.h">
+      <Filter>游戏接口类\飞机类\敌机类\第二种敌机</Filter>
+    </CustomBuild>
+    <CustomBuild Include="enemygeneral.h">
+      <Filter>游戏接口类\飞机类\敌机类\第三种敌机</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

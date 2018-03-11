@@ -17,7 +17,7 @@ void Enemy::move_()
 	{
 		if (y() <= parentWidget()->height())
 		{
-			move(x(), y() + 10);
+			move(x(), y() + 5);
 		}
 		else
 		{
