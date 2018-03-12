@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "QApplication"
 #include "QDeskTopWidget"
+#include "QTime"
 #include "QTimer"
 #include "player.h"
 #include "enemysolider.h"

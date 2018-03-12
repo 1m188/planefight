@@ -15,7 +15,10 @@ Scene::Scene(QWidget *parent)
 	//设置鼠标样式
 	setCursor(Qt::BlankCursor);
 
-	//敌机种类
+	//初始化随机数种子
+	qsrand(QTime::currentTime().msec());
+
+	//初始化敌机种类选择
 
 	//初始化玩家
 	Player *player = new Player(this);
