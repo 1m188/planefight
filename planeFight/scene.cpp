@@ -39,5 +39,4 @@ Scene::~Scene()
 void Scene::productEnemy()
 {
 	EnemySolider *e = new EnemySolider(this);
-	qDebug() << children().size();
 }

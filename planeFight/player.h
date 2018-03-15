@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "plane.h"
+#include "playerbullet.h"
 
 class Player : public Plane
 {

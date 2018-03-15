@@ -48,6 +48,12 @@
     <Filter Include="游戏接口类\子弹类">
       <UniqueIdentifier>{7661e896-1a7d-41b8-a484-b2a57a0c7127}</UniqueIdentifier>
     </Filter>
+    <Filter Include="游戏接口类\子弹类\玩家子弹">
+      <UniqueIdentifier>{4ddb6937-f396-461e-89e4-cf941bb73e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="游戏接口类\子弹类\敌机子弹">
+      <UniqueIdentifier>{f824b887-bdc0-45d6-bc4c-a08007b894f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_planefight.cpp">
@@ -126,6 +132,33 @@
     <ClCompile Include="enemygeneral.cpp">
       <Filter>游戏接口类\飞机类\敌机类\第三种敌机</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_bullet.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_bullet.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>游戏接口类\子弹类</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_playerbullet.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_playerbullet.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="playerbullet.cpp">
+      <Filter>游戏接口类\子弹类\玩家子弹</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_enemybullet.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_enemybullet.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="enemybullet.cpp">
+      <Filter>游戏接口类\子弹类\敌机子弹</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="planefight.qrc">
@@ -154,6 +187,15 @@
     </CustomBuild>
     <CustomBuild Include="enemygeneral.h">
       <Filter>游戏接口类\飞机类\敌机类\第三种敌机</Filter>
+    </CustomBuild>
+    <CustomBuild Include="bullet.h">
+      <Filter>游戏接口类\子弹类</Filter>
+    </CustomBuild>
+    <CustomBuild Include="playerbullet.h">
+      <Filter>游戏接口类\子弹类\玩家子弹</Filter>
+    </CustomBuild>
+    <CustomBuild Include="enemybullet.h">
+      <Filter>游戏接口类\子弹类\敌机子弹</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

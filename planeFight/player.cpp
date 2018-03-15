@@ -47,5 +47,10 @@ void Player::move_()
 
 void Player::productBullet()
 {
-
+	if (!getPaused() && getLife() > 0)
+	{
+		PlayerBullet *b = new PlayerBullet(parentWidget());
+		b->move(x() + width() / 2, y());
+		b->show();
+	}
 }
