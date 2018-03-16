@@ -28,5 +28,10 @@ void Enemy::move_()
 
 void Enemy::productBullet()
 {
-
+	if (!getPaused() && getLife() > 0)
+	{
+		EnemyBullet *b = new EnemyBullet(parentWidget());
+		b->move(x() + width() / 2, y() + height());
+		b->show();
+	}
 }

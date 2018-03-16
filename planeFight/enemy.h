@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include "plane.h"
+#include "enemybullet.h"
 
 class Enemy : public Plane
 {

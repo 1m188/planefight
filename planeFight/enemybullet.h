@@ -13,6 +13,8 @@ public:
 
 private:
 	
+public slots:
+	void move_();
 };
 
 #endif // ENEMYBULLET_H
