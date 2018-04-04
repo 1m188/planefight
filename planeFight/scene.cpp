@@ -1,7 +1,7 @@
 #include "scene.h"
 
 Scene::Scene(QWidget *parent)
-	: QWidget(parent), backgroundImg(QPixmap(":/planeFight/Resources/background.png"))
+	: QWidget(parent), backgroundImg(QPixmap(":/planeFight/Resources/background.png")), enemyChoose(QVector<Enemy *(Scene::*)(QWidget *)>{})
 {
 	setWindowTitle(tr(u8"飞机大战"));
 	setFixedSize(700, 940);
@@ -19,6 +19,9 @@ Scene::Scene(QWidget *parent)
 	qsrand(QTime::currentTime().msec());
 
 	//初始化敌机种类选择
+	enemyChoose.push_back(reinterpret_cast<Enemy *(Scene::*)(QWidget *)>(&Scene::productSolider));
+	enemyChoose.push_back(reinterpret_cast<Enemy *(Scene::*)(QWidget *)>(&Scene::productLeader));
+	enemyChoose.push_back(reinterpret_cast<Enemy *(Scene::*)(QWidget *)>(&Scene::productGeneral));
 
 	//初始化玩家
 	Player *player = new Player(this);
@@ -38,5 +41,5 @@ Scene::~Scene()
 
 void Scene::productEnemy()
 {
-	EnemySolider *e = new EnemySolider(this);
+	auto solider = (this->*enemyChoose[rand() % (enemyChoose.size())])(this);
 }

@@ -21,6 +21,11 @@ public:
 
 private:
 	QPixmap backgroundImg;
+	QVector<Enemy *(Scene::*)(QWidget *)> enemyChoose;
+
+	EnemySolider *productSolider(QWidget *parent) { return new EnemySolider(parent); }
+	EnemyLeader *productLeader(QWidget *parent) { return new EnemyLeader(parent); }
+	EnemyGeneral *productGeneral(QWidget *parent) { return new EnemyGeneral(parent); }
 
 private slots:
 	void productEnemy();
