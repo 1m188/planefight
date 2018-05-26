@@ -3,6 +3,8 @@
 EnemyGeneral::EnemyGeneral(QWidget *parent)
 	: Enemy(parent)
 {
+	setLife(3);
+
 	addImg(QPixmap(":/planeFight/Resources/enemy3_n1.png"));
 	addImg(QPixmap(":/planeFight/Resources/enemy3_n2.png"));
 	addDestroyImg(QPixmap(":/planeFight/Resources/enemy3_down1.png"));

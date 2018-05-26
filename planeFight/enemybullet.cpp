@@ -19,6 +19,19 @@ void EnemyBullet::move_()
 		if (y() <= parentWidget()->height())
 		{
 			move(x(), y() + 10);
+			for (QObject *i : parentWidget()->children())
+			{
+				Player *j = dynamic_cast<Player *>(i);
+				if (j)
+				{
+					if (isCollided(x(), y(), width(), height(), j->x(), j->y(), j->width(), j->height()))
+					{
+						j->setLife(j->getLife() - 1);
+						deleteLater();
+						break;
+					}
+				}
+			}
 		}
 		else
 		{

@@ -46,11 +46,13 @@ void Plane::destroyImgChange()
 			destroyImg.second++;
 			if (destroyImg.second >= destroyImg.first.size())
 			{
+				emit planeDestroyed();
 				deleteLater();
 			}
 		}
 		else
 		{
+			emit planeDestroyed();
 			deleteLater();
 		}
 	}

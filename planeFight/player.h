@@ -13,7 +13,7 @@ public:
 	~Player();
 
 private:
-	
+
 
 public slots:
 	void move_();

@@ -11,8 +11,6 @@ Player::Player(QWidget *parent)
 	addDestroyImg(QPixmap(":/planeFight/Resources/me_destroy_4.png"));
 
 	move(parentWidget()->width() / 2 - width() / 2, parentWidget()->height() - height());
-
-	show();
 }
 
 Player::~Player()

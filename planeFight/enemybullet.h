@@ -2,6 +2,7 @@
 #define ENEMYBULLET_H
 
 #include "bullet.h"
+#include "player.h"
 
 class EnemyBullet : public Bullet
 {

@@ -29,6 +29,9 @@ public:
 	void addImg(QPixmap);
 	void addDestroyImg(QPixmap);
 
+signals:
+	void planeDestroyed();
+
 private slots:
 	void imgChange();
 	void destroyImgChange();
