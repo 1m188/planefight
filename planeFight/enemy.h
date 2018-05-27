@@ -3,6 +3,7 @@
 
 #include "plane.h"
 #include "enemybullet.h"
+#include "player.h"
 
 class Enemy : public Plane
 {

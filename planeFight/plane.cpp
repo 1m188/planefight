@@ -1,7 +1,7 @@
 #include "plane.h"
 
 Plane::Plane(QWidget *parent)
-	: Game(parent), life(1), img({QVector<QPixmap>{}, 0}), destroyImg({QVector<QPixmap>{}, 0}), imgChangeTimer(new QTimer(this)), destroyImgChangeTimer(new QTimer(this)), productBulletTimer(new QTimer(this)), moveTimer(new QTimer(this))
+	: Game(parent), life(1), img({ QVector<QPixmap>{},0 }), destroyImg({ QVector<QPixmap>{},0 }), hitImg({ QVector<QPixmap>{},0 }), imgChangeTimer(new QTimer(this)), destroyImgChangeTimer(new QTimer(this)), productBulletTimer(new QTimer(this)), moveTimer(new QTimer(this))
 {
 	connect(imgChangeTimer, &QTimer::timeout, this, &Plane::imgChange);
 	imgChangeTimer->start(100);
@@ -20,16 +20,42 @@ Plane::~Plane()
 
 void Plane::imgChange()
 {
-	if (life > 0 && (!getPaused()))
+	if (!getPaused())
 	{
-		if (img.first.size() > 0)
+		if (img.first.size() > 0 && hitImg.first.size() > 0)
 		{
-			setPixmap(img.first.at(img.second));
-			resize(pixmap()->size());
-			img.second++;
-			if (img.second >= img.first.size())
+			if (life > 2)
 			{
-				img.second = 0;
+				setPixmap(img.first.at(img.second));
+				resize(pixmap()->size());
+				img.second++;
+				if (img.second >= img.first.size())
+				{
+					img.second = 0;
+				}
+			}
+			else if (life > 0)
+			{
+				setPixmap(hitImg.first.at(hitImg.second));
+				resize(pixmap()->size());
+				hitImg.second++;
+				if (hitImg.second >= hitImg.first.size())
+				{
+					hitImg.second = 0;
+				}
+			}
+		}
+		else if (img.first.size() > 0)
+		{
+			if (life > 0)
+			{
+				setPixmap(img.first.at(img.second));
+				resize(pixmap()->size());
+				img.second++;
+				if (img.second >= img.first.size())
+				{
+					img.second = 0;
+				}
 			}
 		}
 	}
@@ -63,9 +89,9 @@ void Plane::beCollided()
 	life--;
 }
 
-void Plane::setLife(int l)
+void Plane::setLife(int life)
 {
-	life = l;
+	this->life = life;
 }
 
 const int Plane::getLife() const
@@ -73,12 +99,17 @@ const int Plane::getLife() const
 	return life;
 }
 
-void Plane::addImg(QPixmap i)
+void Plane::addImg(QPixmap img)
 {
-	img.first.append(i);
+	this->img.first.append(img);
 }
 
-void Plane::addDestroyImg(QPixmap d)
+void Plane::addDestroyImg(QPixmap destroyImg)
 {
-	destroyImg.first.append(d);
+	this->destroyImg.first.append(destroyImg);
+}
+
+void Plane::addHitImg(QPixmap hitImg)
+{
+	this->hitImg.first.append(hitImg);
 }

@@ -17,6 +17,7 @@ private:
 
 	QPair<QVector<QPixmap>, int> img;
 	QPair<QVector<QPixmap>, int> destroyImg;
+	QPair<QVector<QPixmap>, int> hitImg;
 
 	QTimer *imgChangeTimer;
 	QTimer *destroyImgChangeTimer;
@@ -28,6 +29,7 @@ public:
 	const int getLife() const;
 	void addImg(QPixmap);
 	void addDestroyImg(QPixmap);
+	void addHitImg(QPixmap);
 
 signals:
 	void planeDestroyed();

@@ -18,6 +18,19 @@ void Enemy::move_()
 		if (y() <= parentWidget()->height())
 		{
 			move(x(), y() + 5);
+			for (QObject *o : parentWidget()->children())
+			{
+				Player *p = dynamic_cast<Player *>(o);
+				if (p)
+				{
+					if (isCollided(x(), y(), width(), height(), p->x(), p->y(), p->width(), p->height()))
+					{
+						p->setLife(p->getLife() - 1);
+						setLife(getLife() - 1);
+						break;
+					}
+				}
+			}
 		}
 		else
 		{
