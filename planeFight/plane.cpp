@@ -34,7 +34,7 @@ void Plane::imgChange()
 					img.second = 0;
 				}
 			}
-			else if (life > 0)
+			else if (life > 0) //生命小于2大于0的时候切换成损坏图片
 			{
 				setPixmap(hitImg.first.at(hitImg.second));
 				resize(pixmap()->size());
