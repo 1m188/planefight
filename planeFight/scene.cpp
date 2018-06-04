@@ -1,7 +1,7 @@
 #include "scene.h"
 
 Scene::Scene(QWidget *parent)
-	: QWidget(parent), backgroundImg(QPixmap(":/planeFight/Resources/background.png")), againImg(":/planeFight/Resources/again.png"), gameoverImg(":/planeFight/Resources/gameover.png"), gameOverLabel(new QLabel(this)), againButton(new QPushButton(this)), gameoverButton(new QPushButton(this)), enemyChoose(QVector<Enemy *(Scene::*)(QWidget *)>{}), productEnemyTimer(new QTimer(this))
+	: QWidget(parent), backgroundImg(QPixmap(":/planeFight/Resources/background.png")), againImg(":/planeFight/Resources/again.png"), gameoverImg(":/planeFight/Resources/gameover.png"), gameOverLabel(new QLabel(this)), againButton(new QPushButton(this)), gameoverButton(new QPushButton(this)), enemyChoose(QVector<Enemy *(Scene::*)(QWidget *)>{}), productEnemyTimer(new QTimer(this)), isGameOver(false)
 {
 	setWindowTitle(tr(u8"飞机大战"));
 	setFixedSize(700, 940);
@@ -83,30 +83,33 @@ void Scene::keyPressEvent(QKeyEvent * event)
 {
 	if (event->key() == Qt::Key_Space)
 	{
-		for (QObject *i : children())
+		if (!isGameOver)
 		{
-			Game *g = dynamic_cast<Game *>(i);
-			if (g)
+			for (QObject *i : children())
 			{
-				if (!g->getPaused() && productEnemyTimer->isActive())
+				Game *g = dynamic_cast<Game *>(i);
+				if (g)
 				{
-					productEnemyTimer->stop();
-					setCursor(Qt::ArrowCursor);
+					if (!g->getPaused() && productEnemyTimer->isActive())
+					{
+						productEnemyTimer->stop();
+						setCursor(Qt::ArrowCursor);
+					}
+					else if (g->getPaused() && !productEnemyTimer->isActive())
+					{
+						productEnemyTimer->start(1000);
+						setCursor(Qt::BlankCursor);
+					}
+					break;
 				}
-				else if (g->getPaused() && !productEnemyTimer->isActive())
-				{
-					productEnemyTimer->start(1000);
-					setCursor(Qt::BlankCursor);
-				}
-				break;
 			}
-		}
-		for (QObject *i : children())
-		{
-			Game *j = dynamic_cast<Game *>(i);
-			if (j)
+			for (QObject *i : children())
 			{
-				j->setPaused(!j->getPaused());
+				Game *j = dynamic_cast<Game *>(i);
+				if (j)
+				{
+					j->setPaused(!j->getPaused());
+				}
 			}
 		}
 	}
@@ -115,6 +118,7 @@ void Scene::keyPressEvent(QKeyEvent * event)
 void Scene::gameOver()
 {
 	keyPressEvent(new QKeyEvent(QEvent::Type::KeyPress, Qt::Key_Space, Qt::KeyboardModifier::NoModifier));
+	isGameOver = true;
 	gameOverLabel->show();
 	gameOverLabel->raise();
 	againButton->show();
@@ -150,6 +154,8 @@ void Scene::againButtonClicked()
 			}
 		}
 	}
+
+	isGameOver = false;
 
 	//取消暂停状态
 	keyPressEvent(new QKeyEvent(QEvent::Type::KeyPress, Qt::Key_Space, Qt::KeyboardModifier::NoModifier));

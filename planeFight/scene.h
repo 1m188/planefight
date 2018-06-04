@@ -34,6 +34,7 @@ private:
 	QPushButton *gameoverButton;
 	QVector<Enemy *(Scene::*)(QWidget *)> enemyChoose;
 	QTimer *productEnemyTimer;
+	bool isGameOver;
 
 	EnemySolider *productSolider(QWidget *parent) { return new EnemySolider(parent); }
 	EnemyLeader *productLeader(QWidget *parent) { return new EnemyLeader(parent); }
