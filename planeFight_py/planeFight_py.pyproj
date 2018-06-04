@@ -26,6 +26,51 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="resources\" />
+    <Folder Include="resources\img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="resources\img\again.png" />
+    <Content Include="resources\img\background.png" />
+    <Content Include="resources\img\bomb.png" />
+    <Content Include="resources\img\bomb_supply.png" />
+    <Content Include="resources\img\bullet1.png" />
+    <Content Include="resources\img\bullet2.png" />
+    <Content Include="resources\img\bullet_supply.png" />
+    <Content Include="resources\img\enemy1.png" />
+    <Content Include="resources\img\enemy1_down1.png" />
+    <Content Include="resources\img\enemy1_down2.png" />
+    <Content Include="resources\img\enemy1_down3.png" />
+    <Content Include="resources\img\enemy1_down4.png" />
+    <Content Include="resources\img\enemy2.png" />
+    <Content Include="resources\img\enemy2_down1.png" />
+    <Content Include="resources\img\enemy2_down2.png" />
+    <Content Include="resources\img\enemy2_down3.png" />
+    <Content Include="resources\img\enemy2_down4.png" />
+    <Content Include="resources\img\enemy2_hit.png" />
+    <Content Include="resources\img\enemy3_down1.png" />
+    <Content Include="resources\img\enemy3_down2.png" />
+    <Content Include="resources\img\enemy3_down3.png" />
+    <Content Include="resources\img\enemy3_down4.png" />
+    <Content Include="resources\img\enemy3_down5.png" />
+    <Content Include="resources\img\enemy3_down6.png" />
+    <Content Include="resources\img\enemy3_hit.png" />
+    <Content Include="resources\img\enemy3_n1.png" />
+    <Content Include="resources\img\enemy3_n2.png" />
+    <Content Include="resources\img\gameover.png" />
+    <Content Include="resources\img\life.png" />
+    <Content Include="resources\img\me1.png" />
+    <Content Include="resources\img\me2.png" />
+    <Content Include="resources\img\me_destroy_1.png" />
+    <Content Include="resources\img\me_destroy_2.png" />
+    <Content Include="resources\img\me_destroy_3.png" />
+    <Content Include="resources\img\me_destroy_4.png" />
+    <Content Include="resources\img\pause_nor.png" />
+    <Content Include="resources\img\pause_pressed.png" />
+    <Content Include="resources\img\resume_nor.png" />
+    <Content Include="resources\img\resume_pressed.png" />
+  </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
