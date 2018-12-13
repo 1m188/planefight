@@ -1,11 +1,20 @@
-#include "scene.h"
+#include "GameScene.h"
+#include "QApplication"
+#include "QDeskTopWidget"
+#include "QBitMap"
+#include "QTime"
+#include "QTimer"
+#include "QKeyEvent"
+#include "player.h"
 
-Scene::Scene(QWidget *parent)
-	: QWidget(parent), backgroundImg(QPixmap(":/planeFight/Resources/background.png")), againImg(":/planeFight/Resources/again.png"), gameoverImg(":/planeFight/Resources/gameover.png"), gameOverLabel(new QLabel(this)), againButton(new QPushButton(this)), gameoverButton(new QPushButton(this)), enemyChoose(QVector<Enemy *(Scene::*)(QWidget *)>{}), productEnemyTimer(new QTimer(this)), isGameOver(false)
+GameScene::GameScene(QWidget *parent)
+	: QWidget(parent), backgroundImg(QPixmap(":/planeFight/Resources/background.png")), againImg(":/planeFight/Resources/again.png"), gameoverImg(":/planeFight/Resources/gameover.png"), gameOverLabel(new QLabel(this)), againButton(new QPushButton(this)), gameoverButton(new QPushButton(this)), enemyChoose(QVector<Enemy *(GameScene::*)(QWidget *)>{}), productEnemyTimer(new QTimer(this)), isGameOver(false)
 {
+	//标题和大小
 	setWindowTitle(tr(u8"飞机大战"));
 	setFixedSize(700, 940);
 
+	//移动到窗口中央
 	QRect rect = frameGeometry();
 	rect.moveCenter(QApplication::desktop()->availableGeometry().center());
 	move(rect.topLeft());
@@ -33,7 +42,7 @@ Scene::Scene(QWidget *parent)
 	againButton->resize(againButton->iconSize());
 	againButton->move(width() / 2 - againButton->width() / 2, gameOverLabel->y() + gameOverLabel->height() + 50);
 	againButton->hide();
-	connect(againButton, &QPushButton::clicked, this, &Scene::againButtonClicked);
+	connect(againButton, &QPushButton::clicked, this, &GameScene::againButtonClicked);
 
 	gameoverButton->setFocusPolicy(Qt::NoFocus);
 	gameoverButton->setIcon(QIcon(gameoverImg));
@@ -51,26 +60,26 @@ Scene::Scene(QWidget *parent)
 	qsrand(QTime::currentTime().msec());
 
 	//初始化敌机种类选择
-	enemyChoose.push_back(reinterpret_cast<Enemy *(Scene::*)(QWidget *)>(&Scene::productSolider));
-	enemyChoose.push_back(reinterpret_cast<Enemy *(Scene::*)(QWidget *)>(&Scene::productLeader));
-	enemyChoose.push_back(reinterpret_cast<Enemy *(Scene::*)(QWidget *)>(&Scene::productGeneral));
+	enemyChoose.push_back(reinterpret_cast<Enemy *(GameScene::*)(QWidget *)>(&GameScene::productSolider));
+	enemyChoose.push_back(reinterpret_cast<Enemy *(GameScene::*)(QWidget *)>(&GameScene::productLeader));
+	enemyChoose.push_back(reinterpret_cast<Enemy *(GameScene::*)(QWidget *)>(&GameScene::productGeneral));
 
 	//初始化玩家
 	Player *player = new Player(this);
-	connect(player, &Player::planeDestroyed, this, &Scene::gameOver);
+	connect(player, &Player::planeDestroyed, this, &GameScene::gameOver);
 	player->show();
 
 	//产生敌机的定时器
-	connect(productEnemyTimer, &QTimer::timeout, this, &Scene::productEnemy);
+	connect(productEnemyTimer, &QTimer::timeout, this, &GameScene::productEnemy);
 	productEnemyTimer->start(1000);
 }
 
-Scene::~Scene()
+GameScene::~GameScene()
 {
 
 }
 
-void Scene::productEnemy()
+void GameScene::productEnemy()
 {
 	auto solider = (this->*enemyChoose[rand() % (enemyChoose.size())])(this);
 }
@@ -79,7 +88,7 @@ void Scene::productEnemy()
 //个继承了Game类的类都有一个啊，，，，
 //然而我懒得改了，，，
 //先这样烂着吧，以后什么时候找个时间重新写一遍这个飞机大战，，，
-void Scene::keyPressEvent(QKeyEvent * event)
+void GameScene::keyPressEvent(QKeyEvent * event)
 {
 	if (event->key() == Qt::Key_Space)
 	{
@@ -113,9 +122,10 @@ void Scene::keyPressEvent(QKeyEvent * event)
 			}
 		}
 	}
+	return QWidget::keyPressEvent(event);
 }
 
-void Scene::gameOver()
+void GameScene::gameOver()
 {
 	keyPressEvent(new QKeyEvent(QEvent::Type::KeyPress, Qt::Key_Space, Qt::KeyboardModifier::NoModifier));
 	isGameOver = true;
@@ -130,7 +140,7 @@ void Scene::gameOver()
 //唉，，，，，暂停变量真该做成全局的东西的，，，，
 //结果这里写的及其不顺，，，，
 //初始化顺序乱七八糟，，，，
-void Scene::againButtonClicked()
+void GameScene::againButtonClicked()
 {
 	//隐藏结束界面
 	gameOverLabel->hide();
@@ -162,6 +172,6 @@ void Scene::againButtonClicked()
 
 	//初始化玩家
 	Player *player = new Player(this);
-	connect(player, &Player::planeDestroyed, this, &Scene::gameOver);
+	connect(player, &Player::planeDestroyed, this, &GameScene::gameOver);
 	player->show();
 }

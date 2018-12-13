@@ -1,52 +1,57 @@
-#ifndef SCENE_H
-#define SCENE_H
+#ifndef GAMESCENE_H
+#define GAMESCENE_H
 
 #include <QWidget>
-#include "QApplication"
-#include "QDeskTopWidget"
 #include "QLabel"
 #include "QPushButton"
-#include "QBitMap"
-#include "QTime"
-#include "QTimer"
-#include "QKeyEvent"
-#include "player.h"
 #include "enemysolider.h"
 #include "enemyleader.h"
 #include "enemygeneral.h"
 
-#include "QDebug"
-
-class Scene : public QWidget
+//游戏场景
+class GameScene : public QWidget
 {
 	Q_OBJECT
 
 public:
-	Scene(QWidget *parent);
-	~Scene();
+	GameScene(QWidget *parent);
+	~GameScene();
 
 private:
+	//图片
 	QPixmap backgroundImg;
 	QPixmap againImg;
 	QPixmap gameoverImg;
+
+	//游戏结束的信息标签和功能button
 	QLabel *gameOverLabel;
 	QPushButton *againButton;
 	QPushButton *gameoverButton;
-	QVector<Enemy *(Scene::*)(QWidget *)> enemyChoose;
+
+	//敌机选择数组
+	QVector<Enemy *(GameScene::*)(QWidget *)> enemyChoose;
+
+	//制造敌机的timer
 	QTimer *productEnemyTimer;
+
+	//游戏是否结束
 	bool isGameOver;
 
+	//三个敌机选择函数
 	EnemySolider *productSolider(QWidget *parent) { return new EnemySolider(parent); }
 	EnemyLeader *productLeader(QWidget *parent) { return new EnemyLeader(parent); }
 	EnemyGeneral *productGeneral(QWidget *parent) { return new EnemyGeneral(parent); }
 
 protected:
-	void keyPressEvent(QKeyEvent *event);
+	void keyPressEvent(QKeyEvent *event) override; //重写按键事件
 
-private slots:
+	private slots:
+	//制造敌机
 	void productEnemy();
+	//游戏结束
 	void gameOver();
-	void againButtonClicked();	
+	//单击重新开始按钮
+	void againButtonClicked();
 };
 
-#endif // SCENE_H
+#endif // GAMESCENE_H

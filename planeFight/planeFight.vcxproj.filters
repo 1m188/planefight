@@ -59,12 +59,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\Debug\moc_scene.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_scene.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_game.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -159,8 +153,14 @@
     <ClCompile Include="GeneratedFiles\qrc_PlaneFight.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="scene.cpp">
+    <ClCompile Include="GameScene.cpp">
       <Filter>场景\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GameScene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GameScene.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,7 +197,7 @@
     <CustomBuild Include="PlaneFight.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="scene.h">
+    <CustomBuild Include="GameScene.h">
       <Filter>场景\游戏场景</Filter>
     </CustomBuild>
   </ItemGroup>
