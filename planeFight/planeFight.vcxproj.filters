@@ -56,9 +56,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\qrc_planefight.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_scene.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -159,11 +156,11 @@
     <ClCompile Include="enemybullet.cpp">
       <Filter>游戏接口类\子弹类\敌机子弹</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_PlaneFight.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="planefight.qrc">
-      <Filter>Resource Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="scene.h">
       <Filter>场景</Filter>
     </CustomBuild>
@@ -196,6 +193,9 @@
     </CustomBuild>
     <CustomBuild Include="enemybullet.h">
       <Filter>游戏接口类\子弹类\敌机子弹</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PlaneFight.qrc">
+      <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>
