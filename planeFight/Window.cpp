@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "Director.h"
+#include "GameScene.h"
 #include "QApplication"
 #include "QDeskTopWidget"
 
@@ -37,5 +38,9 @@ void Window::keyReleaseEvent(QKeyEvent * event)
 
 void Window::show()
 {
+	GameScene *gameScene = new GameScene(this);
+	Director::getInstance()->setNowScene(gameScene);
+	gameScene->init();
+	gameScene->show();
 	QWidget::show();
 }
