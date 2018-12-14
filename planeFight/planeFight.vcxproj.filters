@@ -36,6 +36,9 @@
     <Filter Include="导演">
       <UniqueIdentifier>{71969223-fac3-4596-b51f-2dd95fdbd4f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="精灵\玩家">
+      <UniqueIdentifier>{38cd1b0a-a0ce-41f0-847a-526723803a5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -75,6 +78,9 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>精灵</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>精灵\玩家</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PlaneFight.qrc">
@@ -96,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>精灵</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>精灵\玩家</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
