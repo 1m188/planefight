@@ -60,6 +60,9 @@
     <Filter Include="游戏窗口">
       <UniqueIdentifier>{593f3ebe-83fe-48f8-ae83-b8a4674c53cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="导演">
+      <UniqueIdentifier>{71969223-fac3-4596-b51f-2dd95fdbd4f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_game.cpp">
@@ -174,6 +177,9 @@
     <ClCompile Include="Window.cpp">
       <Filter>游戏窗口</Filter>
     </ClCompile>
+    <ClCompile Include="Director.cpp">
+      <Filter>导演</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="game.h">
@@ -215,5 +221,10 @@
     <CustomBuild Include="Window.h">
       <Filter>游戏窗口</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Director.h">
+      <Filter>导演</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
