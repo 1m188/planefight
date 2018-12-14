@@ -1,10 +1,11 @@
-#include "GameScene.h"
 #include <QtWidgets/QApplication>
+#include "Director.h"
+#include "Window.h"
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	GameScene w(nullptr);
-	w.show();
+	Director::getInstance()->setWindow(new Window());
+	Director::getInstance()->getWindow()->show();
 	return a.exec();
 }
