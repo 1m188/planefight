@@ -30,3 +30,13 @@ void Director::setWindow(Window * window)
 {
 	this->window = window;
 }
+
+Scene * Director::getNowScene()
+{
+	return nowScene;
+}
+
+void Director::setNowScene(Scene * nowScene)
+{
+	this->nowScene = nowScene;
+}
