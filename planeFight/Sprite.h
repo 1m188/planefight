@@ -20,7 +20,7 @@ private:
 
 public:
 	Sprite();
-	~Sprite();
+	virtual ~Sprite();
 
 	//获取/设置坐标
 	int getX() const { return x; }
