@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "QApplication"
 #include "QDeskTopWidget"
+#include "QStyle"
 
 Window::Window()
 	: QWidget()
@@ -11,14 +12,15 @@ Window::Window()
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_QuitOnClose, true);
 
+	//获取除任务栏之外的屏幕区域
+	QRect screenWithoutTaskBar = QApplication::desktop()->availableGeometry();
+
 	//窗口标题和大小
 	setWindowTitle(tr(u8"飞机大战"));
-	setFixedSize(700, 940);
+	setFixedSize(900, screenWithoutTaskBar.height() - style()->pixelMetric(QStyle::PM_TitleBarHeight));
 
 	//移动到屏幕中央
-	QRect rect = frameGeometry();
-	rect.moveCenter(QApplication::desktop()->availableGeometry().center());
-	move(rect.topLeft());
+	move(screenWithoutTaskBar.width() / 2 - width() / 2, 0);
 }
 
 Window::~Window()

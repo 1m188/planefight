@@ -44,7 +44,7 @@ void GameScene::paintEvent(QPaintEvent * event)
 {
 	QPainter *painter = new QPainter(this);
 
-	painter->drawPixmap(0, 0, width(), height(), backgroundImage);
+	painter->drawPixmap(frameGeometry(), backgroundImage);
 
 	painter->end();
 	QWidget::paintEvent(event);
