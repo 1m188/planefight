@@ -30,33 +30,6 @@
     <Filter Include="精灵">
       <UniqueIdentifier>{46491b8f-f9ad-441f-b1de-c5d6e3c28f64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="精灵\飞机">
-      <UniqueIdentifier>{dd3e9b15-75a3-4d23-9004-71c0abc818a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\子弹">
-      <UniqueIdentifier>{7661e896-1a7d-41b8-a484-b2a57a0c7127}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\子弹\玩家子弹">
-      <UniqueIdentifier>{4ddb6937-f396-461e-89e4-cf941bb73e5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\子弹\敌机子弹">
-      <UniqueIdentifier>{f824b887-bdc0-45d6-bc4c-a08007b894f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\飞机\敌机">
-      <UniqueIdentifier>{23fc1eb9-e7fa-4be7-957a-da435abe180b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\飞机\敌机\第一种敌机">
-      <UniqueIdentifier>{e2ab2808-3912-4325-80da-6959953397da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\飞机\敌机\第二种敌机">
-      <UniqueIdentifier>{e7f6db76-b6d5-4325-9df0-4d60af978732}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\飞机\敌机\第三种敌机">
-      <UniqueIdentifier>{f16c79e9-cb28-4662-91b2-36cd0c408c98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\飞机\玩家">
-      <UniqueIdentifier>{031e86b8-69c8-4bd9-8179-1886770a75ea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="游戏窗口">
       <UniqueIdentifier>{593f3ebe-83fe-48f8-ae83-b8a4674c53cc}</UniqueIdentifier>
     </Filter>
@@ -65,97 +38,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\Debug\moc_game.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_game.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>精灵</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="GeneratedFiles\Debug\moc_plane.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_plane.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="plane.cpp">
-      <Filter>精灵\飞机</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_player.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_player.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>精灵\飞机\玩家</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_enemy.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_enemy.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>精灵\飞机\敌机</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_enemysolider.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_enemysolider.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="enemysolider.cpp">
-      <Filter>精灵\飞机\敌机\第一种敌机</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_enemyleader.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_enemyleader.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyleader.cpp">
-      <Filter>精灵\飞机\敌机\第二种敌机</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_enemygeneral.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_enemygeneral.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="enemygeneral.cpp">
-      <Filter>精灵\飞机\敌机\第三种敌机</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_bullet.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_bullet.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="bullet.cpp">
-      <Filter>精灵\子弹</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_playerbullet.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_playerbullet.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="playerbullet.cpp">
-      <Filter>精灵\子弹\玩家子弹</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_enemybullet.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_enemybullet.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="enemybullet.cpp">
-      <Filter>精灵\子弹\敌机子弹</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_PlaneFight.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -191,36 +74,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="game.h">
-      <Filter>精灵</Filter>
-    </CustomBuild>
-    <CustomBuild Include="plane.h">
-      <Filter>精灵\飞机</Filter>
-    </CustomBuild>
-    <CustomBuild Include="player.h">
-      <Filter>精灵\飞机\玩家</Filter>
-    </CustomBuild>
-    <CustomBuild Include="enemy.h">
-      <Filter>精灵\飞机\敌机</Filter>
-    </CustomBuild>
-    <CustomBuild Include="enemysolider.h">
-      <Filter>精灵\飞机\敌机\第一种敌机</Filter>
-    </CustomBuild>
-    <CustomBuild Include="enemyleader.h">
-      <Filter>精灵\飞机\敌机\第二种敌机</Filter>
-    </CustomBuild>
-    <CustomBuild Include="enemygeneral.h">
-      <Filter>精灵\飞机\敌机\第三种敌机</Filter>
-    </CustomBuild>
-    <CustomBuild Include="bullet.h">
-      <Filter>精灵\子弹</Filter>
-    </CustomBuild>
-    <CustomBuild Include="playerbullet.h">
-      <Filter>精灵\子弹\玩家子弹</Filter>
-    </CustomBuild>
-    <CustomBuild Include="enemybullet.h">
-      <Filter>精灵\子弹\敌机子弹</Filter>
-    </CustomBuild>
     <CustomBuild Include="PlaneFight.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>

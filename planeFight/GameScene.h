@@ -4,9 +4,6 @@
 #include "Scene.h"
 #include "QLabel"
 #include "QPushButton"
-#include "enemysolider.h"
-#include "enemyleader.h"
-#include "enemygeneral.h"
 
 //游戏场景
 class GameScene : public Scene
@@ -24,19 +21,11 @@ private:
 	QPushButton *againButton;
 	QPushButton *gameoverButton;
 
-	//敌机选择数组
-	QVector<Enemy *(GameScene::*)(QWidget *)> enemyChoose;
-
 	//制造敌机的timer
 	QTimer *productEnemyTimer;
 
 	//游戏是否结束
 	bool isGameOver;
-
-	//三个敌机选择函数
-	EnemySolider *productSolider(QWidget *parent) { return new EnemySolider(parent); }
-	EnemyLeader *productLeader(QWidget *parent) { return new EnemyLeader(parent); }
-	EnemyGeneral *productGeneral(QWidget *parent) { return new EnemyGeneral(parent); }
 
 public:
 	GameScene(Window *parent);
