@@ -1,7 +1,7 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-#include <QWidget>
+#include "Scene.h"
 #include "QLabel"
 #include "QPushButton"
 #include "enemysolider.h"
@@ -9,13 +9,9 @@
 #include "enemygeneral.h"
 
 //游戏场景
-class GameScene : public QWidget
+class GameScene : public Scene
 {
 	Q_OBJECT
-
-public:
-	GameScene(QWidget *parent);
-	~GameScene();
 
 private:
 	//图片
@@ -42,7 +38,11 @@ private:
 	EnemyLeader *productLeader(QWidget *parent) { return new EnemyLeader(parent); }
 	EnemyGeneral *productGeneral(QWidget *parent) { return new EnemyGeneral(parent); }
 
-protected:
+public:
+	GameScene(Window *parent);
+	~GameScene();
+
+	void init() override; //初始化游戏场景
 	void keyPressEvent(QKeyEvent *event) override; //重写按键事件
 
 	private slots:

@@ -1,25 +1,35 @@
 #include "GameScene.h"
 #include "QApplication"
-#include "QDeskTopWidget"
-#include "QBitMap"
 #include "QTime"
 #include "QTimer"
 #include "QKeyEvent"
-#include "player.h"
 
-GameScene::GameScene(QWidget *parent)
-	: QWidget(parent), backgroundImg(QPixmap(":/planeFight/Resources/background.png")), againImg(":/planeFight/Resources/again.png"), gameoverImg(":/planeFight/Resources/gameover.png"), gameOverLabel(new QLabel(this)), againButton(new QPushButton(this)), gameoverButton(new QPushButton(this)), enemyChoose(QVector<Enemy *(GameScene::*)(QWidget *)>{}), productEnemyTimer(new QTimer(this)), isGameOver(false)
+GameScene::GameScene(Window *parent)
+	: Scene(parent)
 {
-	//标题和大小
-	setWindowTitle(tr(u8"飞机大战"));
-	setFixedSize(700, 940);
 
-	//移动到窗口中央
-	QRect rect = frameGeometry();
-	rect.moveCenter(QApplication::desktop()->availableGeometry().center());
-	move(rect.topLeft());
+}
+
+GameScene::~GameScene()
+{
+
+}
+
+void GameScene::init()
+{
+	//初始化游戏元素
+	backgroundImg.load(":/planeFight/Resources/background.png");
+	againImg.load(":/planeFight/Resources/again.png");
+	gameoverImg.load(":/planeFight/Resources/gameover.png");
+	gameOverLabel = new QLabel(this);
+	againButton = new QPushButton(this);
+	gameoverButton = new QPushButton(this);
+	enemyChoose = {};
+	productEnemyTimer = new QTimer(this);
+	isGameOver = false;
 
 	//设置背景
+	setAutoFillBackground(true);
 	QPalette p = palette();
 	p.setBrush(QPalette::Background, QBrush(backgroundImg));
 	setPalette(p);
@@ -74,11 +84,6 @@ GameScene::GameScene(QWidget *parent)
 	productEnemyTimer->start(1000);
 }
 
-GameScene::~GameScene()
-{
-
-}
-
 void GameScene::productEnemy()
 {
 	auto solider = (this->*enemyChoose[rand() % (enemyChoose.size())])(this);
@@ -122,7 +127,7 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 			}
 		}
 	}
-	return QWidget::keyPressEvent(event);
+	QWidget::keyPressEvent(event);
 }
 
 void GameScene::gameOver()
