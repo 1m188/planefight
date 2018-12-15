@@ -17,6 +17,9 @@ private:
 	bool isLefting_ = false;
 	bool isRighting_ = false;
 
+	//是否开火
+	bool isFiring_ = false;
+
 	//常态图片数组
 	QVector<QPixmap> normalImageVector_;
 	//当前显示常态图片索引
@@ -31,8 +34,13 @@ private:
 	//损毁图片切换计帧器
 	int destroyImageChangeFpsCounter_ = 0;
 
+	//子弹产生计帧器
+	int productBulletFpsCounter_ = 0;
+
 	//每隔多少帧切换一张常态/损毁图片
 	int imageChangeFpsInterval_ = 0;
+	//每隔多少帧产生子弹
+	int productBulletFpsInterval_ = 0;
 
 	//生命数目
 	int life_ = 1;
@@ -58,6 +66,10 @@ public:
 	bool &risDowning() { return isDowning_; }
 	bool &risLefting() { return isLefting_; }
 	bool &risRighting() { return isRighting_; }
+
+	//获取是否开火
+	const bool isFiring() const { return isFiring_; }
+	bool &risFiring() { return isFiring_; }
 
 	//获取常态/损毁图片数组
 	QVector<QPixmap> normalImageVector() { return normalImageVector_; }
@@ -89,6 +101,16 @@ public:
 	const int imageChangeFpsInterval() const { return imageChangeFpsInterval_; }
 	//获取每隔多少帧切换一张常态/损毁图片的引用
 	int &rimageChangeFpsInterval() { return imageChangeFpsInterval_; }
+
+	//获取子弹产生计帧器
+	const int productBulletFpsCounter() const { return productBulletFpsCounter_; }
+	//获取子弹产生计帧器的引用
+	int &rproductBulletFpsCounter() { return productBulletFpsCounter_; }
+
+	//获取每隔多少帧产生子弹
+	const int productBulletFpsInterval() const { return productBulletFpsInterval_; }
+	//获取每隔多少帧产生子弹的引用
+	int &rproductBulletFpsInterval() { return productBulletFpsInterval_; }
 
 	//获取生命数目
 	const int life() const { return life_; }
