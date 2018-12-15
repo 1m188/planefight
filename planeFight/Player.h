@@ -21,14 +21,18 @@ private:
 	QVector<QPixmap> normalImageVector_;
 	//当前显示常态图片索引
 	int nowNormalImageIndex_ = 0;
+	//常态图片切换计帧器
+	int normalImageChangeFpsCounter_ = 0;
 
 	//损毁图片数组
 	QVector<QPixmap> destroyImageVector_;
 	//当前显示损毁图片索引
 	int nowDestroyImageIndex_ = 0;
+	//损毁图片切换计帧器
+	int destroyImageChangeFpsCounter_ = 0;
 
 	//每隔多少帧切换一张常态/损毁图片
-	int imageChangeFps_ = 0;
+	int imageChangeFpsInterval_ = 0;
 
 	//生命数目
 	int life_ = 1;
@@ -71,10 +75,20 @@ public:
 	//获取当前显示损毁图片索引的引用
 	int &rnowDestroyImageIndex() { return nowDestroyImageIndex_; }
 
+	//获取常态图片切换计帧器
+	const int normalImageChangeFpsCounter() const { return normalImageChangeFpsCounter_; }
+	//获取常态图片切换计帧器的引用
+	int &rnormalImageChangeFpsCounter() { return normalImageChangeFpsCounter_; }
+
+	//获取损毁图片切换计帧器
+	const int destroyImageChangeFpsCounter() const { return destroyImageChangeFpsCounter_; }
+	//获取损毁图片切换计帧器的引用
+	int &rdestroyImageChangeFpsCounter() { return destroyImageChangeFpsCounter_; }
+
 	//获取每隔多少帧切换一张常态/损毁图片
-	const int imageChangeFps() const { return imageChangeFps_; }
+	const int imageChangeFpsInterval() const { return imageChangeFpsInterval_; }
 	//获取每隔多少帧切换一张常态/损毁图片的引用
-	int &rimageChangeFps() { return imageChangeFps_; }
+	int &rimageChangeFpsInterval() { return imageChangeFpsInterval_; }
 
 	//获取生命数目
 	const int life() const { return life_; }

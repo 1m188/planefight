@@ -34,7 +34,7 @@ void GameScene::init()
 	player.rdestroyImageVector().append(QPixmap(":/Resources/image/me_destroy_3.png"));
 	player.rdestroyImageVector().append(QPixmap(":/Resources/image/me_destroy_4.png"));
 	//设置每隔多少帧切换一张玩家飞机图片
-	player.rimageChangeFps() = 1000 / 60 * 13 / (1000 / fps);
+	player.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
 	//设置玩家飞机一开始的图片
 	player.rimage() = player.normalImageVector()[0];
 	//设置玩家飞机宽高
@@ -127,10 +127,10 @@ void GameScene::gameCycleSlot()
 		player.move(0, height(), 0, width());
 
 		//切换常态图片
-		player.rfpsCounter()++;
-		if (player.fpsCounter() == player.imageChangeFps())
+		player.rnormalImageChangeFpsCounter()++;
+		if (player.normalImageChangeFpsCounter() == player.imageChangeFpsInterval())
 		{
-			player.rfpsCounter() = 0;
+			player.rnormalImageChangeFpsCounter() = 0;
 			player.rimage() = player.normalImageVector()[player.nowNormalImageIndex()];
 			player.rnowNormalImageIndex()++;
 			//倘若一轮图片显示完了之后，继续显示下一轮图片
@@ -144,10 +144,10 @@ void GameScene::gameCycleSlot()
 	else
 	{
 		//切换损毁图片
-		player.rfpsCounter()++;
-		if (player.fpsCounter() == player.imageChangeFps())
+		player.rdestroyImageChangeFpsCounter()++;
+		if (player.destroyImageChangeFpsCounter() == player.imageChangeFpsInterval())
 		{
-			player.rfpsCounter() = 0;
+			player.rdestroyImageChangeFpsCounter() = 0;
 			player.rimage() = player.destroyImageVector()[player.nowDestroyImageIndex()];
 			player.rnowDestroyImageIndex()++;
 			//倘若一轮图片显示完了之后，停止游戏画面更新，进入游戏结束阶段
