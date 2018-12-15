@@ -79,6 +79,7 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Director.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_GameScene.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Director.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sprite.h" />
     <CustomBuild Include="Scene.h">
