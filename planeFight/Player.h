@@ -24,16 +24,16 @@ private:
 	QVector<QPixmap> normalImageVector_;
 	//当前显示常态图片索引
 	int nowNormalImageIndex_ = 0;
-	//常态图片切换计帧器
-	int normalImageChangeFpsCounter_ = 0;
 
 	//损毁图片数组
 	QVector<QPixmap> destroyImageVector_;
 	//当前显示损毁图片索引
 	int nowDestroyImageIndex_ = 0;
+
+	//常态图片切换计帧器
+	int normalImageChangeFpsCounter_ = 0;
 	//损毁图片切换计帧器
 	int destroyImageChangeFpsCounter_ = 0;
-
 	//子弹产生计帧器
 	int productBulletFpsCounter_ = 0;
 
