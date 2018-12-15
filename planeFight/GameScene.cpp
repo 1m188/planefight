@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "QPainter"
 #include "QKeyEvent"
+#include "QTime"
 
 GameScene::GameScene(Window *parent)
 	: Scene(parent)
@@ -21,6 +22,7 @@ void GameScene::init()
 	againImage.load(":/Resources/image/again.png");
 	gameoverImage.load(":/Resources/image/gameover.png");
 	playerBulletImage.load(":/Resources/image/bullet1.png");
+	enemyBulletImage.load(":/Resources/image/bullet2.png");
 
 	//初始化帧数
 	fps = 60;
@@ -49,6 +51,11 @@ void GameScene::init()
 	//设置玩家飞机每帧在两个方向上行进距离
 	player.rdx() = 10 * 60 / fps;
 	player.rdy() = 10 * 60 / fps;
+
+	//初始化敌机产生
+	productEnemyFpsCounter = 0;
+	productEnemyFpsInterval = 1000 / 60 * 100 / (1000 / fps);
+	srand(QTime::currentTime().msec()); //初始化随机种子
 
 	//启动游戏循环
 	gameCycleTimer = new QTimer(this);
@@ -125,10 +132,22 @@ void GameScene::paintEvent(QPaintEvent * event)
 	//绘制玩家
 	painter->drawPixmap(player.x(), player.y(), player.width(), player.height(), player.image());
 
+	//绘制敌机
+	for (Enemy &enemy : enemyVector)
+	{
+		painter->drawPixmap(enemy.x(), enemy.y(), enemy.width(), enemy.height(), enemy.image());
+	}
+
 	//绘制玩家子弹
 	for (Bullet &playerBullet : playerBulletVector)
 	{
 		painter->drawPixmap(playerBullet.x(), playerBullet.y(), playerBullet.width(), playerBullet.height(), playerBullet.image());
+	}
+
+	//绘制敌机子弹
+	for (Bullet &enemyBullet : enemyBulletVector)
+	{
+		painter->drawPixmap(enemyBullet.x(), enemyBullet.y(), enemyBullet.width(), enemyBullet.height(), enemyBullet.image());
 	}
 
 	painter->end();
@@ -203,21 +222,143 @@ void GameScene::gameCycleSlot()
 		}
 	}
 
+
+	//计算敌机状态
+	//敌机产生
+	productEnemyFpsCounter++;
+	if (productEnemyFpsCounter == productEnemyFpsInterval)
+	{
+		productEnemyFpsCounter = 0;
+
+		//初始化敌机
+		Enemy enemy1;
+		//设置敌机的常态图片
+		enemy1.rnormalImageVector().append(QPixmap(":/Resources/image/enemy1.png"));
+		//设置敌机的损毁图片
+		enemy1.rdestroyImageVector().append(QPixmap(":/Resources/image/enemy1_down1.png"));
+		enemy1.rdestroyImageVector().append(QPixmap(":/Resources/image/enemy1_down2.png"));
+		enemy1.rdestroyImageVector().append(QPixmap(":/Resources/image/enemy1_down3.png"));
+		enemy1.rdestroyImageVector().append(QPixmap(":/Resources/image/enemy1_down4.png"));
+		//设置敌机每隔多少帧切换一张图片
+		enemy1.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
+		//设置敌机每隔多少帧产生一次子弹
+		enemy1.rproductBulletFpsInterval() = 1000 / 60 * 50 / (1000 / fps);
+		//设置敌机一开始的图片
+		enemy1.rimage() = enemy1.normalImageVector()[0];
+		//设置敌机一开始的宽高
+		enemy1.rwidth() = enemy1.image().width();
+		enemy1.rheight() = enemy1.image().height();
+		//设置敌机一开始的随机坐标
+		enemy1.rx() = qrand() % (width() - enemy1.width() + 1);
+		enemy1.ry() = -enemy1.height();
+		//设置敌机每帧在y方向上的行进距离
+		enemy1.rdy() = 3 * 60 / fps;
+
+		//敌机加入数组
+		enemyVector.append(enemy1);
+	}
+
+	//计算状态
+	for (int i = 0; i < enemyVector.size(); i++)
+	{
+		Enemy &enemy = enemyVector[i];
+
+		//如果敌机活着
+		if (enemy.life() > 0)
+		{
+			//移动
+			enemy.ry() += enemy.dy();
+			//超出地图边界则从内存中删除
+			if (enemy.y() >= height())
+			{
+				enemyVector.removeAt(i);
+				i--;
+				continue;
+			}
+
+			//开火
+			enemy.rproductBulletFpsCounter()++;
+			if (enemy.productBulletFpsCounter() == enemy.productBulletFpsInterval())
+			{
+				enemy.rproductBulletFpsCounter() = 0;
+
+				//初始化敌机子弹
+				Bullet bullet;
+				//设置敌机子弹图片
+				bullet.rimage() = enemyBulletImage;
+				//设置敌机子弹宽高
+				bullet.rwidth() = bullet.image().width();
+				bullet.rheight() = bullet.image().height();
+				//设置敌机子弹坐标
+				bullet.rx() = enemy.x() + enemy.width() / 2 - bullet.width() / 2;
+				bullet.ry() = enemy.y() + enemy.height();
+				//设置敌机子弹每帧的行进距离
+				bullet.rdy() = 5 * 60 / fps;
+				//压入敌机子弹数组
+				enemyBulletVector.append(bullet);
+			}
+
+			//切换常态图片
+			enemy.rnormalImageChangeFpsCounter()++;
+			if (enemy.normalImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
+			{
+				enemy.rnormalImageChangeFpsCounter() = 0;
+				enemy.rimage() = enemy.normalImageVector()[enemy.nowNormalImageIndex()];
+				enemy.rnowNormalImageIndex()++;
+				if (enemy.nowNormalImageIndex() >= enemy.normalImageVector().size())
+				{
+					enemy.rnowNormalImageIndex() = 0;
+				}
+			}
+		}
+		//否则展示损毁图片，展示完了之后从数组中推出去
+		else
+		{
+			enemy.rdestroyImageChangeFpsCounter()++;
+			if (enemy.destroyImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
+			{
+				enemy.rdestroyImageChangeFpsCounter() = 0;
+				enemy.rimage() = enemy.destroyImageVector()[enemy.nowDestroyImageIndex()];
+				enemy.rnowDestroyImageIndex()++;
+				if (enemy.nowDestroyImageIndex() >= enemy.destroyImageVector().size())
+				{
+					enemyVector.removeAt(i);
+					i--;
+					continue;
+				}
+			}
+		}
+	}
+
+
 	//计算子弹状态
 	//玩家子弹
 	//子弹移动
-	for (int i = 0; i < playerBulletVector.size();)
+	for (int i = 0; i < playerBulletVector.size(); i++)
 	{
-		playerBulletVector[i].ry() -= playerBulletVector[i].dy();
-		if (playerBulletVector[i].y() + playerBulletVector[i].height() <= 0)
+		Bullet &bullet = playerBulletVector[i];
+		bullet.ry() -= bullet.dy();
+		//超出地图边界则从内存中删除
+		if (bullet.y() + bullet.height() <= 0)
 		{
 			playerBulletVector.removeAt(i);
-		}
-		else
-		{
-			i++;
+			i--;
 		}
 	}
+
+	//敌机子弹
+	//子弹移动
+	for (int i = 0; i < enemyBulletVector.size(); i++)
+	{
+		Bullet &bullet = enemyBulletVector[i];
+		bullet.ry() += bullet.dy();
+		if (bullet.y() + bullet.height() <= 0)
+		{
+			enemyBulletVector.removeAt(i);
+			i--;
+		}
+	}
+
 
 	//绘制游戏画面
 	update();

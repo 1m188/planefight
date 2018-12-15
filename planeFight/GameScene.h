@@ -5,6 +5,7 @@
 #include "QTimer.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 //游戏场景
 class GameScene : public Scene
@@ -17,11 +18,21 @@ private:
 	QPixmap againImage;
 	QPixmap gameoverImage;
 	QPixmap playerBulletImage; //玩家子弹图片
+	QPixmap enemyBulletImage; //敌机子弹图片
 
 	//玩家
 	Player player;
 	//玩家子弹数组
 	QVector<Bullet> playerBulletVector;
+	//敌机数组
+	QVector<Enemy> enemyVector;
+	//敌机子弹数组
+	QVector<Bullet> enemyBulletVector;
+
+	//敌机产生计帧器
+	int productEnemyFpsCounter;
+	//每隔多少帧产生一架敌机
+	int productEnemyFpsInterval;
 
 	//帧数
 	int fps;
