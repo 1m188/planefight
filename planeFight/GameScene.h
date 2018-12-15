@@ -17,6 +17,19 @@ private:
 	QPixmap backgroundImage; //±³¾°Í¼Æ¬
 	QPixmap againImage;
 	QPixmap gameoverImage;
+
+	QVector<QPixmap> playerNormalImageVector; //Íæ¼Ò³£Ì¬Í¼Æ¬
+	QVector<QPixmap> playerDestroyImageVector; //Íæ¼ÒËð»ÙÍ¼Æ¬
+
+	QVector<QPixmap> enemy1NormalImageVector; //µÐ»ú1³£Ì¬Í¼Æ¬
+	QVector<QPixmap> enemy1DestroyImageVector; //µÐ»ú1Ëð»ÙÍ¼Æ¬
+
+	QVector<QPixmap> enemy2NormalImageVector; //µÐ»ú2³£Ì¬Í¼Æ¬
+	QVector<QPixmap> enemy2DestroyImageVector; //µÐ»ú2Ëð»ÙÍ¼Æ¬
+
+	QVector<QPixmap> enemy3NormalImageVector; //µÐ»ú3³£Ì¬Í¼Æ¬
+	QVector<QPixmap> enemy3DestroyImageVector; //µÐ»ú3Ëð»ÙÍ¼Æ¬
+
 	QPixmap playerBulletImage; //Íæ¼Ò×Óµ¯Í¼Æ¬
 	QPixmap enemyBulletImage; //µÐ»ú×Óµ¯Í¼Æ¬
 

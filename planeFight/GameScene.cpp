@@ -17,10 +17,40 @@ GameScene::~GameScene()
 void GameScene::init()
 {
 	//初始化游戏元素
+	//这里把所需的图片提前加载到内存之中，以提高调用的效率
 	backgroundImage.load(":/Resources/image/background.png");
 	backgroundImage = backgroundImage.scaled(size()); //将背景图片缩放至和窗口一样大，便于绘制
 	againImage.load(":/Resources/image/again.png");
 	gameoverImage.load(":/Resources/image/gameover.png");
+
+	playerNormalImageVector.append(QPixmap(":/Resources/image/me1.png"));
+	playerNormalImageVector.append(QPixmap(":/Resources/image/me2.png"));
+	playerDestroyImageVector.append(QPixmap(":/Resources/image/me_destroy_1.png"));
+	playerDestroyImageVector.append(QPixmap(":/Resources/image/me_destroy_2.png"));
+	playerDestroyImageVector.append(QPixmap(":/Resources/image/me_destroy_3.png"));
+	playerDestroyImageVector.append(QPixmap(":/Resources/image/me_destroy_4.png"));
+
+	enemy1NormalImageVector.append(QPixmap(":/Resources/image/enemy1.png"));
+	enemy1DestroyImageVector.append(QPixmap(":/Resources/image/enemy1_down1.png"));
+	enemy1DestroyImageVector.append(QPixmap(":/Resources/image/enemy1_down2.png"));
+	enemy1DestroyImageVector.append(QPixmap(":/Resources/image/enemy1_down3.png"));
+	enemy1DestroyImageVector.append(QPixmap(":/Resources/image/enemy1_down4.png"));
+
+	enemy2NormalImageVector.append(QPixmap(":/Resources/image/enemy2.png"));
+	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down1.png"));
+	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down2.png"));
+	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down3.png"));
+	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down4.png"));
+
+	enemy3NormalImageVector.append(QPixmap(":/Resources/image/enemy3_n1.png"));
+	enemy3NormalImageVector.append(QPixmap(":/Resources/image/enemy3_n2.png"));
+	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down1.png"));
+	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down2.png"));
+	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down3.png"));
+	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down4.png"));
+	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down5.png"));
+	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down6.png"));
+
 	playerBulletImage.load(":/Resources/image/bullet1.png");
 	enemyBulletImage.load(":/Resources/image/bullet2.png");
 
@@ -29,13 +59,9 @@ void GameScene::init()
 
 	//初始化玩家飞机
 	//设置玩家飞机常态图片
-	player.rnormalImageVector().append(QPixmap(":/Resources/image/me1.png"));
-	player.rnormalImageVector().append(QPixmap(":/Resources/image/me2.png"));
+	player.rnormalImageVector() = playerNormalImageVector;
 	//设置玩家飞机损毁图片
-	player.rdestroyImageVector().append(QPixmap(":/Resources/image/me_destroy_1.png"));
-	player.rdestroyImageVector().append(QPixmap(":/Resources/image/me_destroy_2.png"));
-	player.rdestroyImageVector().append(QPixmap(":/Resources/image/me_destroy_3.png"));
-	player.rdestroyImageVector().append(QPixmap(":/Resources/image/me_destroy_4.png"));
+	player.rdestroyImageVector() = playerDestroyImageVector;
 	//设置每隔多少帧切换一张玩家飞机图片
 	player.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
 	//设置每隔多少帧产生一次子弹
@@ -230,32 +256,56 @@ void GameScene::gameCycleSlot()
 	{
 		productEnemyFpsCounter = 0;
 
+		int enemyIndex = qrand() % 13;
+
 		//初始化敌机
-		Enemy enemy1;
-		//设置敌机的常态图片
-		enemy1.rnormalImageVector().append(QPixmap(":/Resources/image/enemy1.png"));
-		//设置敌机的损毁图片
-		enemy1.rdestroyImageVector().append(QPixmap(":/Resources/image/enemy1_down1.png"));
-		enemy1.rdestroyImageVector().append(QPixmap(":/Resources/image/enemy1_down2.png"));
-		enemy1.rdestroyImageVector().append(QPixmap(":/Resources/image/enemy1_down3.png"));
-		enemy1.rdestroyImageVector().append(QPixmap(":/Resources/image/enemy1_down4.png"));
+		Enemy enemy;
+		if (enemyIndex >= 0 & enemyIndex <= 8)
+		{
+			//设置敌机的常态图片
+			enemy.rnormalImageVector() = enemy1NormalImageVector;
+			//设置敌机的损毁图片
+			enemy.rdestroyImageVector() = enemy1DestroyImageVector;
+			//设置敌机每隔多少帧产生一次子弹
+			enemy.rproductBulletFpsInterval() = 1000 / 60 * 50 / (1000 / fps);
+			//设置敌机每帧在y方向上的行进距离
+			enemy.rdy() = 3 * 60 / fps;
+		}
+		else if (enemyIndex >= 9 && enemyIndex <= 11)
+		{
+			//设置敌机的常态图片
+			enemy.rnormalImageVector() = enemy2NormalImageVector;
+			//设置敌机的损毁图片
+			enemy.rdestroyImageVector() = enemy2DestroyImageVector;
+			//设置敌机每隔多少帧产生一次子弹
+			enemy.rproductBulletFpsInterval() = 1000 / 60 * 45 / (1000 / fps);
+			//设置敌机每帧在y方向上的行进距离
+			enemy.rdy() = 2 * 60 / fps;
+		}
+		else if (enemyIndex == 12)
+		{
+			//设置敌机的常态图片
+			enemy.rnormalImageVector() = enemy3NormalImageVector;
+			//设置敌机的损毁图片
+			enemy.rdestroyImageVector() = enemy3DestroyImageVector;
+			//设置敌机每隔多少帧产生一次子弹
+			enemy.rproductBulletFpsInterval() = 1000 / 60 * 40 / (1000 / fps);
+			//设置敌机每帧在y方向上的行进距离
+			enemy.rdy() = 1 * 60 / fps;
+		}
 		//设置敌机每隔多少帧切换一张图片
-		enemy1.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
-		//设置敌机每隔多少帧产生一次子弹
-		enemy1.rproductBulletFpsInterval() = 1000 / 60 * 50 / (1000 / fps);
+		enemy.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
 		//设置敌机一开始的图片
-		enemy1.rimage() = enemy1.normalImageVector()[0];
+		enemy.rimage() = enemy.normalImageVector()[0];
 		//设置敌机一开始的宽高
-		enemy1.rwidth() = enemy1.image().width();
-		enemy1.rheight() = enemy1.image().height();
+		enemy.rwidth() = enemy.image().width();
+		enemy.rheight() = enemy.image().height();
 		//设置敌机一开始的随机坐标
-		enemy1.rx() = qrand() % (width() - enemy1.width() + 1);
-		enemy1.ry() = -enemy1.height();
-		//设置敌机每帧在y方向上的行进距离
-		enemy1.rdy() = 3 * 60 / fps;
+		enemy.rx() = qrand() % (width() - enemy.width() + 1);
+		enemy.ry() = -enemy.height();
 
 		//敌机加入数组
-		enemyVector.append(enemy1);
+		enemyVector.append(enemy);
 	}
 
 	//计算状态
