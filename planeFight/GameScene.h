@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "QTimer.h"
 #include "Player.h"
+#include "Bullet.h"
 
 //游戏场景
 class GameScene : public Scene
@@ -12,12 +13,15 @@ class GameScene : public Scene
 
 private:
 	//图片
-	QPixmap backgroundImage;
+	QPixmap backgroundImage; //背景图片
 	QPixmap againImage;
 	QPixmap gameoverImage;
+	QPixmap playerBulletImage; //玩家子弹图片
 
 	//玩家
 	Player player;
+	//玩家子弹数组
+	QVector<Bullet> playerBulletVector;
 
 	//帧数
 	int fps;
