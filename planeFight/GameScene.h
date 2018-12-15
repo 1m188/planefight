@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "QTimer.h"
+#include "Player.h"
 
 //游戏场景
 class GameScene : public Scene
@@ -14,6 +15,9 @@ private:
 	QPixmap backgroundImage;
 	QPixmap againImage;
 	QPixmap gameoverImage;
+
+	//玩家
+	Player player;
 
 	//帧数
 	int fps;

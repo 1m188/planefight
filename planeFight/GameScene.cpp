@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "QPainter"
+#include "QKeyEvent"
 
 GameScene::GameScene(Window *parent)
 	: Scene(parent)
@@ -21,7 +22,16 @@ void GameScene::init()
 	gameoverImage.load(":/Resources/image/gameover.png");
 
 	//初始化帧数
-	fps = 30;
+	fps = 60;
+
+	//初始化玩家
+	player.rimage().load(":/Resources/image/me1.png");
+	player.rwidth() = player.image().width();
+	player.rheight() = player.image().height();
+	player.rx() = width() / 2 - player.width() / 2;
+	player.ry() = height() - player.height();
+	player.rdx() = 20 * 30 / fps;
+	player.rdy() = 20 * 30 / fps;
 
 	//启动游戏循环
 	gameCycleTimer = new QTimer(this);
@@ -32,11 +42,49 @@ void GameScene::init()
 
 void GameScene::keyPressEvent(QKeyEvent * event)
 {
+	if (!event->isAutoRepeat())
+	{
+		if (event->key() == Qt::Key::Key_W)
+		{
+			player.risUping() = true;
+		}
+		else if (event->key() == Qt::Key::Key_S)
+		{
+			player.risDowning() = true;
+		}
+		else if (event->key() == Qt::Key::Key_A)
+		{
+			player.risLefting() = true;
+		}
+		else if (event->key() == Qt::Key::Key_D)
+		{
+			player.risRighting() = true;
+		}
+	}
 	QWidget::keyPressEvent(event);
 }
 
 void GameScene::keyReleaseEvent(QKeyEvent * event)
 {
+	if (!event->isAutoRepeat())
+	{
+		if (event->key() == Qt::Key::Key_W)
+		{
+			player.risUping() = false;
+		}
+		else if (event->key() == Qt::Key::Key_S)
+		{
+			player.risDowning() = false;
+		}
+		else if (event->key() == Qt::Key::Key_A)
+		{
+			player.risLefting() = false;
+		}
+		else if (event->key() == Qt::Key::Key_D)
+		{
+			player.risRighting() = false;
+		}
+	}
 	QWidget::keyReleaseEvent(event);
 }
 
@@ -44,7 +92,11 @@ void GameScene::paintEvent(QPaintEvent * event)
 {
 	QPainter *painter = new QPainter(this);
 
+	//绘制背景
 	painter->drawPixmap(frameGeometry(), backgroundImage);
+
+	//绘制玩家
+	painter->drawPixmap(player.x(), player.y(), player.width(), player.height(), player.image());
 
 	painter->end();
 	QWidget::paintEvent(event);
@@ -52,6 +104,10 @@ void GameScene::paintEvent(QPaintEvent * event)
 
 void GameScene::gameCycleSlot()
 {
+	//计算状态
+	//玩家移动
+	player.move(0, height(), 0, width());
+
 	//绘制游戏画面
 	update();
 }
