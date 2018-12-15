@@ -8,38 +8,41 @@ class Sprite
 {
 private:
 	//左上角坐标
-	int x;
-	int y;
+	int x_;
+	int y_;
 
 	//宽高
-	int width;
-	int height;
+	int width_;
+	int height_;
 
 	//图片
-	QPixmap image;
+	QPixmap image_;
 
 public:
 	Sprite();
 	virtual ~Sprite();
 
-	//获取/设置坐标
-	int getX() const { return x; }
-	void setX(int x) { this->x = x; }
-	int getY() const { return y; }
-	void setY(int y) { this->y = y; }
+	//获取左上角坐标
+	const int x() const { return x_; }
+	const int y() const { return y_; }
+	//获取左上角坐标引用
+	int &rx() { return x_; }
+	int &ry() { return y_; }
 
-	//获取/设置宽高
-	int getWidth() const { return width; }
-	void setWidth(int width) { this->width = width; }
-	int getHeight() const { return height; }
-	void setHeight(int height) { this->height = height; }
+	//获取宽高
+	const int width() const { return width_; }
+	const int height() const { return height_; }
+	//获取宽高引用
+	int &rwidth() { return width_; }
+	int &rheight() { return height_; }
 
-	//获取/设置图片
-	QPixmap getImage() const { return image; }
-	void setImage(QPixmap image) { this->image = image; }
+	//获取图片
+	const QPixmap image() const { return image_; }
+	//获取图片引用
+	QPixmap &rimage() { return image_; }
 
 	//碰撞检测
-	bool isCollided(Sprite s) const;
+	const bool isCollided(Sprite s) const;
 };
 
 #endif // SPRITE_H

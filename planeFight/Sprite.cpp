@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite() :x(0), y(0), width(0), height(0), image()
+Sprite::Sprite() :x_(0), y_(0), width_(0), height_(0), image_()
 {
 
 }
@@ -10,7 +10,7 @@ Sprite::~Sprite()
 
 }
 
-bool Sprite::isCollided(Sprite s) const
+const bool Sprite::isCollided(Sprite s) const
 {
-	return x >= s.x - width&&x <= s.x + s.width&&y >= s.y - height&&y <= s.y + s.height;
+	return x_ >= s.x_ - width_&&x_ <= s.x_ + s.width_&&y_ >= s.y_ - height_&&y_ <= s.y_ + s.height_;
 }

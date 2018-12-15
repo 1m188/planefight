@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() :Sprite()
+Player::Player() :Sprite(), dx_(0), dy_(0), isUping_(false), isDowning_(false), isLefting_(false), isRighting_(false), normalImageVector_(), destroyImageVector_()
 {
 
 }
@@ -13,38 +13,38 @@ Player::~Player()
 void Player::move(int up, int down, int left, int right)
 {
 	//按照方向移动
-	if (isUping)
+	if (isUping_)
 	{
-		setY(getY() - dy);
+		ry() = y() - dy_;
 	}
-	if (isDowning)
+	if (isDowning_)
 	{
-		setY(getY() + dy);
+		ry() = y() + dy_;
 	}
-	if (isLefting)
+	if (isLefting_)
 	{
-		setX(getX() - dx);
+		rx() = x() - dx_;
 	}
-	if (isRighting)
+	if (isRighting_)
 	{
-		setX(getX() + dx);
+		rx() = x() + dx_;
 	}
 
 	//撞墙
-	if (getY() < up)
+	if (y() < up)
 	{
-		setY(up);
+		ry() = up;
 	}
-	else if (getY()+getHeight() > down)
+	else if (y() + height() > down)
 	{
-		setY(down - getHeight());
+		ry() = down - height();
 	}
-	if (getX() < left)
+	if (x() < left)
 	{
-		setX(left);
+		rx() = left;
 	}
-	else if (getX() + getWidth() > right)
+	else if (x() + width() > right)
 	{
-		setX(right - getWidth());
+		rx() = right - width();
 	}
 }
