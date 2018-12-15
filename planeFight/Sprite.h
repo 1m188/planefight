@@ -8,15 +8,18 @@ class Sprite
 {
 private:
 	//左上角坐标
-	int x_;
-	int y_;
+	int x_ = 0;
+	int y_ = 0;
 
 	//宽高
-	int width_;
-	int height_;
+	int width_ = 0;
+	int height_ = 0;
 
 	//图片
 	QPixmap image_;
+
+	//计帧器
+	int fpsCounter_ = 0;
 
 public:
 	Sprite();
@@ -40,6 +43,11 @@ public:
 	const QPixmap image() const { return image_; }
 	//获取图片引用
 	QPixmap &rimage() { return image_; }
+
+	//获取计帧器
+	const int fpsCounter() const { return fpsCounter_; }
+	//获取计帧器的引用
+	int &rfpsCounter() { return fpsCounter_; }
 
 	//碰撞检测
 	const bool isCollided(Sprite s) const;

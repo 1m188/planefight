@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-Sprite::Sprite() :x_(0), y_(0), width_(0), height_(0), image_()
+Sprite::Sprite()
 {
 
 }
