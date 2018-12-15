@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() :Sprite(), dx_(0), dy_(0), isUping_(false), isDowning_(false), isLefting_(false), isRighting_(false), normalImageVector_(), destroyImageVector_()
+Player::Player() :Sprite()
 {
 
 }
