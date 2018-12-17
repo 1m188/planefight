@@ -41,6 +41,7 @@ void GameScene::init()
 	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down2.png"));
 	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down3.png"));
 	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down4.png"));
+	enemy2HitImageVector.append(QPixmap(":/Resources/image/enemy2_hit.png"));
 
 	enemy3NormalImageVector.append(QPixmap(":/Resources/image/enemy3_n1.png"));
 	enemy3NormalImageVector.append(QPixmap(":/Resources/image/enemy3_n2.png"));
@@ -50,6 +51,7 @@ void GameScene::init()
 	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down4.png"));
 	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down5.png"));
 	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down6.png"));
+	enemy3HitImageVector.append(QPixmap(":/Resources/image/enemy3_hit.png"));
 
 	playerBulletImage.load(":/Resources/image/bullet1.png");
 	enemyBulletImage.load(":/Resources/image/bullet2.png");
@@ -285,6 +287,8 @@ void GameScene::gameCycleSlot()
 			enemy.rproductBulletFpsInterval() = 1000 / 60 * 45 / (1000 / fps);
 			//设置敌机每帧在y方向上的行进距离
 			enemy.rdy() = 2 * 60 / fps;
+			//设置敌机生命
+			enemy.rlife() = 6;
 		}
 		else if (enemyIndex == 12)
 		{
@@ -296,6 +300,8 @@ void GameScene::gameCycleSlot()
 			enemy.rproductBulletFpsInterval() = 1000 / 60 * 40 / (1000 / fps);
 			//设置敌机每帧在y方向上的行进距离
 			enemy.rdy() = 1 * 60 / fps;
+			//设置敌机生命
+			enemy.rlife() = 16;
 		}
 		//设置敌机每隔多少帧切换一张图片
 		enemy.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
@@ -414,6 +420,17 @@ void GameScene::gameCycleSlot()
 				{
 					//敌机生命值扣减
 					enemy.rlife()--;
+					//切换到损态图片
+					if (enemy.life() <= 4 && enemy.normalImageVector()[0].cacheKey() == enemy2NormalImageVector[0].cacheKey())
+					{
+						enemy.rnormalImageVector() = enemy2HitImageVector;
+						enemy.rnowNormalImageIndex() = 0;
+					}
+					else if (enemy.life() <= 8 && enemy.normalImageVector()[0].cacheKey() == enemy3NormalImageVector[0].cacheKey())
+					{
+						enemy.rnormalImageVector() = enemy3HitImageVector;
+						enemy.rnowNormalImageIndex() = 0;
+					}
 					//子弹删除
 					playerBulletVector.removeAt(i);
 					i--;
