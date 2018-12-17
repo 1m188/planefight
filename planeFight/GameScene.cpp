@@ -309,7 +309,7 @@ void GameScene::gameCycleSlot()
 			for (int i = 0; i < enemyVector.size(); i++)
 			{
 				Enemy &enemy = enemyVector[i];
-				if (player.isCollided(enemy))
+				if (player.isCollided(enemy) && enemy.life() > 0)
 				{
 					player.rlife() = 0;
 					enemy.rlife() = 0;
