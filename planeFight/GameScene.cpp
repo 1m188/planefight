@@ -429,7 +429,7 @@ void GameScene::gameCycleSlot()
 	{
 		Bullet &bullet = enemyBulletVector[i];
 		bullet.ry() += bullet.dy();
-		if (bullet.y() + bullet.height() <= 0)
+		if (bullet.y() >= height())
 		{
 			enemyBulletVector.removeAt(i);
 			i--;
