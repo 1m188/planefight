@@ -63,6 +63,7 @@ void GameScene::init()
 	playerBulletImage.load(":/Resources/image/bullet1.png");
 	enemyBulletImage.load(":/Resources/image/bullet2.png");
 
+	bombImage.load(":/Resources/image/bomb.png");
 	bombPropsImage.load(":/Resources/image/bomb_supply.png");
 
 	//初始化帧数
@@ -250,6 +251,11 @@ void GameScene::paintEvent(QPaintEvent * event)
 	//绘制暂停/继续按钮
 	painter->drawPixmap(width() - pauseResumeImage.width(), 0, pauseResumeImage.width(), pauseResumeImage.height(), pauseResumeImage);
 
+	//绘制炸弹数目
+	painter->drawPixmap(width() - bombImage.width() * 2, height() - bombImage.height(), bombImage.width(), bombImage.height(), bombImage);
+	painter->setFont(QFont(u8"微软雅黑", 25, 10));
+	painter->drawText(width() - bombImage.width(), height() - bombImage.height(), bombImage.width(), bombImage.height(), Qt::AlignCenter, QString::number(player.bombNum()));
+
 	painter->end();
 	Scene::paintEvent(event);
 }
@@ -313,6 +319,20 @@ void GameScene::gameCycleSlot()
 				{
 					player.rlife() = 0;
 					enemy.rlife() = 0;
+				}
+			}
+
+			//如果撞上道具
+			for (int i = 0; i < propsVector.size(); i++)
+			{
+				Props &props = propsVector[i];
+				if (player.isCollided(props))
+				{
+					if (props.type() == Props::Type::Bomb)
+					{
+						player.rbombNum()++;
+					}
+					propsVector.removeAt(i);
 				}
 			}
 		}
