@@ -457,10 +457,21 @@ void GameScene::gameCycleSlot()
 	{
 		Bullet &bullet = enemyBulletVector[i];
 		bullet.ry() += bullet.dy();
+		//如果子弹超出地图边界
 		if (bullet.y() >= height())
 		{
 			enemyBulletVector.removeAt(i);
 			i--;
+		}
+		//否则判断是否打到了玩家飞机
+		else
+		{
+			if (bullet.isCollided(player) && player.life() > 0)
+			{
+				player.rlife()--;
+				enemyBulletVector.removeAt(i);
+				i--;
+			}
 		}
 	}
 
