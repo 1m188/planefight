@@ -43,6 +43,8 @@ private:
 	QPixmap playerBulletImage; //Íæ¼Ò×Óµ¯Í¼Æ¬
 	QPixmap enemyBulletImage; //µÐ»ú×Óµ¯Í¼Æ¬
 
+	QPixmap lifeImage; //ÉúÃüÍ¼Æ¬
+
 	QPixmap bombImage; //Õ¨µ¯Í¼Æ¬
 	QPixmap bombPropsImage; //Õ¨µ¯µÀ¾ßÍ¼Æ¬
 

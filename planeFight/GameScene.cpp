@@ -63,6 +63,8 @@ void GameScene::init()
 	playerBulletImage.load(":/Resources/image/bullet1.png");
 	enemyBulletImage.load(":/Resources/image/bullet2.png");
 
+	lifeImage.load(":/Resources/image/life.png");
+
 	bombImage.load(":/Resources/image/bomb.png");
 	bombPropsImage.load(":/Resources/image/bomb_supply.png");
 
@@ -262,6 +264,11 @@ void GameScene::paintEvent(QPaintEvent * event)
 
 	//»æÖÆÔÝÍ£/¼ÌÐø°´Å¥
 	painter->drawPixmap(width() - pauseResumeImage.width(), 0, pauseResumeImage.width(), pauseResumeImage.height(), pauseResumeImage);
+
+	//»æÖÆÉúÃü
+	painter->drawPixmap(0, height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), lifeImage);
+	painter->setFont(QFont(u8"Î¢ÈíÑÅºÚ", 25, 10));
+	painter->drawText(lifeImage.width(), height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), Qt::AlignCenter, QString::number(player.life()));
 
 	//»æÖÆÕ¨µ¯ÊýÄ¿
 	painter->drawPixmap(width() - bombImage.width() * 2, height() - bombImage.height(), bombImage.width(), bombImage.height(), bombImage);
