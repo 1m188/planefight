@@ -137,6 +137,18 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 		{
 			player.risFiring() = true;
 		}
+		//Ê¹ÓÃÕ¨µ¯£¬È«Í¼ºäÕ¨
+		else if (event->key() == Qt::Key::Key_B)
+		{
+			if (player.bombNum() > 0)
+			{
+				player.rbombNum()--;
+				for (Enemy &enemy : enemyVector)
+				{
+					enemy.rlife() = 0;
+				}
+			}
+		}
 	}
 	Scene::keyPressEvent(event);
 }
