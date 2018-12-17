@@ -45,6 +45,9 @@ private:
 	//生命数目
 	int life_ = 1;
 
+	//炸弹数目
+	int bombNum_ = 1;
+
 public:
 	Player();
 	~Player();
@@ -116,6 +119,11 @@ public:
 	const int life() const { return life_; }
 	//获取生命数目引用
 	int &rlife() { return life_; }
+
+	//获取炸弹数目
+	const int bombNum() const { return bombNum_; }
+	//获取炸弹数目的引用
+	int &rbombNum() { return bombNum_; }
 
 	//玩家飞机移动
 	void move(int up, int down, int left, int right);
