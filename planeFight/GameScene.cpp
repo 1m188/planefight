@@ -236,14 +236,18 @@ void GameScene::gameCycleSlot()
 		if (player.destroyImageChangeFpsCounter() == player.imageChangeFpsInterval())
 		{
 			player.rdestroyImageChangeFpsCounter() = 0;
-			player.rimage() = player.destroyImageVector()[player.nowDestroyImageIndex()];
-			player.rnowDestroyImageIndex()++;
 			//倘若一轮图片显示完了之后，停止游戏画面更新，进入游戏结束阶段
 			if (player.nowDestroyImageIndex() >= player.destroyImageVector().size())
 			{
 				gameCycleTimer->stop();
 
 				//游戏结束
+			}
+			//否则显示下一张图片
+			else
+			{
+				player.rimage() = player.destroyImageVector()[player.nowDestroyImageIndex()];
+				player.rnowDestroyImageIndex()++;
 			}
 		}
 	}
@@ -368,13 +372,18 @@ void GameScene::gameCycleSlot()
 			if (enemy.destroyImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
 			{
 				enemy.rdestroyImageChangeFpsCounter() = 0;
-				enemy.rimage() = enemy.destroyImageVector()[enemy.nowDestroyImageIndex()];
-				enemy.rnowDestroyImageIndex()++;
+				//倘若损毁图片都展示完了则从数组中推出去
 				if (enemy.nowDestroyImageIndex() >= enemy.destroyImageVector().size())
 				{
 					enemyVector.removeAt(i);
 					i--;
 					continue;
+				}
+				//否则继续展示下一张图片
+				else
+				{
+					enemy.rimage() = enemy.destroyImageVector()[enemy.nowDestroyImageIndex()];
+					enemy.rnowDestroyImageIndex()++;
 				}
 			}
 		}
