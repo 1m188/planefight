@@ -189,9 +189,6 @@ void GameScene::gameCycleSlot()
 	//如果玩家存活
 	if (player.life() > 0)
 	{
-		//移动
-		player.move(0, height(), 0, width());
-
 		//开火
 		player.rproductBulletFpsCounter()++;
 		if (player.productBulletFpsCounter() == player.productBulletFpsInterval())
@@ -227,6 +224,20 @@ void GameScene::gameCycleSlot()
 			if (player.nowNormalImageIndex() >= player.normalImageVector().size())
 			{
 				player.rnowNormalImageIndex() = 0;
+			}
+		}
+
+		//移动
+		player.move(0, height(), 0, width());
+
+		//如果撞上敌机
+		for (int i = 0; i < enemyVector.size(); i++)
+		{
+			Enemy &enemy = enemyVector[i];
+			if (player.isCollided(enemy))
+			{
+				player.rlife() = 0;
+				enemy.rlife() = 0;
 			}
 		}
 	}
