@@ -20,8 +20,15 @@ void GameScene::init()
 	//这里把所需的图片提前加载到内存之中，以提高调用的效率
 	backgroundImage.load(":/Resources/image/background.png");
 	backgroundImage = backgroundImage.scaled(size()); //将背景图片缩放至和窗口一样大，便于绘制
+
 	againImage.load(":/Resources/image/again.png");
 	gameoverImage.load(":/Resources/image/gameover.png");
+
+	pauseNorImage.load(":/Resources/image/pause_nor.png");
+	pausePressedImage.load(":/Resources/image/pause_pressed.png");
+	resumeNorImage.load(":/Resources/image/resume_nor.png");
+	resumePressedImage.load(":/Resources/image/resume_pressed.png");
+	pauseResumeImage = pauseNorImage;
 
 	playerNormalImageVector.append(QPixmap(":/Resources/image/me1.png"));
 	playerNormalImageVector.append(QPixmap(":/Resources/image/me2.png"));
@@ -58,6 +65,11 @@ void GameScene::init()
 
 	//初始化帧数
 	fps = 60;
+
+	//初始化是否暂停标志
+	isPause = false;
+	//没有被按下
+	isPauseResumeClicked = false;
 
 	//初始化玩家飞机
 	//设置玩家飞机常态图片
@@ -119,7 +131,29 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 			player.risFiring() = true;
 		}
 	}
-	QWidget::keyPressEvent(event);
+	Scene::keyPressEvent(event);
+}
+
+void GameScene::mousePressEvent(QMouseEvent * event)
+{
+	//当玩家飞机还存活的时候，即游戏还未结束的时候
+	if (player.life() > 0)
+	{
+		QPoint pos = event->pos();
+		//按到了暂停/继续按钮
+		if (pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height())
+		{
+			if (isPause)
+			{
+				pauseResumeImage = resumePressedImage;
+			}
+			else
+			{
+				pauseResumeImage = pausePressedImage;
+			}
+		}
+	}
+	Scene::mousePressEvent(event);
 }
 
 void GameScene::keyReleaseEvent(QKeyEvent * event)
@@ -147,7 +181,30 @@ void GameScene::keyReleaseEvent(QKeyEvent * event)
 			player.risFiring() = false;
 		}
 	}
-	QWidget::keyReleaseEvent(event);
+	Scene::keyReleaseEvent(event);
+}
+
+void GameScene::mouseReleaseEvent(QMouseEvent * event)
+{
+	//当玩家飞机还存活的时候，即游戏还未结束的时候
+	if (player.life() > 0)
+	{
+		QPoint pos = event->pos();
+		//从暂停/继续按钮处释放
+		if (pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height())
+		{
+			if (isPause)
+			{
+				pauseResumeImage = pauseNorImage;
+			}
+			else
+			{
+				pauseResumeImage = resumeNorImage;
+			}
+			isPause = !isPause;
+		}
+	}
+	Scene::mouseReleaseEvent(event);
 }
 
 void GameScene::paintEvent(QPaintEvent * event)
@@ -178,299 +235,306 @@ void GameScene::paintEvent(QPaintEvent * event)
 		painter->drawPixmap(enemyBullet.x(), enemyBullet.y(), enemyBullet.width(), enemyBullet.height(), enemyBullet.image());
 	}
 
+	//绘制暂停/继续按钮
+	painter->drawPixmap(width() - pauseResumeImage.width(), 0, pauseResumeImage.width(), pauseResumeImage.height(), pauseResumeImage);
+
 	painter->end();
-	QWidget::paintEvent(event);
+	Scene::paintEvent(event);
 }
 
 void GameScene::gameCycleSlot()
 {
-	//计算状态
-	//计算玩家状态
-	//如果玩家存活
-	if (player.life() > 0)
+	//如果没有暂停，则计算状态
+	if (!isPause)
 	{
-		//开火
-		player.rproductBulletFpsCounter()++;
-		if (player.productBulletFpsCounter() == player.productBulletFpsInterval())
+		//计算状态
+		//计算玩家状态
+		//如果玩家存活
+		if (player.life() > 0)
 		{
-			player.rproductBulletFpsCounter() = 0;
-			if (player.isFiring())
-			{
-				//初始化玩家子弹
-				Bullet bullet;
-				//设置玩家子弹图片
-				bullet.rimage() = playerBulletImage;
-				//设置玩家子弹宽高
-				bullet.rwidth() = bullet.image().width();
-				bullet.rheight() = bullet.image().height();
-				//设置玩家子弹坐标
-				bullet.rx() = player.x() + player.width() / 2 - bullet.width() / 2;
-				bullet.ry() = player.y() - bullet.y();
-				//设置玩家子弹每帧行进距离
-				bullet.rdy() = 10 * 60 / fps;
-				//将玩家子弹压入玩家子弹数组便于管理计算
-				playerBulletVector.append(bullet);
-			}
-		}
-
-		//切换常态图片
-		player.rnormalImageChangeFpsCounter()++;
-		if (player.normalImageChangeFpsCounter() == player.imageChangeFpsInterval())
-		{
-			player.rnormalImageChangeFpsCounter() = 0;
-			player.rimage() = player.normalImageVector()[player.nowNormalImageIndex()];
-			player.rnowNormalImageIndex()++;
-			//倘若一轮图片显示完了之后，继续显示下一轮图片
-			if (player.nowNormalImageIndex() >= player.normalImageVector().size())
-			{
-				player.rnowNormalImageIndex() = 0;
-			}
-		}
-
-		//移动
-		player.move(0, height(), 0, width());
-
-		//如果撞上敌机
-		for (int i = 0; i < enemyVector.size(); i++)
-		{
-			Enemy &enemy = enemyVector[i];
-			if (player.isCollided(enemy))
-			{
-				player.rlife() = 0;
-				enemy.rlife() = 0;
-			}
-		}
-	}
-	//否则显示损毁过程
-	else
-	{
-		//切换损毁图片
-		player.rdestroyImageChangeFpsCounter()++;
-		if (player.destroyImageChangeFpsCounter() == player.imageChangeFpsInterval())
-		{
-			player.rdestroyImageChangeFpsCounter() = 0;
-			//倘若一轮图片显示完了之后，停止游戏画面更新，进入游戏结束阶段
-			if (player.nowDestroyImageIndex() >= player.destroyImageVector().size())
-			{
-				gameCycleTimer->stop();
-
-				//游戏结束
-			}
-			//否则显示下一张图片
-			else
-			{
-				player.rimage() = player.destroyImageVector()[player.nowDestroyImageIndex()];
-				player.rnowDestroyImageIndex()++;
-			}
-		}
-	}
-
-
-	//计算敌机状态
-	//敌机产生
-	productEnemyFpsCounter++;
-	if (productEnemyFpsCounter == productEnemyFpsInterval)
-	{
-		productEnemyFpsCounter = 0;
-
-		int enemyIndex = qrand() % 13;
-
-		//初始化敌机
-		Enemy enemy;
-		if (enemyIndex >= 0 & enemyIndex <= 8)
-		{
-			//设置敌机的常态图片
-			enemy.rnormalImageVector() = enemy1NormalImageVector;
-			//设置敌机的损毁图片
-			enemy.rdestroyImageVector() = enemy1DestroyImageVector;
-			//设置敌机每隔多少帧产生一次子弹
-			enemy.rproductBulletFpsInterval() = 1000 / 60 * 50 / (1000 / fps);
-			//设置敌机每帧在y方向上的行进距离
-			enemy.rdy() = 3 * 60 / fps;
-		}
-		else if (enemyIndex >= 9 && enemyIndex <= 11)
-		{
-			//设置敌机的常态图片
-			enemy.rnormalImageVector() = enemy2NormalImageVector;
-			//设置敌机的损毁图片
-			enemy.rdestroyImageVector() = enemy2DestroyImageVector;
-			//设置敌机每隔多少帧产生一次子弹
-			enemy.rproductBulletFpsInterval() = 1000 / 60 * 45 / (1000 / fps);
-			//设置敌机每帧在y方向上的行进距离
-			enemy.rdy() = 2 * 60 / fps;
-			//设置敌机生命
-			enemy.rlife() = 6;
-		}
-		else if (enemyIndex == 12)
-		{
-			//设置敌机的常态图片
-			enemy.rnormalImageVector() = enemy3NormalImageVector;
-			//设置敌机的损毁图片
-			enemy.rdestroyImageVector() = enemy3DestroyImageVector;
-			//设置敌机每隔多少帧产生一次子弹
-			enemy.rproductBulletFpsInterval() = 1000 / 60 * 40 / (1000 / fps);
-			//设置敌机每帧在y方向上的行进距离
-			enemy.rdy() = 1 * 60 / fps;
-			//设置敌机生命
-			enemy.rlife() = 16;
-		}
-		//设置敌机每隔多少帧切换一张图片
-		enemy.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
-		//设置敌机一开始的图片
-		enemy.rimage() = enemy.normalImageVector()[0];
-		//设置敌机一开始的宽高
-		enemy.rwidth() = enemy.image().width();
-		enemy.rheight() = enemy.image().height();
-		//设置敌机一开始的随机坐标
-		enemy.rx() = qrand() % (width() - enemy.width() + 1);
-		enemy.ry() = -enemy.height();
-
-		//敌机加入数组
-		enemyVector.append(enemy);
-	}
-
-	//计算状态
-	for (int i = 0; i < enemyVector.size(); i++)
-	{
-		Enemy &enemy = enemyVector[i];
-
-		//如果敌机活着
-		if (enemy.life() > 0)
-		{
-			//移动
-			enemy.ry() += enemy.dy();
-			//超出地图边界则从内存中删除
-			if (enemy.y() >= height())
-			{
-				enemyVector.removeAt(i);
-				i--;
-				continue;
-			}
-
 			//开火
-			enemy.rproductBulletFpsCounter()++;
-			if (enemy.productBulletFpsCounter() == enemy.productBulletFpsInterval())
+			player.rproductBulletFpsCounter()++;
+			if (player.productBulletFpsCounter() == player.productBulletFpsInterval())
 			{
-				enemy.rproductBulletFpsCounter() = 0;
-
-				//初始化敌机子弹
-				Bullet bullet;
-				//设置敌机子弹图片
-				bullet.rimage() = enemyBulletImage;
-				//设置敌机子弹宽高
-				bullet.rwidth() = bullet.image().width();
-				bullet.rheight() = bullet.image().height();
-				//设置敌机子弹坐标
-				bullet.rx() = enemy.x() + enemy.width() / 2 - bullet.width() / 2;
-				bullet.ry() = enemy.y() + enemy.height();
-				//设置敌机子弹每帧的行进距离
-				bullet.rdy() = 5 * 60 / fps;
-				//压入敌机子弹数组
-				enemyBulletVector.append(bullet);
+				player.rproductBulletFpsCounter() = 0;
+				if (player.isFiring())
+				{
+					//初始化玩家子弹
+					Bullet bullet;
+					//设置玩家子弹图片
+					bullet.rimage() = playerBulletImage;
+					//设置玩家子弹宽高
+					bullet.rwidth() = bullet.image().width();
+					bullet.rheight() = bullet.image().height();
+					//设置玩家子弹坐标
+					bullet.rx() = player.x() + player.width() / 2 - bullet.width() / 2;
+					bullet.ry() = player.y() - bullet.y();
+					//设置玩家子弹每帧行进距离
+					bullet.rdy() = 10 * 60 / fps;
+					//将玩家子弹压入玩家子弹数组便于管理计算
+					playerBulletVector.append(bullet);
+				}
 			}
 
 			//切换常态图片
-			enemy.rnormalImageChangeFpsCounter()++;
-			if (enemy.normalImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
+			player.rnormalImageChangeFpsCounter()++;
+			if (player.normalImageChangeFpsCounter() == player.imageChangeFpsInterval())
 			{
-				enemy.rnormalImageChangeFpsCounter() = 0;
-				enemy.rimage() = enemy.normalImageVector()[enemy.nowNormalImageIndex()];
-				enemy.rnowNormalImageIndex()++;
-				if (enemy.nowNormalImageIndex() >= enemy.normalImageVector().size())
+				player.rnormalImageChangeFpsCounter() = 0;
+				player.rimage() = player.normalImageVector()[player.nowNormalImageIndex()];
+				player.rnowNormalImageIndex()++;
+				//倘若一轮图片显示完了之后，继续显示下一轮图片
+				if (player.nowNormalImageIndex() >= player.normalImageVector().size())
 				{
-					enemy.rnowNormalImageIndex() = 0;
+					player.rnowNormalImageIndex() = 0;
+				}
+			}
+
+			//移动
+			player.move(0, height(), 0, width());
+
+			//如果撞上敌机
+			for (int i = 0; i < enemyVector.size(); i++)
+			{
+				Enemy &enemy = enemyVector[i];
+				if (player.isCollided(enemy))
+				{
+					player.rlife() = 0;
+					enemy.rlife() = 0;
 				}
 			}
 		}
-		//否则展示损毁图片，展示完了之后从数组中推出去
+		//否则显示损毁过程
 		else
 		{
-			enemy.rdestroyImageChangeFpsCounter()++;
-			if (enemy.destroyImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
+			//切换损毁图片
+			player.rdestroyImageChangeFpsCounter()++;
+			if (player.destroyImageChangeFpsCounter() == player.imageChangeFpsInterval())
 			{
-				enemy.rdestroyImageChangeFpsCounter() = 0;
-				//倘若损毁图片都展示完了则从数组中推出去
-				if (enemy.nowDestroyImageIndex() >= enemy.destroyImageVector().size())
+				player.rdestroyImageChangeFpsCounter() = 0;
+				//倘若一轮图片显示完了之后，停止游戏画面更新，进入游戏结束阶段
+				if (player.nowDestroyImageIndex() >= player.destroyImageVector().size())
+				{
+					gameCycleTimer->stop();
+
+					//游戏结束
+				}
+				//否则显示下一张图片
+				else
+				{
+					player.rimage() = player.destroyImageVector()[player.nowDestroyImageIndex()];
+					player.rnowDestroyImageIndex()++;
+				}
+			}
+		}
+
+
+		//计算敌机状态
+		//敌机产生
+		productEnemyFpsCounter++;
+		if (productEnemyFpsCounter == productEnemyFpsInterval)
+		{
+			productEnemyFpsCounter = 0;
+
+			int enemyIndex = qrand() % 13;
+
+			//初始化敌机
+			Enemy enemy;
+			if (enemyIndex >= 0 & enemyIndex <= 8)
+			{
+				//设置敌机的常态图片
+				enemy.rnormalImageVector() = enemy1NormalImageVector;
+				//设置敌机的损毁图片
+				enemy.rdestroyImageVector() = enemy1DestroyImageVector;
+				//设置敌机每隔多少帧产生一次子弹
+				enemy.rproductBulletFpsInterval() = 1000 / 60 * 50 / (1000 / fps);
+				//设置敌机每帧在y方向上的行进距离
+				enemy.rdy() = 3 * 60 / fps;
+			}
+			else if (enemyIndex >= 9 && enemyIndex <= 11)
+			{
+				//设置敌机的常态图片
+				enemy.rnormalImageVector() = enemy2NormalImageVector;
+				//设置敌机的损毁图片
+				enemy.rdestroyImageVector() = enemy2DestroyImageVector;
+				//设置敌机每隔多少帧产生一次子弹
+				enemy.rproductBulletFpsInterval() = 1000 / 60 * 45 / (1000 / fps);
+				//设置敌机每帧在y方向上的行进距离
+				enemy.rdy() = 2 * 60 / fps;
+				//设置敌机生命
+				enemy.rlife() = 6;
+			}
+			else if (enemyIndex == 12)
+			{
+				//设置敌机的常态图片
+				enemy.rnormalImageVector() = enemy3NormalImageVector;
+				//设置敌机的损毁图片
+				enemy.rdestroyImageVector() = enemy3DestroyImageVector;
+				//设置敌机每隔多少帧产生一次子弹
+				enemy.rproductBulletFpsInterval() = 1000 / 60 * 40 / (1000 / fps);
+				//设置敌机每帧在y方向上的行进距离
+				enemy.rdy() = 1 * 60 / fps;
+				//设置敌机生命
+				enemy.rlife() = 16;
+			}
+			//设置敌机每隔多少帧切换一张图片
+			enemy.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
+			//设置敌机一开始的图片
+			enemy.rimage() = enemy.normalImageVector()[0];
+			//设置敌机一开始的宽高
+			enemy.rwidth() = enemy.image().width();
+			enemy.rheight() = enemy.image().height();
+			//设置敌机一开始的随机坐标
+			enemy.rx() = qrand() % (width() - enemy.width() + 1);
+			enemy.ry() = -enemy.height();
+
+			//敌机加入数组
+			enemyVector.append(enemy);
+		}
+
+		//计算状态
+		for (int i = 0; i < enemyVector.size(); i++)
+		{
+			Enemy &enemy = enemyVector[i];
+
+			//如果敌机活着
+			if (enemy.life() > 0)
+			{
+				//移动
+				enemy.ry() += enemy.dy();
+				//超出地图边界则从内存中删除
+				if (enemy.y() >= height())
 				{
 					enemyVector.removeAt(i);
 					i--;
 					continue;
 				}
-				//否则继续展示下一张图片
-				else
+
+				//开火
+				enemy.rproductBulletFpsCounter()++;
+				if (enemy.productBulletFpsCounter() == enemy.productBulletFpsInterval())
 				{
-					enemy.rimage() = enemy.destroyImageVector()[enemy.nowDestroyImageIndex()];
-					enemy.rnowDestroyImageIndex()++;
+					enemy.rproductBulletFpsCounter() = 0;
+
+					//初始化敌机子弹
+					Bullet bullet;
+					//设置敌机子弹图片
+					bullet.rimage() = enemyBulletImage;
+					//设置敌机子弹宽高
+					bullet.rwidth() = bullet.image().width();
+					bullet.rheight() = bullet.image().height();
+					//设置敌机子弹坐标
+					bullet.rx() = enemy.x() + enemy.width() / 2 - bullet.width() / 2;
+					bullet.ry() = enemy.y() + enemy.height();
+					//设置敌机子弹每帧的行进距离
+					bullet.rdy() = 5 * 60 / fps;
+					//压入敌机子弹数组
+					enemyBulletVector.append(bullet);
+				}
+
+				//切换常态图片
+				enemy.rnormalImageChangeFpsCounter()++;
+				if (enemy.normalImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
+				{
+					enemy.rnormalImageChangeFpsCounter() = 0;
+					enemy.rimage() = enemy.normalImageVector()[enemy.nowNormalImageIndex()];
+					enemy.rnowNormalImageIndex()++;
+					if (enemy.nowNormalImageIndex() >= enemy.normalImageVector().size())
+					{
+						enemy.rnowNormalImageIndex() = 0;
+					}
+				}
+			}
+			//否则展示损毁图片，展示完了之后从数组中推出去
+			else
+			{
+				enemy.rdestroyImageChangeFpsCounter()++;
+				if (enemy.destroyImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
+				{
+					enemy.rdestroyImageChangeFpsCounter() = 0;
+					//倘若损毁图片都展示完了则从数组中推出去
+					if (enemy.nowDestroyImageIndex() >= enemy.destroyImageVector().size())
+					{
+						enemyVector.removeAt(i);
+						i--;
+						continue;
+					}
+					//否则继续展示下一张图片
+					else
+					{
+						enemy.rimage() = enemy.destroyImageVector()[enemy.nowDestroyImageIndex()];
+						enemy.rnowDestroyImageIndex()++;
+					}
 				}
 			}
 		}
-	}
 
 
-	//计算子弹状态
-	//玩家子弹
-	for (int i = 0; i < playerBulletVector.size(); i++)
-	{
+		//计算子弹状态
+		//玩家子弹
+		for (int i = 0; i < playerBulletVector.size(); i++)
+		{
+			//子弹移动
+			Bullet &bullet = playerBulletVector[i];
+			bullet.ry() -= bullet.dy();
+			//超出地图边界则从内存中删除
+			if (bullet.y() + bullet.height() <= 0)
+			{
+				playerBulletVector.removeAt(i);
+				i--;
+			}
+			//否则判断是否撞到了存活敌机
+			else
+			{
+				for (int j = 0; j < enemyVector.size(); j++)
+				{
+					Enemy &enemy = enemyVector[j];
+					//如果撞到了
+					if (bullet.isCollided(enemy) && enemy.life() > 0)
+					{
+						//敌机生命值扣减
+						enemy.rlife()--;
+						//切换到损态图片
+						if (enemy.life() <= 4 && enemy.normalImageVector()[0].cacheKey() == enemy2NormalImageVector[0].cacheKey())
+						{
+							enemy.rnormalImageVector() = enemy2HitImageVector;
+							enemy.rnowNormalImageIndex() = 0;
+						}
+						else if (enemy.life() <= 8 && enemy.normalImageVector()[0].cacheKey() == enemy3NormalImageVector[0].cacheKey())
+						{
+							enemy.rnormalImageVector() = enemy3HitImageVector;
+							enemy.rnowNormalImageIndex() = 0;
+						}
+						//子弹删除
+						playerBulletVector.removeAt(i);
+						i--;
+						break;
+					}
+				}
+			}
+		}
+
+		//敌机子弹
 		//子弹移动
-		Bullet &bullet = playerBulletVector[i];
-		bullet.ry() -= bullet.dy();
-		//超出地图边界则从内存中删除
-		if (bullet.y() + bullet.height() <= 0)
+		for (int i = 0; i < enemyBulletVector.size(); i++)
 		{
-			playerBulletVector.removeAt(i);
-			i--;
-		}
-		//否则判断是否撞到了存活敌机
-		else
-		{
-			for (int j = 0; j < enemyVector.size(); j++)
+			Bullet &bullet = enemyBulletVector[i];
+			bullet.ry() += bullet.dy();
+			//如果子弹超出地图边界
+			if (bullet.y() >= height())
 			{
-				Enemy &enemy = enemyVector[j];
-				//如果撞到了
-				if (bullet.isCollided(enemy) && enemy.life() > 0)
-				{
-					//敌机生命值扣减
-					enemy.rlife()--;
-					//切换到损态图片
-					if (enemy.life() <= 4 && enemy.normalImageVector()[0].cacheKey() == enemy2NormalImageVector[0].cacheKey())
-					{
-						enemy.rnormalImageVector() = enemy2HitImageVector;
-						enemy.rnowNormalImageIndex() = 0;
-					}
-					else if (enemy.life() <= 8 && enemy.normalImageVector()[0].cacheKey() == enemy3NormalImageVector[0].cacheKey())
-					{
-						enemy.rnormalImageVector() = enemy3HitImageVector;
-						enemy.rnowNormalImageIndex() = 0;
-					}
-					//子弹删除
-					playerBulletVector.removeAt(i);
-					i--;
-					break;
-				}
-			}
-		}
-	}
-
-	//敌机子弹
-	//子弹移动
-	for (int i = 0; i < enemyBulletVector.size(); i++)
-	{
-		Bullet &bullet = enemyBulletVector[i];
-		bullet.ry() += bullet.dy();
-		//如果子弹超出地图边界
-		if (bullet.y() >= height())
-		{
-			enemyBulletVector.removeAt(i);
-			i--;
-		}
-		//否则判断是否打到了玩家飞机
-		else
-		{
-			if (bullet.isCollided(player) && player.life() > 0)
-			{
-				player.rlife()--;
 				enemyBulletVector.removeAt(i);
 				i--;
+			}
+			//否则判断是否打到了玩家飞机
+			else
+			{
+				if (bullet.isCollided(player) && player.life() > 0)
+				{
+					player.rlife()--;
+					enemyBulletVector.removeAt(i);
+					i--;
+				}
 			}
 		}
 	}

@@ -15,8 +15,15 @@ class GameScene : public Scene
 private:
 	//图片
 	QPixmap backgroundImage; //背景图片
-	QPixmap againImage;
-	QPixmap gameoverImage;
+
+	QPixmap againImage; //再来一次游戏按钮
+	QPixmap gameoverImage; //游戏结束按钮
+
+	QPixmap pauseNorImage; //暂停按钮（没按下时）
+	QPixmap pausePressedImage; //暂停按钮（按下时）
+	QPixmap resumeNorImage; //继续按钮（没按下时）
+	QPixmap resumePressedImage; //继续按钮（按下时）
+	QPixmap pauseResumeImage; //实际被绘制的暂停/继续按钮
 
 	QVector<QPixmap> playerNormalImageVector; //玩家常态图片
 	QVector<QPixmap> playerDestroyImageVector; //玩家损毁图片
@@ -52,6 +59,11 @@ private:
 	//帧数
 	int fps;
 
+	//是否暂停
+	bool isPause;
+	//暂停/继续按钮是否被按下
+	bool isPauseResumeClicked;
+
 	//游戏循环定时器
 	QTimer *gameCycleTimer;
 
@@ -69,6 +81,10 @@ public:
 protected:
 	//重写绘制事件
 	void paintEvent(QPaintEvent *event) override;
+	//重写鼠标按下事件
+	void mousePressEvent(QMouseEvent *event) override;
+	//重写鼠标释放事件
+	void mouseReleaseEvent(QMouseEvent *event) override;
 
 	private slots:
 	//游戏循环
