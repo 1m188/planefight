@@ -63,6 +63,8 @@ void GameScene::init()
 	playerBulletImage.load(":/Resources/image/bullet1.png");
 	enemyBulletImage.load(":/Resources/image/bullet2.png");
 
+	bombPropsImage.load(":/Resources/image/bomb_supply.png");
+
 	//初始化帧数
 	fps = 60;
 
@@ -96,6 +98,10 @@ void GameScene::init()
 	productEnemyFpsCounter = 0;
 	productEnemyFpsInterval = 1000 / 60 * 100 / (1000 / fps);
 	srand(QTime::currentTime().msec()); //初始化随机种子
+
+	//初始化道具产生
+	productPropsFpsCounter = 0;
+	productPropsFpsInterval = 1000 / 60 * 1000 / (1000 / fps);
 
 	//启动游戏循环
 	gameCycleTimer = new QTimer(this);
@@ -235,6 +241,12 @@ void GameScene::paintEvent(QPaintEvent * event)
 		painter->drawPixmap(enemyBullet.x(), enemyBullet.y(), enemyBullet.width(), enemyBullet.height(), enemyBullet.image());
 	}
 
+	//绘制道具
+	for (Props &props : propsVector)
+	{
+		painter->drawPixmap(props.x(), props.y(), props.width(), props.height(), props.image());
+	}
+
 	//绘制暂停/继续按钮
 	painter->drawPixmap(width() - pauseResumeImage.width(), 0, pauseResumeImage.width(), pauseResumeImage.height(), pauseResumeImage);
 
@@ -252,6 +264,9 @@ void GameScene::gameCycleSlot()
 		//如果玩家存活
 		if (player.life() > 0)
 		{
+			//移动
+			player.move(0, height(), 0, width());
+
 			//开火
 			player.rproductBulletFpsCounter()++;
 			if (player.productBulletFpsCounter() == player.productBulletFpsInterval())
@@ -289,9 +304,6 @@ void GameScene::gameCycleSlot()
 					player.rnowNormalImageIndex() = 0;
 				}
 			}
-
-			//移动
-			player.move(0, height(), 0, width());
 
 			//如果撞上敌机
 			for (int i = 0; i < enemyVector.size(); i++)
@@ -535,6 +547,43 @@ void GameScene::gameCycleSlot()
 					enemyBulletVector.removeAt(i);
 					i--;
 				}
+			}
+		}
+
+		//计算道具
+		//道具产生
+		productPropsFpsCounter++;
+		if (productPropsFpsCounter == productPropsFpsInterval)
+		{
+			productPropsFpsCounter = 0;
+
+			//初始化道具
+			Props props;
+			//设置类型
+			props.rtype() = Props::Type::Bomb;
+			//设置图片
+			props.rimage() = bombPropsImage;
+			//设置宽高
+			props.rwidth() = props.image().width();
+			props.rheight() = props.image().height();
+			//设置坐标
+			props.rx() = qrand() % (width() - props.width() + 1);
+			props.ry() = -props.height();
+			//设置每帧移动距离
+			props.rdy() = 2 * 60 / fps;
+			//加入数组方便统一管理
+			propsVector.append(props);
+		}
+
+		//道具移动
+		for (int i = 0; i < propsVector.size(); i++)
+		{
+			Props &props = propsVector[i];
+			props.ry() += props.dy();
+			if (props.y() >= height())
+			{
+				propsVector.removeAt(i);
+				i--;
 			}
 		}
 	}

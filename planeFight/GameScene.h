@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Props.h"
 
 //游戏场景
 class GameScene : public Scene
@@ -42,6 +43,8 @@ private:
 	QPixmap playerBulletImage; //玩家子弹图片
 	QPixmap enemyBulletImage; //敌机子弹图片
 
+	QPixmap bombPropsImage; //炸弹道具图片
+
 	//玩家
 	Player player;
 	//玩家子弹数组
@@ -50,11 +53,18 @@ private:
 	QVector<Enemy> enemyVector;
 	//敌机子弹数组
 	QVector<Bullet> enemyBulletVector;
+	//道具数组
+	QVector<Props> propsVector;
 
 	//敌机产生计帧器
 	int productEnemyFpsCounter;
 	//每隔多少帧产生一架敌机
 	int productEnemyFpsInterval;
+
+	//道具产生计帧器
+	int productPropsFpsCounter;
+	//每隔多少帧产生一个随机道具
+	int productPropsFpsInterval;
 
 	//帧数
 	int fps;
