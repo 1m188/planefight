@@ -392,9 +392,9 @@ void GameScene::gameCycleSlot()
 
 	//计算子弹状态
 	//玩家子弹
-	//子弹移动
 	for (int i = 0; i < playerBulletVector.size(); i++)
 	{
+		//子弹移动
 		Bullet &bullet = playerBulletVector[i];
 		bullet.ry() -= bullet.dy();
 		//超出地图边界则从内存中删除
@@ -402,6 +402,24 @@ void GameScene::gameCycleSlot()
 		{
 			playerBulletVector.removeAt(i);
 			i--;
+		}
+		//否则判断是否撞到了存活敌机
+		else
+		{
+			for (int j = 0; j < enemyVector.size(); j++)
+			{
+				Enemy &enemy = enemyVector[j];
+				//如果撞到了
+				if (bullet.isCollided(enemy) && enemy.life() > 0)
+				{
+					//敌机生命值扣减
+					enemy.rlife()--;
+					//子弹删除
+					playerBulletVector.removeAt(i);
+					i--;
+					break;
+				}
+			}
 		}
 	}
 
