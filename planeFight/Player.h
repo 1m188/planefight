@@ -19,6 +19,8 @@ private:
 
 	//是否开火
 	bool isFiring_ = false;
+	//是否火力加强
+	bool isStrengthenFire_ = false;
 
 	//常态图片数组
 	QVector<QPixmap> normalImageVector_;
@@ -73,6 +75,11 @@ public:
 	//获取是否开火
 	const bool isFiring() const { return isFiring_; }
 	bool &risFiring() { return isFiring_; }
+
+	//获取是否火力加强
+	const bool isStrengthenFire() const { return isStrengthenFire_; }
+	//获取是否火力加强的引用
+	bool &risStrengthenFire() { return isStrengthenFire_; }
 
 	//获取常态/损毁图片数组
 	QVector<QPixmap> normalImageVector() { return normalImageVector_; }
