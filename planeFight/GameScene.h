@@ -81,6 +81,8 @@ private:
 	//帧数
 	int fps;
 
+	//游戏是否结束
+	bool isGameOver;
 	//是否暂停
 	bool isPause;
 	//暂停/继续按钮是否被按下

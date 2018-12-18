@@ -75,6 +75,8 @@ void GameScene::init()
 	//初始化分数
 	score = 0;
 
+	//游戏没有结束
+	isGameOver = false;
 	//初始化是否暂停标志
 	isPause = false;
 	//没有被按下
@@ -347,8 +349,8 @@ void GameScene::paintEvent(QPaintEvent * event)
 
 void GameScene::gameCycleSlot()
 {
-	//如果没有暂停，则计算状态
-	if (!isPause)
+	//如果没有暂停且游戏没有结束，则计算状态
+	if (!isPause && !isGameOver)
 	{
 		//计算状态
 		//计算玩家状态
@@ -486,10 +488,10 @@ void GameScene::gameCycleSlot()
 			if (player.destroyImageChangeFpsCounter() == player.imageChangeFpsInterval())
 			{
 				player.rdestroyImageChangeFpsCounter() = 0;
-				//倘若一轮图片显示完了之后，停止游戏画面更新，进入游戏结束阶段
+				//倘若一轮图片显示完了之后，进入游戏结束阶段
 				if (player.nowDestroyImageIndex() >= player.destroyImageVector().size())
 				{
-					gameCycleTimer->stop();
+					isGameOver = true;
 
 					//游戏结束
 				}
