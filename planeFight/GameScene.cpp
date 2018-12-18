@@ -79,6 +79,8 @@ void GameScene::init()
 	isPause = false;
 	//没有被按下
 	isPauseResumeClicked = false;
+	//不在
+	isClickedInPuaseButton = false;
 
 	//初始化玩家飞机
 	//设置玩家飞机常态图片
@@ -185,6 +187,7 @@ void GameScene::mousePressEvent(QMouseEvent * event)
 		//按到了暂停/继续按钮
 		if (pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height())
 		{
+			isClickedInPuaseButton = true;
 			if (isPause)
 			{
 				pauseResumeImage = resumePressedImage;
@@ -196,6 +199,43 @@ void GameScene::mousePressEvent(QMouseEvent * event)
 		}
 	}
 	Scene::mousePressEvent(event);
+}
+
+void GameScene::mouseMoveEvent(QMouseEvent * event)
+{
+	//当玩家飞机还存活的时候，即游戏还未结束的时候
+	if (player.life() > 0)
+	{
+		QPoint pos = event->pos();
+		//原来的鼠标按下处为按钮
+		if (isClickedInPuaseButton)
+		{
+			//鼠标移动到了按钮外面
+			if (!(pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height()))
+			{
+				if (isPause)
+				{
+					pauseResumeImage = resumeNorImage;
+				}
+				else
+				{
+					pauseResumeImage = pauseNorImage;
+				}
+			}
+			else
+			{
+				if (isPause)
+				{
+					pauseResumeImage = resumePressedImage;
+				}
+				else
+				{
+					pauseResumeImage = pausePressedImage;
+				}
+			}
+		}
+	}
+	Scene::mouseMoveEvent(event);
 }
 
 void GameScene::keyReleaseEvent(QKeyEvent * event)
@@ -232,8 +272,8 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 	if (player.life() > 0)
 	{
 		QPoint pos = event->pos();
-		//从暂停/继续按钮处释放
-		if (pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height())
+		//从暂停/继续按钮处释放且原来鼠标按下的坐标也要为按钮处
+		if (pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height() && isClickedInPuaseButton)
 		{
 			if (isPause)
 			{
@@ -245,6 +285,7 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 			}
 			isPause = !isPause;
 		}
+		isClickedInPuaseButton = false;
 	}
 	Scene::mouseReleaseEvent(event);
 }

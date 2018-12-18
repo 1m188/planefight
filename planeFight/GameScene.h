@@ -85,6 +85,8 @@ private:
 	bool isPause;
 	//暂停/继续按钮是否被按下
 	bool isPauseResumeClicked;
+	//鼠标一开始按下的时候的坐标是否在暂停/继续按钮处
+	bool isClickedInPuaseButton;
 
 	//游戏循环定时器
 	QTimer *gameCycleTimer;
@@ -107,6 +109,8 @@ protected:
 	void mousePressEvent(QMouseEvent *event) override;
 	//重写鼠标释放事件
 	void mouseReleaseEvent(QMouseEvent *event) override;
+	//重写鼠标按住后的移动事件
+	void mouseMoveEvent(QMouseEvent *event) override;
 
 	private slots:
 	//游戏循环
