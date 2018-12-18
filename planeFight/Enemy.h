@@ -39,6 +39,24 @@ public:
 	Enemy();
 	~Enemy();
 
+	//表示敌机类型的枚举
+	enum Type
+	{
+		//无
+		None,
+		//士兵（第一类敌机）
+		Soldier,
+		//领导（第二类敌机）
+		Leader,
+		//将军（第三类敌机）
+		General,
+	};
+
+	//获取敌机种类标识
+	const Enemy::Type type() const { return type_; }
+	//获取敌机种类标识的引用
+	Enemy::Type &rtype() { return type_; }
+
 	//获取每次在y方向上移动的距离
 	const int dy() const { return dy_; }
 	//获取每次在y方向上移动的距离的引用
@@ -88,6 +106,10 @@ public:
 	//获取生命数目
 	const int life() const { return life_; }
 	int &rlife() { return life_; }
+
+private:
+	//标识敌机种类
+	Enemy::Type type_ = Enemy::Type::None;
 };
 
 #endif // ENEMY_H
