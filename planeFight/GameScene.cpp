@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "Director.h"
 #include "QPainter"
 #include "QKeyEvent"
 #include "QTime"
@@ -310,7 +311,11 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 		//点击释放都在重新再来按钮则重新再来
 		if (againRect.contains(pos) && againRect.contains(originalPoint))
 		{
-			
+			GameScene *gameScene = new GameScene(Director::getInstance()->getWindow());
+			Director::getInstance()->setNowScene(gameScene);
+			gameScene->init();
+			gameScene->show();
+			deleteLater();
 		}
 		//...结束游戏
 		else if (gameOverRect.contains(pos) && gameOverRect.contains(originalPoint))
