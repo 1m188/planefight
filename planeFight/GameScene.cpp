@@ -72,6 +72,9 @@ void GameScene::init()
 	//初始化帧数
 	fps = 60;
 
+	//初始化分数
+	score = 0;
+
 	//初始化是否暂停标志
 	isPause = false;
 	//没有被按下
@@ -153,6 +156,19 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 				for (Enemy &enemy : enemyVector)
 				{
 					enemy.rlife() = 0;
+					//分数更新
+					if (enemy.type() == Enemy::Type::Soldier)
+					{
+						score += 1;
+					}
+					else if (enemy.type() == Enemy::Type::Leader)
+					{
+						score += 2;
+					}
+					else if (enemy.type() == Enemy::Type::General)
+					{
+						score += 3;
+					}
 				}
 			}
 		}
@@ -280,6 +296,10 @@ void GameScene::paintEvent(QPaintEvent * event)
 	painter->setFont(QFont(u8"微软雅黑", 25, 10));
 	painter->drawText(width() - bombImage.width(), height() - bombImage.height(), bombImage.width(), bombImage.height(), Qt::AlignCenter, QString::number(player.bombNum()));
 
+	//绘制分数
+	painter->setFont(QFont(u8"微软雅黑", 15, 10));
+	painter->drawText(0, 0, 120, 50, Qt::AlignCenter, tr(u8"分数：%1").arg(score));
+
 	painter->end();
 	Scene::paintEvent(event);
 }
@@ -384,6 +404,18 @@ void GameScene::gameCycleSlot()
 				{
 					player.rlife() = 0;
 					enemy.rlife() = 0;
+					if (enemy.type() == Enemy::Type::Soldier)
+					{
+						score += 1;
+					}
+					else if (enemy.type() == Enemy::Type::Leader)
+					{
+						score += 2;
+					}
+					else if (enemy.type() == Enemy::Type::General)
+					{
+						score += 3;
+					}
 				}
 			}
 
@@ -443,6 +475,8 @@ void GameScene::gameCycleSlot()
 			Enemy enemy;
 			if (enemyIndex >= 0 & enemyIndex <= 8)
 			{
+				//设置敌机类型
+				enemy.rtype() = Enemy::Type::Soldier;
 				//设置敌机的常态图片
 				enemy.rnormalImageVector() = enemy1NormalImageVector;
 				//设置敌机的损毁图片
@@ -454,6 +488,8 @@ void GameScene::gameCycleSlot()
 			}
 			else if (enemyIndex >= 9 && enemyIndex <= 11)
 			{
+				//设置敌机类型
+				enemy.rtype() = Enemy::Type::Leader;
 				//设置敌机的常态图片
 				enemy.rnormalImageVector() = enemy2NormalImageVector;
 				//设置敌机的损毁图片
@@ -467,6 +503,8 @@ void GameScene::gameCycleSlot()
 			}
 			else if (enemyIndex == 12)
 			{
+				//设置敌机类型
+				enemy.rtype() = Enemy::Type::General;
 				//设置敌机的常态图片
 				enemy.rnormalImageVector() = enemy3NormalImageVector;
 				//设置敌机的损毁图片
@@ -595,6 +633,22 @@ void GameScene::gameCycleSlot()
 					{
 						//敌机生命值扣减
 						enemy.rlife()--;
+						//获取分数
+						if (enemy.life() == 0)
+						{
+							if (enemy.type() == Enemy::Type::Soldier)
+							{
+								score += 1;
+							}
+							else if (enemy.type() == Enemy::Type::Leader)
+							{
+								score += 2;
+							}
+							else if (enemy.type() == Enemy::Type::General)
+							{
+								score += 3;
+							}
+						}
 						//切换到损态图片
 						if (enemy.life() <= 4 && enemy.normalImageVector()[0].cacheKey() == enemy2NormalImageVector[0].cacheKey())
 						{

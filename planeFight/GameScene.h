@@ -75,6 +75,9 @@ private:
 	//弹药补给道具持续帧数
 	int bulletPropsLastFps;
 
+	//当前分数
+	int score;
+
 	//帧数
 	int fps;
 
