@@ -331,16 +331,16 @@ void GameScene::paintEvent(QPaintEvent * event)
 
 	//绘制生命
 	painter->drawPixmap(0, height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), lifeImage);
-	painter->setFont(QFont(u8"微软雅黑", 25, 10));
+	painter->setFont(QFont(u8"微软雅黑", 25, QFont::Light));
 	painter->drawText(lifeImage.width(), height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), Qt::AlignCenter, QString::number(player.life()));
 
 	//绘制炸弹数目
 	painter->drawPixmap(width() - bombImage.width() * 2, height() - bombImage.height(), bombImage.width(), bombImage.height(), bombImage);
-	painter->setFont(QFont(u8"微软雅黑", 25, 10));
+	painter->setFont(QFont(u8"微软雅黑", 25, QFont::Light));
 	painter->drawText(width() - bombImage.width(), height() - bombImage.height(), bombImage.width(), bombImage.height(), Qt::AlignCenter, QString::number(player.bombNum()));
 
 	//绘制分数
-	painter->setFont(QFont(u8"微软雅黑", 15, 10));
+	painter->setFont(QFont(u8"微软雅黑", 15, QFont::Light));
 	painter->drawText(0, 0, 120, 50, Qt::AlignCenter, tr(u8"分数：%1").arg(score));
 
 	//游戏结束则绘制相关信息和选择
