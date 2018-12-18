@@ -48,6 +48,9 @@
     <Filter Include="精灵\道具">
       <UniqueIdentifier>{c23916ee-65e3-40f4-b893-cd965a895a5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="场景\开始场景">
+      <UniqueIdentifier>{c97e3992-4ed2-494c-a902-588b6f657d65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -99,6 +102,15 @@
     <ClCompile Include="Props.cpp">
       <Filter>精灵\道具</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_StartScene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_StartScene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>场景\开始场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PlaneFight.qrc">
@@ -112,6 +124,9 @@
     </CustomBuild>
     <CustomBuild Include="Scene.h">
       <Filter>场景</Filter>
+    </CustomBuild>
+    <CustomBuild Include="StartScene.h">
+      <Filter>场景\开始场景</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
