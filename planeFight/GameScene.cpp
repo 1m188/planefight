@@ -67,6 +67,7 @@ void GameScene::init()
 
 	bombImage.load(":/Resources/image/bomb.png");
 	bombPropsImage.load(":/Resources/image/bomb_supply.png");
+	bulletPropsImage.load(":/Resources/image/bullet_supply.png");
 
 	//初始化帧数
 	fps = 60;
@@ -105,6 +106,10 @@ void GameScene::init()
 	//初始化道具产生
 	productPropsFpsCounter = 0;
 	productPropsFpsInterval = 1000 / 60 * 1000 / (1000 / fps);
+
+	//初始化弹药补给的持续
+	bulletPropsLastFpsCounter = 0;
+	bulletPropsLastFps = 1000 / 60 * 700 / (1000 / fps);
 
 	//启动游戏循环
 	gameCycleTimer = new QTimer(this);
@@ -313,6 +318,47 @@ void GameScene::gameCycleSlot()
 					bullet.rdy() = 10 * 60 / fps;
 					//将玩家子弹压入玩家子弹数组便于管理计算
 					playerBulletVector.append(bullet);
+
+					//火力加强
+					if (player.isStrengthenFire())
+					{
+						bulletPropsLastFpsCounter++;
+						if (bulletPropsLastFpsCounter == bulletPropsLastFps / player.productBulletFpsInterval())
+						{
+							bulletPropsLastFpsCounter = 0;
+							player.risStrengthenFire() = false;
+						}
+
+						//初始化玩家子弹
+						Bullet bullet1;
+						//设置玩家子弹图片
+						bullet1.rimage() = playerBulletImage;
+						//设置玩家子弹宽高
+						bullet1.rwidth() = bullet1.image().width();
+						bullet1.rheight() = bullet1.image().height();
+						//设置玩家子弹坐标
+						bullet1.rx() = player.x() + player.width() / 6;
+						bullet1.ry() = player.y() - bullet1.y();
+						//设置玩家子弹每帧行进距离
+						bullet1.rdy() = 10 * 60 / fps;
+						//将玩家子弹压入玩家子弹数组便于管理计算
+						playerBulletVector.append(bullet1);
+
+						//初始化玩家子弹
+						Bullet bullet2;
+						//设置玩家子弹图片
+						bullet2.rimage() = playerBulletImage;
+						//设置玩家子弹宽高
+						bullet2.rwidth() = bullet2.image().width();
+						bullet2.rheight() = bullet2.image().height();
+						//设置玩家子弹坐标
+						bullet2.rx() = player.x() + player.width() - player.width() / 6;
+						bullet2.ry() = player.y() - bullet2.y();
+						//设置玩家子弹每帧行进距离
+						bullet2.rdy() = 10 * 60 / fps;
+						//将玩家子弹压入玩家子弹数组便于管理计算
+						playerBulletVector.append(bullet2);
+					}
 				}
 			}
 
@@ -350,6 +396,10 @@ void GameScene::gameCycleSlot()
 					if (props.type() == Props::Type::Bomb)
 					{
 						player.rbombNum()++;
+					}
+					else if (props.type() == Props::Type::Bullet)
+					{
+						player.risStrengthenFire() = true;
 					}
 					propsVector.removeAt(i);
 				}
@@ -599,9 +649,16 @@ void GameScene::gameCycleSlot()
 			//初始化道具
 			Props props;
 			//设置类型
-			props.rtype() = Props::Type::Bomb;
+			props.rtype() = static_cast<Props::Type>(qrand() % 2 + 1);
 			//设置图片
-			props.rimage() = bombPropsImage;
+			if (props.type() == Props::Type::Bomb)
+			{
+				props.rimage() = bombPropsImage;
+			}
+			else if (props.type() == Props::Type::Bullet)
+			{
+				props.rimage() = bulletPropsImage;
+			}
 			//设置宽高
 			props.rwidth() = props.image().width();
 			props.rheight() = props.image().height();

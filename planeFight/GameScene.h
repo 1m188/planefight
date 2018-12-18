@@ -47,6 +47,7 @@ private:
 
 	QPixmap bombImage; //炸弹图片
 	QPixmap bombPropsImage; //炸弹道具图片
+	QPixmap bulletPropsImage; //弹药补给图片
 
 	//玩家
 	Player player;
@@ -68,6 +69,11 @@ private:
 	int productPropsFpsCounter;
 	//每隔多少帧产生一个随机道具
 	int productPropsFpsInterval;
+
+	//弹药补给计帧器
+	int bulletPropsLastFpsCounter;
+	//弹药补给道具持续帧数
+	int bulletPropsLastFps;
 
 	//帧数
 	int fps;
