@@ -18,7 +18,7 @@ private:
 	QPixmap backgroundImage; //背景图片
 
 	QPixmap againImage; //再来一次游戏按钮
-	QPixmap gameoverImage; //游戏结束按钮
+	QPixmap gameOverImage; //游戏结束按钮
 
 	QPixmap pauseNorImage; //暂停按钮（没按下时）
 	QPixmap pausePressedImage; //暂停按钮（按下时）
@@ -81,14 +81,19 @@ private:
 	//帧数
 	int fps;
 
-	//游戏是否结束
-	bool isGameOver;
 	//是否暂停
 	bool isPause;
 	//暂停/继续按钮是否被按下
 	bool isPauseResumeClicked;
 	//鼠标一开始按下的时候的坐标是否在暂停/继续按钮处
 	bool isClickedInPuaseButton;
+
+	//游戏是否结束
+	bool isGameOver;
+	//游戏结束相关的信息按钮的摆放的位置
+	QRect gameEndTextRect;
+	QRect againRect;
+	QRect gameOverRect;
 
 	//游戏循环定时器
 	QTimer *gameCycleTimer;

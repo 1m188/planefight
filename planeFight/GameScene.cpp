@@ -22,7 +22,7 @@ void GameScene::init()
 	backgroundImage = backgroundImage.scaled(size()); //将背景图片缩放至和窗口一样大，便于绘制
 
 	againImage.load(":/Resources/image/again.png");
-	gameoverImage.load(":/Resources/image/gameover.png");
+	gameOverImage.load(":/Resources/image/gameover.png");
 
 	pauseNorImage.load(":/Resources/image/pause_nor.png");
 	pausePressedImage.load(":/Resources/image/pause_pressed.png");
@@ -83,6 +83,20 @@ void GameScene::init()
 	isPauseResumeClicked = false;
 	//不在
 	isClickedInPuaseButton = false;
+
+	//初始化游戏结束的信息按钮摆放位置
+	gameEndTextRect.setX(0);
+	gameEndTextRect.setY(height() / 3);
+	gameEndTextRect.setWidth(width());
+	gameEndTextRect.setHeight(200);
+	againRect.setX(width() / 2 - againImage.width() / 2);
+	againRect.setY(gameEndTextRect.y() + gameEndTextRect.height() + 50);
+	againRect.setWidth(againImage.width());
+	againRect.setHeight(againImage.height());
+	gameOverRect.setX(width() / 2 - gameOverImage.width() / 2);
+	gameOverRect.setY(againRect.y() + againRect.height() + 50);
+	gameOverRect.setWidth(gameOverImage.width());
+	gameOverRect.setHeight(gameOverImage.height());
 
 	//初始化玩家飞机
 	//设置玩家飞机常态图片
@@ -348,11 +362,11 @@ void GameScene::paintEvent(QPaintEvent * event)
 	{
 		//游戏结束信息
 		painter->setFont(QFont(u8"华文行楷", 40));
-		painter->drawText(0, height() / 3, width(), 200, Qt::AlignCenter, tr(u8"胜败乃兵家常事\n大侠请重新来过"));
+		painter->drawText(gameEndTextRect, Qt::AlignCenter, tr(u8"胜败乃兵家常事\n大侠请重新来过"));
 		//再来一次
-		painter->drawPixmap(width() / 2 - againImage.width() / 2, height() / 3 + 200 + 50, againImage.width(), againImage.height(), againImage);
+		painter->drawPixmap(againRect, againImage);
 		//结束游戏
-		painter->drawPixmap(width() / 2 - gameoverImage.width() / 2, height() / 3 + 200 + 50 + againImage.height() + 50, gameoverImage.width(), gameoverImage.height(), gameoverImage);
+		painter->drawPixmap(gameOverRect, gameOverImage);
 	}
 
 	painter->end();
