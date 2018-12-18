@@ -75,15 +75,18 @@ void GameScene::init()
 	//初始化分数
 	score = 0;
 
-	//游戏没有结束
-	isGameOver = false;
 	//初始化是否暂停标志
 	isPause = false;
 	//没有被按下
 	isPauseResumeClicked = false;
-	//不在
-	isClickedInPuaseButton = false;
+	//暂停/继续按钮位置
+	pauseResumeRect.setX(width() - pauseResumeImage.width());
+	pauseResumeRect.setY(0);
+	pauseResumeRect.setWidth(pauseResumeImage.width());
+	pauseResumeRect.setHeight(pauseResumeImage.height());
 
+	//游戏没有结束
+	isGameOver = false;
 	//初始化游戏结束的信息按钮摆放位置
 	gameEndTextRect.setX(0);
 	gameEndTextRect.setY(height() / 3);
@@ -200,10 +203,10 @@ void GameScene::mousePressEvent(QMouseEvent * event)
 	if (player.life() > 0)
 	{
 		QPoint pos = event->pos();
+		originalPoint = pos;
 		//按到了暂停/继续按钮
-		if (pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height())
+		if (pauseResumeRect.contains(pos))
 		{
-			isClickedInPuaseButton = true;
 			if (isPause)
 			{
 				pauseResumeImage = resumePressedImage;
@@ -224,10 +227,10 @@ void GameScene::mouseMoveEvent(QMouseEvent * event)
 	{
 		QPoint pos = event->pos();
 		//原来的鼠标按下处为按钮
-		if (isClickedInPuaseButton)
+		if (pauseResumeRect.contains(originalPoint))
 		{
 			//鼠标移动到了按钮外面
-			if (!(pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height()))
+			if (!pauseResumeRect.contains(pos))
 			{
 				if (isPause)
 				{
@@ -289,7 +292,7 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 	{
 		QPoint pos = event->pos();
 		//从暂停/继续按钮处释放且原来鼠标按下的坐标也要为按钮处
-		if (pos.x() >= width() - pauseResumeImage.width() && pos.x() <= width() && pos.y() >= 0 && pos.y() <= pauseResumeImage.height() && isClickedInPuaseButton)
+		if (pauseResumeRect.contains(pos) && pauseResumeRect.contains(originalPoint))
 		{
 			if (isPause)
 			{
@@ -301,7 +304,6 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 			}
 			isPause = !isPause;
 		}
-		isClickedInPuaseButton = false;
 	}
 	Scene::mouseReleaseEvent(event);
 }
@@ -341,7 +343,7 @@ void GameScene::paintEvent(QPaintEvent * event)
 	}
 
 	//绘制暂停/继续按钮
-	painter->drawPixmap(width() - pauseResumeImage.width(), 0, pauseResumeImage.width(), pauseResumeImage.height(), pauseResumeImage);
+	painter->drawPixmap(pauseResumeRect, pauseResumeImage);
 
 	//绘制生命
 	painter->drawPixmap(0, height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), lifeImage);

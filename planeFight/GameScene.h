@@ -85,8 +85,11 @@ private:
 	bool isPause;
 	//暂停/继续按钮是否被按下
 	bool isPauseResumeClicked;
-	//鼠标一开始按下的时候的坐标是否在暂停/继续按钮处
-	bool isClickedInPuaseButton;
+	//暂停/继续按钮的位置
+	QRect pauseResumeRect;
+
+	//鼠标一开始按下的时候的坐标
+	QPoint originalPoint;
 
 	//游戏是否结束
 	bool isGameOver;
