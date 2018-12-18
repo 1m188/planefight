@@ -199,13 +199,12 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 
 void GameScene::mousePressEvent(QMouseEvent * event)
 {
+	originalPoint = event->pos();
 	//当玩家飞机还存活的时候，即游戏还未结束的时候
 	if (player.life() > 0)
 	{
-		QPoint pos = event->pos();
-		originalPoint = pos;
 		//按到了暂停/继续按钮
-		if (pauseResumeRect.contains(pos))
+		if (pauseResumeRect.contains(originalPoint))
 		{
 			if (isPause)
 			{
@@ -287,10 +286,10 @@ void GameScene::keyReleaseEvent(QKeyEvent * event)
 
 void GameScene::mouseReleaseEvent(QMouseEvent * event)
 {
+	QPoint pos = event->pos();
 	//当玩家飞机还存活的时候，即游戏还未结束的时候
 	if (player.life() > 0)
 	{
-		QPoint pos = event->pos();
 		//从暂停/继续按钮处释放且原来鼠标按下的坐标也要为按钮处
 		if (pauseResumeRect.contains(pos) && pauseResumeRect.contains(originalPoint))
 		{
@@ -303,6 +302,20 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 				pauseResumeImage = resumeNorImage;
 			}
 			isPause = !isPause;
+		}
+	}
+	//否则当游戏结束的时候
+	else if (isGameOver)
+	{
+		//点击释放都在重新再来按钮则重新再来
+		if (againRect.contains(pos) && againRect.contains(originalPoint))
+		{
+			
+		}
+		//...结束游戏
+		else if (gameOverRect.contains(pos) && gameOverRect.contains(originalPoint))
+		{
+
 		}
 	}
 	Scene::mouseReleaseEvent(event);
