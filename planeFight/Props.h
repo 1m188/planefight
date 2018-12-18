@@ -17,6 +17,8 @@ public:
 		None,
 		//炸弹
 		Bomb,
+		//弹药补给
+		Bullet,
 	};
 
 	//获取每帧的行进距离
