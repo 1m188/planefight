@@ -343,6 +343,18 @@ void GameScene::paintEvent(QPaintEvent * event)
 	painter->setFont(QFont(u8"微软雅黑", 15, 10));
 	painter->drawText(0, 0, 120, 50, Qt::AlignCenter, tr(u8"分数：%1").arg(score));
 
+	//游戏结束则绘制相关信息和选择
+	if (isGameOver)
+	{
+		//游戏结束信息
+		painter->setFont(QFont(u8"华文行楷", 40));
+		painter->drawText(0, height() / 3, width(), 200, Qt::AlignCenter, tr(u8"胜败乃兵家常事\n大侠请重新来过"));
+		//再来一次
+		painter->drawPixmap(width() / 2 - againImage.width() / 2, height() / 3 + 200 + 50, againImage.width(), againImage.height(), againImage);
+		//结束游戏
+		painter->drawPixmap(width() / 2 - gameoverImage.width() / 2, height() / 3 + 200 + 50 + againImage.height() + 50, gameoverImage.width(), gameoverImage.height(), gameoverImage);
+	}
+
 	painter->end();
 	Scene::paintEvent(event);
 }
