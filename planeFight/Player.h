@@ -134,6 +134,8 @@ public:
 
 	//玩家飞机移动
 	void move(int up, int down, int left, int right);
+	//玩家飞机的图片切换
+	bool changeImage();
 };
 
 #endif // PLAYER_H
