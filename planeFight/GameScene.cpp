@@ -472,18 +472,7 @@ void GameScene::gameCycleSlot()
 			}
 
 			//切换常态图片
-			player.rnormalImageChangeFpsCounter()++;
-			if (player.normalImageChangeFpsCounter() == player.imageChangeFpsInterval())
-			{
-				player.rnormalImageChangeFpsCounter() = 0;
-				player.rimage() = player.normalImageVector()[player.nowNormalImageIndex()];
-				player.rnowNormalImageIndex()++;
-				//倘若一轮图片显示完了之后，继续显示下一轮图片
-				if (player.nowNormalImageIndex() >= player.normalImageVector().size())
-				{
-					player.rnowNormalImageIndex() = 0;
-				}
-			}
+			player.changeImage();
 
 			//如果撞上敌机
 			for (int i = 0; i < enemyVector.size(); i++)
@@ -529,24 +518,10 @@ void GameScene::gameCycleSlot()
 		//否则显示损毁过程
 		else
 		{
-			//切换损毁图片
-			player.rdestroyImageChangeFpsCounter()++;
-			if (player.destroyImageChangeFpsCounter() == player.imageChangeFpsInterval())
+			if (!player.changeImage())
 			{
-				player.rdestroyImageChangeFpsCounter() = 0;
-				//倘若一轮图片显示完了之后，进入游戏结束阶段
-				if (player.nowDestroyImageIndex() >= player.destroyImageVector().size())
-				{
-					isGameOver = true;
-
-					//游戏结束
-				}
-				//否则显示下一张图片
-				else
-				{
-					player.rimage() = player.destroyImageVector()[player.nowDestroyImageIndex()];
-					player.rnowDestroyImageIndex()++;
-				}
+				//游戏结束
+				isGameOver = true;
 			}
 		}
 
