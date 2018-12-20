@@ -107,6 +107,11 @@ public:
 	const int life() const { return life_; }
 	int &rlife() { return life_; }
 
+	//移动
+	//传入参数为地图下边界
+	//没超出地图下边界则返回true，否则返回false
+	bool move(int down);
+
 private:
 	//标识敌机种类
 	Enemy::Type type_ = Enemy::Type::None;

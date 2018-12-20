@@ -604,9 +604,8 @@ void GameScene::gameCycleSlot()
 			if (enemy.life() > 0)
 			{
 				//移动
-				enemy.ry() += enemy.dy();
 				//超出地图边界则从内存中删除
-				if (enemy.y() >= height())
+				if (!enemy.move(height()))
 				{
 					enemyVector.removeAt(i);
 					i--;
