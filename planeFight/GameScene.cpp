@@ -783,7 +783,7 @@ void GameScene::gameCycleSlot()
 			props.rx() = qrand() % (width() - props.width() + 1);
 			props.ry() = -props.height();
 			//设置每帧移动距离
-			props.rdy() = 2 * 60 / fps;
+			props.rdy() = 3 * 60 / fps;
 			//加入数组方便统一管理
 			propsVector.append(props);
 		}
