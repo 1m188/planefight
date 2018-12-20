@@ -112,6 +112,10 @@ public:
 	//没超出地图下边界则返回true，否则返回false
 	bool move(int down);
 
+	//切换图片
+	//倘若是切换损毁图片且所有图片都展示完毕了之后返回false，否则返回true
+	bool changImage();
+
 private:
 	//标识敌机种类
 	Enemy::Type type_ = Enemy::Type::None;
