@@ -634,38 +634,16 @@ void GameScene::gameCycleSlot()
 				}
 
 				//切换常态图片
-				enemy.rnormalImageChangeFpsCounter()++;
-				if (enemy.normalImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
-				{
-					enemy.rnormalImageChangeFpsCounter() = 0;
-					enemy.rimage() = enemy.normalImageVector()[enemy.nowNormalImageIndex()];
-					enemy.rnowNormalImageIndex()++;
-					if (enemy.nowNormalImageIndex() >= enemy.normalImageVector().size())
-					{
-						enemy.rnowNormalImageIndex() = 0;
-					}
-				}
+				enemy.changImage();
 			}
 			//否则展示损毁图片，展示完了之后从数组中推出去
 			else
 			{
-				enemy.rdestroyImageChangeFpsCounter()++;
-				if (enemy.destroyImageChangeFpsCounter() == enemy.imageChangeFpsInterval())
+				if (!enemy.changImage())
 				{
-					enemy.rdestroyImageChangeFpsCounter() = 0;
-					//倘若损毁图片都展示完了则从数组中推出去
-					if (enemy.nowDestroyImageIndex() >= enemy.destroyImageVector().size())
-					{
-						enemyVector.removeAt(i);
-						i--;
-						continue;
-					}
-					//否则继续展示下一张图片
-					else
-					{
-						enemy.rimage() = enemy.destroyImageVector()[enemy.nowDestroyImageIndex()];
-						enemy.rnowDestroyImageIndex()++;
-					}
+					enemyVector.removeAt(i);
+					i--;
+					continue;
 				}
 			}
 		}
