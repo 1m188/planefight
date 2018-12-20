@@ -137,10 +137,9 @@ void GameScene::init()
 	bulletPropsLastFps = 1000 / 60 * 700 / (1000 / fps);
 
 	//启动游戏循环
-	gameCycleTimer = new QTimer(this);
-	connect(gameCycleTimer, &QTimer::timeout, this, &GameScene::gameCycleSlot);
-	gameCycleTimer->setInterval(1000 / fps);
-	gameCycleTimer->start();
+	connect(&gameCycleTimer, &QTimer::timeout, this, &GameScene::gameCycleSlot);
+	gameCycleTimer.setInterval(1000 / fps);
+	gameCycleTimer.start();
 }
 
 void GameScene::keyPressEvent(QKeyEvent * event)
@@ -328,68 +327,68 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 
 void GameScene::paintEvent(QPaintEvent * event)
 {
-	QPainter *painter = new QPainter(this);
+	QPainter painter(this);
 
 	//绘制背景
-	painter->drawPixmap(frameGeometry(), backgroundImage);
+	painter.drawPixmap(frameGeometry(), backgroundImage);
 
 	//绘制玩家
-	painter->drawPixmap(player.x(), player.y(), player.width(), player.height(), player.image());
+	painter.drawPixmap(player.x(), player.y(), player.width(), player.height(), player.image());
 
 	//绘制敌机
 	for (Enemy &enemy : enemyVector)
 	{
-		painter->drawPixmap(enemy.x(), enemy.y(), enemy.width(), enemy.height(), enemy.image());
+		painter.drawPixmap(enemy.x(), enemy.y(), enemy.width(), enemy.height(), enemy.image());
 	}
 
 	//绘制玩家子弹
 	for (Bullet &playerBullet : playerBulletVector)
 	{
-		painter->drawPixmap(playerBullet.x(), playerBullet.y(), playerBullet.width(), playerBullet.height(), playerBullet.image());
+		painter.drawPixmap(playerBullet.x(), playerBullet.y(), playerBullet.width(), playerBullet.height(), playerBullet.image());
 	}
 
 	//绘制敌机子弹
 	for (Bullet &enemyBullet : enemyBulletVector)
 	{
-		painter->drawPixmap(enemyBullet.x(), enemyBullet.y(), enemyBullet.width(), enemyBullet.height(), enemyBullet.image());
+		painter.drawPixmap(enemyBullet.x(), enemyBullet.y(), enemyBullet.width(), enemyBullet.height(), enemyBullet.image());
 	}
 
 	//绘制道具
 	for (Props &props : propsVector)
 	{
-		painter->drawPixmap(props.x(), props.y(), props.width(), props.height(), props.image());
+		painter.drawPixmap(props.x(), props.y(), props.width(), props.height(), props.image());
 	}
 
 	//绘制暂停/继续按钮
-	painter->drawPixmap(pauseResumeRect, pauseResumeImage);
+	painter.drawPixmap(pauseResumeRect, pauseResumeImage);
 
 	//绘制生命
-	painter->drawPixmap(0, height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), lifeImage);
-	painter->setFont(QFont(u8"微软雅黑", 25, QFont::Light));
-	painter->drawText(lifeImage.width(), height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), Qt::AlignCenter, QString::number(player.life()));
+	painter.drawPixmap(0, height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), lifeImage);
+	painter.setFont(QFont(u8"微软雅黑", 25, QFont::Light));
+	painter.drawText(lifeImage.width(), height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), Qt::AlignCenter, QString::number(player.life()));
 
 	//绘制炸弹数目
-	painter->drawPixmap(width() - bombImage.width() * 2, height() - bombImage.height(), bombImage.width(), bombImage.height(), bombImage);
-	painter->setFont(QFont(u8"微软雅黑", 25, QFont::Light));
-	painter->drawText(width() - bombImage.width(), height() - bombImage.height(), bombImage.width(), bombImage.height(), Qt::AlignCenter, QString::number(player.bombNum()));
+	painter.drawPixmap(width() - bombImage.width() * 2, height() - bombImage.height(), bombImage.width(), bombImage.height(), bombImage);
+	painter.setFont(QFont(u8"微软雅黑", 25, QFont::Light));
+	painter.drawText(width() - bombImage.width(), height() - bombImage.height(), bombImage.width(), bombImage.height(), Qt::AlignCenter, QString::number(player.bombNum()));
 
 	//绘制分数
-	painter->setFont(QFont(u8"微软雅黑", 15, QFont::Light));
-	painter->drawText(0, 0, 120, 50, Qt::AlignCenter, tr(u8"分数：%1").arg(score));
+	painter.setFont(QFont(u8"微软雅黑", 15, QFont::Light));
+	painter.drawText(0, 0, 120, 50, Qt::AlignCenter, tr(u8"分数：%1").arg(score));
 
 	//游戏结束则绘制相关信息和选择
 	if (isGameOver)
 	{
 		//游戏结束信息
-		painter->setFont(QFont(u8"华文行楷", 40));
-		painter->drawText(gameEndTextRect, Qt::AlignCenter, tr(u8"胜败乃兵家常事\n大侠请重新来过"));
+		painter.setFont(QFont(u8"华文行楷", 40));
+		painter.drawText(gameEndTextRect, Qt::AlignCenter, tr(u8"胜败乃兵家常事\n大侠请重新来过"));
 		//再来一次
-		painter->drawPixmap(againRect, againImage);
+		painter.drawPixmap(againRect, againImage);
 		//结束游戏
-		painter->drawPixmap(gameOverRect, gameOverImage);
+		painter.drawPixmap(gameOverRect, gameOverImage);
 	}
 
-	painter->end();
+	painter.end();
 	Scene::paintEvent(event);
 }
 

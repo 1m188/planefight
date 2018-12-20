@@ -99,7 +99,7 @@ private:
 	QRect gameOverRect;
 
 	//游戏循环定时器
-	QTimer *gameCycleTimer;
+	QTimer gameCycleTimer;
 
 public:
 	GameScene(Window *parent);
