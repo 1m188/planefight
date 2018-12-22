@@ -480,10 +480,12 @@ void GameScene::gameCycleSlot()
 				Props &props = propsVector[i];
 				if (player.isCollided(props))
 				{
+					//如果是炸弹
 					if (props.type() == Props::Type::Bomb)
 					{
 						player.rbombNum()++;
 					}
+					//如果是弹药补给
 					else if (props.type() == Props::Type::Bullet)
 					{
 						player.risStrengthenFire() = true;
