@@ -101,6 +101,9 @@ private:
 	//游戏循环定时器
 	QTimer gameCycleTimer;
 
+	//获取分数
+	int getScore(Enemy enemy);
+
 public:
 	GameScene(Window *parent);
 	~GameScene();
@@ -122,7 +125,7 @@ protected:
 	//重写鼠标按住后的移动事件
 	void mouseMoveEvent(QMouseEvent *event) override;
 
-	private slots:
+private slots:
 	//游戏循环
 	void gameCycleSlot();
 };

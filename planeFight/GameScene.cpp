@@ -178,18 +178,7 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 				{
 					enemy.rlife() = 0;
 					//分数更新
-					if (enemy.type() == Enemy::Type::Soldier)
-					{
-						score += 1;
-					}
-					else if (enemy.type() == Enemy::Type::Leader)
-					{
-						score += 2;
-					}
-					else if (enemy.type() == Enemy::Type::General)
-					{
-						score += 3;
-					}
+					score += getScore(enemy);
 				}
 			}
 		}
@@ -481,18 +470,7 @@ void GameScene::gameCycleSlot()
 				{
 					player.rlife() = 0;
 					enemy.rlife() = 0;
-					if (enemy.type() == Enemy::Type::Soldier)
-					{
-						score += 1;
-					}
-					else if (enemy.type() == Enemy::Type::Leader)
-					{
-						score += 2;
-					}
-					else if (enemy.type() == Enemy::Type::General)
-					{
-						score += 3;
-					}
+					score += getScore(enemy);
 				}
 			}
 
@@ -674,21 +652,7 @@ void GameScene::gameCycleSlot()
 						//敌机生命值扣减
 						enemy.rlife()--;
 						//获取分数
-						if (enemy.life() == 0)
-						{
-							if (enemy.type() == Enemy::Type::Soldier)
-							{
-								score += 1;
-							}
-							else if (enemy.type() == Enemy::Type::Leader)
-							{
-								score += 2;
-							}
-							else if (enemy.type() == Enemy::Type::General)
-							{
-								score += 3;
-							}
-						}
+						score += getScore(enemy);
 						//切换到损态图片
 						if (enemy.life() <= 4 && enemy.normalImageVector()[0].cacheKey() == enemy2NormalImageVector[0].cacheKey())
 						{
@@ -781,4 +745,9 @@ void GameScene::gameCycleSlot()
 
 	//绘制游戏画面
 	update();
+}
+
+int GameScene::getScore(Enemy enemy)
+{
+	return enemy.life() == 0 ? static_cast<int>(enemy.type()) : 0;
 }
