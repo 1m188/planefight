@@ -48,6 +48,9 @@
     <Filter Include="精灵\道具">
       <UniqueIdentifier>{c23916ee-65e3-40f4-b893-cd965a895a5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="精灵\子弹\玩家子弹">
+      <UniqueIdentifier>{aa9d1e4c-a660-4985-9c21-e42db52219d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -99,6 +102,9 @@
     <ClCompile Include="Props.cpp">
       <Filter>精灵\道具</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>精灵\子弹\玩家子弹</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PlaneFight.qrc">
@@ -132,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="Props.h">
       <Filter>精灵\道具</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>精灵\子弹\玩家子弹</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

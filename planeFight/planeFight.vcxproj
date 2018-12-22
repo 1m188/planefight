@@ -107,6 +107,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="Props.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Director.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Props.h" />
     <ClInclude Include="Sprite.h" />
     <CustomBuild Include="Scene.h">
