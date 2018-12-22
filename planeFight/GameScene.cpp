@@ -598,7 +598,7 @@ void GameScene::gameCycleSlot()
 					enemy.rproductBulletFpsCounter() = 0;
 
 					//初始化敌机子弹
-					Bullet bullet;
+					EnemyBullet bullet;
 					//设置敌机子弹图片
 					bullet.rimage() = enemyBulletImage;
 					//设置敌机子弹宽高
@@ -678,10 +678,10 @@ void GameScene::gameCycleSlot()
 		//子弹移动
 		for (int i = 0; i < enemyBulletVector.size(); i++)
 		{
-			Bullet &bullet = enemyBulletVector[i];
-			bullet.ry() += bullet.dy();
+			EnemyBullet &bullet = enemyBulletVector[i];
+			//移动
 			//如果子弹超出地图边界
-			if (bullet.y() >= height())
+			if (!bullet.move(height()))
 			{
 				enemyBulletVector.removeAt(i);
 				i--;

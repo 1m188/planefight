@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "PlayerBullet.h"
 #include "Enemy.h"
+#include "EnemyBullet.h"
 #include "Props.h"
 
 //游戏场景
@@ -56,7 +57,7 @@ private:
 	//敌机数组
 	QVector<Enemy> enemyVector;
 	//敌机子弹数组
-	QVector<Bullet> enemyBulletVector;
+	QVector<EnemyBullet> enemyBulletVector;
 	//道具数组
 	QVector<Props> propsVector;
 
