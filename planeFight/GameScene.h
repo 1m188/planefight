@@ -4,7 +4,7 @@
 #include "Scene.h"
 #include "QTimer.h"
 #include "Player.h"
-#include "Bullet.h"
+#include "PlayerBullet.h"
 #include "Enemy.h"
 #include "Props.h"
 
@@ -52,7 +52,7 @@ private:
 	//玩家
 	Player player;
 	//玩家子弹数组
-	QVector<Bullet> playerBulletVector;
+	QVector<PlayerBullet> playerBulletVector;
 	//敌机数组
 	QVector<Enemy> enemyVector;
 	//敌机子弹数组

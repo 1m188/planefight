@@ -402,7 +402,7 @@ void GameScene::gameCycleSlot()
 				if (player.isFiring())
 				{
 					//初始化玩家子弹
-					Bullet bullet;
+					PlayerBullet bullet;
 					//设置玩家子弹图片
 					bullet.rimage() = playerBulletImage;
 					//设置玩家子弹宽高
@@ -427,7 +427,7 @@ void GameScene::gameCycleSlot()
 						}
 
 						//初始化玩家子弹
-						Bullet bullet1;
+						PlayerBullet bullet1;
 						//设置玩家子弹图片
 						bullet1.rimage() = playerBulletImage;
 						//设置玩家子弹宽高
@@ -442,7 +442,7 @@ void GameScene::gameCycleSlot()
 						playerBulletVector.append(bullet1);
 
 						//初始化玩家子弹
-						Bullet bullet2;
+						PlayerBullet bullet2;
 						//设置玩家子弹图片
 						bullet2.rimage() = playerBulletImage;
 						//设置玩家子弹宽高
@@ -633,11 +633,10 @@ void GameScene::gameCycleSlot()
 		//玩家子弹
 		for (int i = 0; i < playerBulletVector.size(); i++)
 		{
+			PlayerBullet &bullet = playerBulletVector[i];
 			//子弹移动
-			Bullet &bullet = playerBulletVector[i];
-			bullet.ry() -= bullet.dy();
 			//超出地图边界则从内存中删除
-			if (bullet.y() + bullet.height() <= 0)
+			if (!bullet.move(0))
 			{
 				playerBulletVector.removeAt(i);
 				i--;
