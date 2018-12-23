@@ -8,10 +8,12 @@
 class Image
 {
 private:
+	Image(); //禁止自动默认构造
 	static Image *instance; //单例指针
 
 public:
-	Image();
+	Image(const Image &) = delete;
+	Image &operator=(const Image &) = delete;
 	~Image();
 
 	//获取单例指针
