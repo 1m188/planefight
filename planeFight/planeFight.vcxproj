@@ -107,6 +107,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="Props.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Director.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBullet.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Props.h" />

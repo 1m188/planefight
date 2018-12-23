@@ -36,14 +36,8 @@
     <Filter Include="导演">
       <UniqueIdentifier>{71969223-fac3-4596-b51f-2dd95fdbd4f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="精灵\玩家">
-      <UniqueIdentifier>{38cd1b0a-a0ce-41f0-847a-526723803a5a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="精灵\子弹">
       <UniqueIdentifier>{e88f3f43-ba22-415f-80e4-6ba0a4455495}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="精灵\敌机">
-      <UniqueIdentifier>{52776b82-42c4-40d9-8c07-593e2ab5a018}</UniqueIdentifier>
     </Filter>
     <Filter Include="精灵\道具">
       <UniqueIdentifier>{c23916ee-65e3-40f4-b893-cd965a895a5f}</UniqueIdentifier>
@@ -53,6 +47,15 @@
     </Filter>
     <Filter Include="精灵\子弹\敌机子弹">
       <UniqueIdentifier>{8138734e-1d45-458b-8eca-d4a577dd8f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="精灵\飞机">
+      <UniqueIdentifier>{5015e842-96a3-4e8e-adf5-e8aa86e7d503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="精灵\飞机\敌机">
+      <UniqueIdentifier>{52776b82-42c4-40d9-8c07-593e2ab5a018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="精灵\飞机\玩家">
+      <UniqueIdentifier>{38cd1b0a-a0ce-41f0-847a-526723803a5a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,13 +97,13 @@
       <Filter>精灵</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>精灵\玩家</Filter>
+      <Filter>精灵\飞机\玩家</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>精灵\子弹</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>精灵\敌机</Filter>
+      <Filter>精灵\飞机\敌机</Filter>
     </ClCompile>
     <ClCompile Include="Props.cpp">
       <Filter>精灵\道具</Filter>
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="EnemyBullet.cpp">
       <Filter>精灵\子弹\敌机子弹</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>精灵\飞机</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,13 +140,13 @@
       <Filter>精灵</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>精灵\玩家</Filter>
+      <Filter>精灵\飞机\玩家</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>精灵\子弹</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>精灵\敌机</Filter>
+      <Filter>精灵\飞机\敌机</Filter>
     </ClInclude>
     <ClInclude Include="Props.h">
       <Filter>精灵\道具</Filter>
@@ -150,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="EnemyBullet.h">
       <Filter>精灵\子弹\敌机子弹</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>精灵\飞机</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
