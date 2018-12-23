@@ -57,6 +57,12 @@
     <Filter Include="精灵\飞机\玩家">
       <UniqueIdentifier>{38cd1b0a-a0ce-41f0-847a-526723803a5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="设置">
+      <UniqueIdentifier>{f3a7d5ad-3599-4ae7-b6a0-f7406f93c804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="设置\图片">
+      <UniqueIdentifier>{d78e0ddc-c6b6-40ef-a50b-d5cc9a5442cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -117,6 +123,9 @@
     <ClCompile Include="Plane.cpp">
       <Filter>精灵\飞机</Filter>
     </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>设置\图片</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PlaneFight.qrc">
@@ -159,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="Plane.h">
       <Filter>精灵\飞机</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>设置\图片</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
