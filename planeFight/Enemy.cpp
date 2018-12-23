@@ -1,6 +1,6 @@
-#include "Enemy.h"
+ï»¿#include "Enemy.h"
 
-Enemy::Enemy() :Sprite()
+Enemy::Enemy() :Plane()
 {
 
 }
@@ -12,49 +12,8 @@ Enemy::~Enemy()
 
 bool Enemy::move(int down)
 {
-	ry() += dy_;
-	//ÌÈÈôµĞ»úÍêÈ«³¬³öµØÍ¼±ß½ç·µ»Øfalse
-	//·ñÔò·µ»Øtrue
+	ry() += dy();
+	//å€˜è‹¥æ•Œæœºå®Œå…¨è¶…å‡ºåœ°å›¾è¾¹ç•Œè¿”å›false
+	//å¦åˆ™è¿”å›true
 	return !(y() >= down);
-}
-
-bool Enemy::changImage()
-{
-	//Èç¹ûÉúÃü´óÓÚ0ÇĞ»»³£Ì¬Í¼Æ¬
-	if (life_ > 0)
-	{
-		//ÇĞ»»³£Ì¬Í¼Æ¬
-		normalImageChangeFpsCounter_++;
-		if (normalImageChangeFpsCounter_ == imageChangeFpsInterval_)
-		{
-			normalImageChangeFpsCounter_ = 0;
-			rimage() = normalImageVector_[nowNormalImageIndex_];
-			nowNormalImageIndex_++;
-			if (nowNormalImageIndex_ >= normalImageVector_.size())
-			{
-				nowNormalImageIndex_ = 0;
-			}
-		}
-	}
-	//·ñÔòÕ¹Ê¾Ëğ»ÙÍ¼Æ¬
-	else
-	{
-		destroyImageChangeFpsCounter_++;
-		if (destroyImageChangeFpsCounter_ == imageChangeFpsInterval_)
-		{
-			destroyImageChangeFpsCounter_ = 0;
-			//ÌÈÈôËğ»ÙÍ¼Æ¬¶¼Õ¹Ê¾ÍêÁËÔò´ÓÊı×éÖĞÍÆ³öÈ¥
-			if (nowDestroyImageIndex_ >= destroyImageVector_.size())
-			{
-				return false;
-			}
-			//·ñÔò¼ÌĞøÕ¹Ê¾ÏÂÒ»ÕÅÍ¼Æ¬
-			else
-			{
-				rimage() = destroyImageVector_[nowDestroyImageIndex_];
-				nowDestroyImageIndex_++;
-			}
-		}
-	}
-	return true;
 }

@@ -1,143 +1,58 @@
-#ifndef PLAYER_H
+ï»¿#ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Sprite.h"
+#include "Plane.h"
 
-//Íæ¼ÒÀà
-class Player :public Sprite
+//ç©å®¶ç±»
+class Player :public Plane
 {
 private:
-	//Ã¿Ö¡µÄÁ½¸ö·½ÏòÉÏµÄ·ÉĞĞ¾àÀë
-	int dx_ = 0;
-	int dy_ = 0;
-
-	//ÊÇ·ñÉÏ/ÏÂ/×ó/ÓÒÒÆ¶¯
+	//æ˜¯å¦ä¸Š/ä¸‹/å·¦/å³ç§»åŠ¨
 	bool isUping_ = false;
 	bool isDowning_ = false;
 	bool isLefting_ = false;
 	bool isRighting_ = false;
 
-	//ÊÇ·ñ¿ª»ğ
+	//æ˜¯å¦å¼€ç«
 	bool isFiring_ = false;
-	//ÊÇ·ñ»ğÁ¦¼ÓÇ¿
+	//æ˜¯å¦ç«åŠ›åŠ å¼º
 	bool isStrengthenFire_ = false;
 
-	//³£Ì¬Í¼Æ¬Êı×é
-	QVector<QPixmap> normalImageVector_;
-	//µ±Ç°ÏÔÊ¾³£Ì¬Í¼Æ¬Ë÷Òı
-	int nowNormalImageIndex_ = 0;
-
-	//Ëğ»ÙÍ¼Æ¬Êı×é
-	QVector<QPixmap> destroyImageVector_;
-	//µ±Ç°ÏÔÊ¾Ëğ»ÙÍ¼Æ¬Ë÷Òı
-	int nowDestroyImageIndex_ = 0;
-
-	//³£Ì¬Í¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷
-	int normalImageChangeFpsCounter_ = 0;
-	//Ëğ»ÙÍ¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷
-	int destroyImageChangeFpsCounter_ = 0;
-	//×Óµ¯²úÉú¼ÆÖ¡Æ÷
-	int productBulletFpsCounter_ = 0;
-
-	//Ã¿¸ô¶àÉÙÖ¡ÇĞ»»Ò»ÕÅ³£Ì¬/Ëğ»ÙÍ¼Æ¬
-	int imageChangeFpsInterval_ = 0;
-	//Ã¿¸ô¶àÉÙÖ¡²úÉú×Óµ¯
-	int productBulletFpsInterval_ = 0;
-
-	//ÉúÃüÊıÄ¿
-	int life_ = 1;
-
-	//Õ¨µ¯ÊıÄ¿
+	//ç‚¸å¼¹æ•°ç›®
 	int bombNum_ = 1;
 
 public:
 	Player();
 	~Player();
 
-	//»ñÈ¡Ã¿Ö¡µÄÁ½¸ö·½ÏòÉÏµÄ·ÉĞĞ¾àÀë
-	const int dx() const { return dx_; }
-	const int dy() const { return dy_; }
-	//»ñÈ¡Ã¿Ö¡µÄÁ½¸ö·½ÏòÉÏµÄ·ÉĞĞ¾àÀëµÄÒıÓÃ
-	int &rdx() { return dx_; }
-	int &rdy() { return dy_; }
-
-	//»ñÈ¡ÊÇ·ñÉÏ/ÏÂ/×ó/ÓÒÒÆ¶¯
+	//è·å–æ˜¯å¦ä¸Š/ä¸‹/å·¦/å³ç§»åŠ¨
 	const bool isUping() const { return isUping_; }
 	const bool isDowning() const { return isDowning_; }
 	const bool isLefting() const { return isLefting_; }
 	const bool isRighting() const { return isRighting_; }
-	//»ñÈ¡ÊÇ·ñÉÏ/ÏÂ/×ó/ÓÒÒÆ¶¯µÄÒıÓÃ
+	//è·å–æ˜¯å¦ä¸Š/ä¸‹/å·¦/å³ç§»åŠ¨çš„å¼•ç”¨
 	bool &risUping() { return isUping_; }
 	bool &risDowning() { return isDowning_; }
 	bool &risLefting() { return isLefting_; }
 	bool &risRighting() { return isRighting_; }
 
-	//»ñÈ¡ÊÇ·ñ¿ª»ğ
+	//è·å–æ˜¯å¦å¼€ç«
 	const bool isFiring() const { return isFiring_; }
+	//è·å–æ˜¯å¦å¼€ç«çš„å¼•ç”¨
 	bool &risFiring() { return isFiring_; }
 
-	//»ñÈ¡ÊÇ·ñ»ğÁ¦¼ÓÇ¿
+	//è·å–æ˜¯å¦ç«åŠ›åŠ å¼º
 	const bool isStrengthenFire() const { return isStrengthenFire_; }
-	//»ñÈ¡ÊÇ·ñ»ğÁ¦¼ÓÇ¿µÄÒıÓÃ
+	//è·å–æ˜¯å¦ç«åŠ›åŠ å¼ºçš„å¼•ç”¨
 	bool &risStrengthenFire() { return isStrengthenFire_; }
 
-	//»ñÈ¡³£Ì¬/Ëğ»ÙÍ¼Æ¬Êı×é
-	QVector<QPixmap> normalImageVector() { return normalImageVector_; }
-	QVector<QPixmap> destroyImageVector() { return destroyImageVector_; }
-	//»ñÈ¡³£Ì¬/Ëğ»ÙÍ¼Æ¬Êı×éµÄÒıÓÃ
-	QVector<QPixmap> &rnormalImageVector() { return normalImageVector_; }
-	QVector<QPixmap> &rdestroyImageVector() { return destroyImageVector_; }
-
-	//»ñÈ¡µ±Ç°ÏÔÊ¾³£Ì¬Í¼Æ¬Ë÷Òı
-	const int nowNormalImageIndex() const { return nowNormalImageIndex_; }
-	//»ñÈ¡µ±Ç°ÏÔÊ¾³£Ì¬Í¼Æ¬Ë÷ÒıµÄÒıÓÃ
-	int &rnowNormalImageIndex() { return nowNormalImageIndex_; }
-	//»ñÈ¡µ±Ç°ÏÔÊ¾Ëğ»ÙÍ¼Æ¬Ë÷Òı
-	const int nowDestroyImageIndex() const { return nowDestroyImageIndex_; }
-	//»ñÈ¡µ±Ç°ÏÔÊ¾Ëğ»ÙÍ¼Æ¬Ë÷ÒıµÄÒıÓÃ
-	int &rnowDestroyImageIndex() { return nowDestroyImageIndex_; }
-
-	//»ñÈ¡³£Ì¬Í¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷
-	const int normalImageChangeFpsCounter() const { return normalImageChangeFpsCounter_; }
-	//»ñÈ¡³£Ì¬Í¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷µÄÒıÓÃ
-	int &rnormalImageChangeFpsCounter() { return normalImageChangeFpsCounter_; }
-
-	//»ñÈ¡Ëğ»ÙÍ¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷
-	const int destroyImageChangeFpsCounter() const { return destroyImageChangeFpsCounter_; }
-	//»ñÈ¡Ëğ»ÙÍ¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷µÄÒıÓÃ
-	int &rdestroyImageChangeFpsCounter() { return destroyImageChangeFpsCounter_; }
-
-	//»ñÈ¡Ã¿¸ô¶àÉÙÖ¡ÇĞ»»Ò»ÕÅ³£Ì¬/Ëğ»ÙÍ¼Æ¬
-	const int imageChangeFpsInterval() const { return imageChangeFpsInterval_; }
-	//»ñÈ¡Ã¿¸ô¶àÉÙÖ¡ÇĞ»»Ò»ÕÅ³£Ì¬/Ëğ»ÙÍ¼Æ¬µÄÒıÓÃ
-	int &rimageChangeFpsInterval() { return imageChangeFpsInterval_; }
-
-	//»ñÈ¡×Óµ¯²úÉú¼ÆÖ¡Æ÷
-	const int productBulletFpsCounter() const { return productBulletFpsCounter_; }
-	//»ñÈ¡×Óµ¯²úÉú¼ÆÖ¡Æ÷µÄÒıÓÃ
-	int &rproductBulletFpsCounter() { return productBulletFpsCounter_; }
-
-	//»ñÈ¡Ã¿¸ô¶àÉÙÖ¡²úÉú×Óµ¯
-	const int productBulletFpsInterval() const { return productBulletFpsInterval_; }
-	//»ñÈ¡Ã¿¸ô¶àÉÙÖ¡²úÉú×Óµ¯µÄÒıÓÃ
-	int &rproductBulletFpsInterval() { return productBulletFpsInterval_; }
-
-	//»ñÈ¡ÉúÃüÊıÄ¿
-	const int life() const { return life_; }
-	//»ñÈ¡ÉúÃüÊıÄ¿ÒıÓÃ
-	int &rlife() { return life_; }
-
-	//»ñÈ¡Õ¨µ¯ÊıÄ¿
+	//è·å–ç‚¸å¼¹æ•°ç›®
 	const int bombNum() const { return bombNum_; }
-	//»ñÈ¡Õ¨µ¯ÊıÄ¿µÄÒıÓÃ
+	//è·å–ç‚¸å¼¹æ•°ç›®çš„å¼•ç”¨
 	int &rbombNum() { return bombNum_; }
 
-	//Íæ¼Ò·É»úÒÆ¶¯
+	//ç©å®¶é£æœºç§»åŠ¨
 	void move(int up, int down, int left, int right);
-
-	//Íæ¼Ò·É»úµÄÍ¼Æ¬ÇĞ»»
-	//µ±Ëğ»ÙÍ¼Æ¬ÇĞ»»ÇÒ×îºóÒ»ÕÅÍ¼Æ¬Õ¹Ê¾ÍêÁËÖ®ºóÁ¢¿Ì·µ»Øfalse
-	bool changeImage();
 };
 
 #endif // PLAYER_H

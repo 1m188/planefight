@@ -1,123 +1,40 @@
-#ifndef ENEMY_H
+ï»¿#ifndef ENEMY_H
 #define ENEMY_H
 
-#include "Sprite.h"
+#include "Plane.h"
 
-//µĞ»ú
-class Enemy :public Sprite
+//æ•Œæœº
+class Enemy :public Plane
 {
-private:
-	//Ã¿´ÎÔÚy·½ÏòÉÏÒÆ¶¯µÄ¾àÀë
-	int dy_ = 0;
-
-	//³£Ì¬Í¼Æ¬Êı×é
-	QVector<QPixmap> normalImageVector_;
-	//µ±Ç°ÏÔÊ¾³£Ì¬Í¼Æ¬Ë÷Òı
-	int nowNormalImageIndex_ = 0;
-
-	//Ëğ»ÙÍ¼Æ¬Êı×é
-	QVector<QPixmap> destroyImageVector_;
-	//µ±Ç°ÏÔÊ¾Ëğ»ÙÍ¼Æ¬Ë÷Òı
-	int nowDestroyImageIndex_ = 0;
-
-	//³£Ì¬Í¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷
-	int normalImageChangeFpsCounter_ = 0;
-	//Ëğ»ÙÍ¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷
-	int destroyImageChangeFpsCounter_ = 0;
-	//×Óµ¯²úÉú¼ÆÖ¡Æ÷
-	int productBulletFpsCounter_ = 0;
-
-	//Ã¿¸ô¶àÉÙÖ¡ÇĞ»»Ò»ÕÅ³£Ì¬/Ëğ»ÙÍ¼Æ¬
-	int imageChangeFpsInterval_ = 0;
-	//Ã¿¸ô¶àÉÙÖ¡²úÉú×Óµ¯
-	int productBulletFpsInterval_ = 0;
-
-	//ÉúÃüÊıÄ¿
-	int life_ = 1;
-
 public:
 	Enemy();
 	~Enemy();
 
-	//±íÊ¾µĞ»úÀàĞÍµÄÃ¶¾Ù
+	//è¡¨ç¤ºæ•Œæœºç±»å‹çš„æšä¸¾
 	enum Type
 	{
-		//ÎŞ
+		//æ— 
 		None,
-		//Ê¿±ø£¨µÚÒ»ÀàµĞ»ú£©
+		//å£«å…µï¼ˆç¬¬ä¸€ç±»æ•Œæœºï¼‰
 		Soldier,
-		//Áìµ¼£¨µÚ¶şÀàµĞ»ú£©
+		//é¢†å¯¼ï¼ˆç¬¬äºŒç±»æ•Œæœºï¼‰
 		Leader,
-		//½«¾ü£¨µÚÈıÀàµĞ»ú£©
+		//å°†å†›ï¼ˆç¬¬ä¸‰ç±»æ•Œæœºï¼‰
 		General,
 	};
 
-	//»ñÈ¡µĞ»úÖÖÀà±êÊ¶
+	//è·å–æ•Œæœºç§ç±»æ ‡è¯†
 	const Enemy::Type type() const { return type_; }
-	//»ñÈ¡µĞ»úÖÖÀà±êÊ¶µÄÒıÓÃ
+	//è·å–æ•Œæœºç§ç±»æ ‡è¯†çš„å¼•ç”¨
 	Enemy::Type &rtype() { return type_; }
 
-	//»ñÈ¡Ã¿´ÎÔÚy·½ÏòÉÏÒÆ¶¯µÄ¾àÀë
-	const int dy() const { return dy_; }
-	//»ñÈ¡Ã¿´ÎÔÚy·½ÏòÉÏÒÆ¶¯µÄ¾àÀëµÄÒıÓÃ
-	int &rdy() { return dy_; }
-
-	//»ñÈ¡³£Ì¬/Ëğ»ÙÍ¼Æ¬Êı×é
-	QVector<QPixmap> normalImageVector() { return normalImageVector_; }
-	QVector<QPixmap> destroyImageVector() { return destroyImageVector_; }
-	//»ñÈ¡³£Ì¬/Ëğ»ÙÍ¼Æ¬Êı×éµÄÒıÓÃ
-	QVector<QPixmap> &rnormalImageVector() { return normalImageVector_; }
-	QVector<QPixmap> &rdestroyImageVector() { return destroyImageVector_; }
-
-	//»ñÈ¡µ±Ç°ÏÔÊ¾³£Ì¬Í¼Æ¬Ë÷Òı
-	const int nowNormalImageIndex() const { return nowNormalImageIndex_; }
-	//»ñÈ¡µ±Ç°ÏÔÊ¾³£Ì¬Í¼Æ¬Ë÷ÒıµÄÒıÓÃ
-	int &rnowNormalImageIndex() { return nowNormalImageIndex_; }
-	//»ñÈ¡µ±Ç°ÏÔÊ¾Ëğ»ÙÍ¼Æ¬Ë÷Òı
-	const int nowDestroyImageIndex() const { return nowDestroyImageIndex_; }
-	//»ñÈ¡µ±Ç°ÏÔÊ¾Ëğ»ÙÍ¼Æ¬Ë÷ÒıµÄÒıÓÃ
-	int &rnowDestroyImageIndex() { return nowDestroyImageIndex_; }
-
-	//»ñÈ¡³£Ì¬Í¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷
-	const int normalImageChangeFpsCounter() const { return normalImageChangeFpsCounter_; }
-	//»ñÈ¡³£Ì¬Í¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷µÄÒıÓÃ
-	int &rnormalImageChangeFpsCounter() { return normalImageChangeFpsCounter_; }
-
-	//»ñÈ¡Ëğ»ÙÍ¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷
-	const int destroyImageChangeFpsCounter() const { return destroyImageChangeFpsCounter_; }
-	//»ñÈ¡Ëğ»ÙÍ¼Æ¬ÇĞ»»¼ÆÖ¡Æ÷µÄÒıÓÃ
-	int &rdestroyImageChangeFpsCounter() { return destroyImageChangeFpsCounter_; }
-
-	//»ñÈ¡Ã¿¸ô¶àÉÙÖ¡ÇĞ»»Ò»ÕÅ³£Ì¬/Ëğ»ÙÍ¼Æ¬
-	const int imageChangeFpsInterval() const { return imageChangeFpsInterval_; }
-	//»ñÈ¡Ã¿¸ô¶àÉÙÖ¡ÇĞ»»Ò»ÕÅ³£Ì¬/Ëğ»ÙÍ¼Æ¬µÄÒıÓÃ
-	int &rimageChangeFpsInterval() { return imageChangeFpsInterval_; }
-
-	//»ñÈ¡×Óµ¯²úÉú¼ÆÖ¡Æ÷
-	const int productBulletFpsCounter() const { return productBulletFpsCounter_; }
-	//»ñÈ¡×Óµ¯²úÉú¼ÆÖ¡Æ÷µÄÒıÓÃ
-	int &rproductBulletFpsCounter() { return productBulletFpsCounter_; }
-
-	//»ñÈ¡Ã¿¸ô¶àÉÙÖ¡²úÉú×Óµ¯
-	const int productBulletFpsInterval() const { return productBulletFpsInterval_; }
-	//»ñÈ¡Ã¿¸ô¶àÉÙÖ¡²úÉú×Óµ¯µÄÒıÓÃ
-	int &rproductBulletFpsInterval() { return productBulletFpsInterval_; }
-
-	//»ñÈ¡ÉúÃüÊıÄ¿
-	const int life() const { return life_; }
-	int &rlife() { return life_; }
-
-	//ÒÆ¶¯
-	//´«Èë²ÎÊıÎªµØÍ¼ÏÂ±ß½ç
-	//Ã»³¬³öµØÍ¼ÏÂ±ß½çÔò·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	//ç§»åŠ¨
+	//ä¼ å…¥å‚æ•°ä¸ºåœ°å›¾ä¸‹è¾¹ç•Œ
+	//æ²¡è¶…å‡ºåœ°å›¾ä¸‹è¾¹ç•Œåˆ™è¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	bool move(int down);
 
-	//ÇĞ»»Í¼Æ¬
-	//ÌÈÈôÊÇÇĞ»»Ëğ»ÙÍ¼Æ¬ÇÒËùÓĞÍ¼Æ¬¶¼Õ¹Ê¾Íê±ÏÁËÖ®ºó·µ»Øfalse£¬·ñÔò·µ»Øtrue
-	bool changImage();
-
 private:
-	//±êÊ¶µĞ»úÖÖÀà
+	//æ ‡è¯†æ•Œæœºç§ç±»
 	Enemy::Type type_ = Enemy::Type::None;
 };
 

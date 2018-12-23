@@ -1,6 +1,6 @@
-#include "Player.h"
+ï»¿#include "Player.h"
 
-Player::Player() :Sprite()
+Player::Player() :Plane()
 {
 
 }
@@ -12,25 +12,25 @@ Player::~Player()
 
 void Player::move(int up, int down, int left, int right)
 {
-	//°´ÕÕ·½ÏòÒÆ¶¯
+	//æŒ‰ç…§æ–¹å‘ç§»åŠ¨
 	if (isUping_)
 	{
-		ry() = y() - dy_;
+		ry() = y() - dy();
 	}
 	if (isDowning_)
 	{
-		ry() = y() + dy_;
+		ry() = y() + dy();
 	}
 	if (isLefting_)
 	{
-		rx() = x() - dx_;
+		rx() = x() - dx();
 	}
 	if (isRighting_)
 	{
-		rx() = x() + dx_;
+		rx() = x() + dx();
 	}
 
-	//×²Ç½
+	//æ’å¢™
 	if (y() < up)
 	{
 		ry() = up;
@@ -47,45 +47,4 @@ void Player::move(int up, int down, int left, int right)
 	{
 		rx() = right - width();
 	}
-}
-
-bool Player::changeImage()
-{
-	//Èç¹ûÍæ¼Ò·É»ú»î×ÅÔòÇĞ»»³£Ì¬Í¼Æ¬
-	if (life_ > 0)
-	{
-		normalImageChangeFpsCounter_++;
-		if (normalImageChangeFpsCounter_ == imageChangeFpsInterval_)
-		{
-			normalImageChangeFpsCounter_ = 0;
-			rimage() = normalImageVector_[nowNormalImageIndex_];
-			nowNormalImageIndex_++;
-			//ÌÈÈôÒ»ÂÖÍ¼Æ¬ÏÔÊ¾ÍêÁËÖ®ºó£¬¼ÌĞøÏÔÊ¾ÏÂÒ»ÂÖÍ¼Æ¬
-			if (nowNormalImageIndex_ >= normalImageVector_.size())
-			{
-				nowNormalImageIndex_ = 0;
-			}
-		}
-	}
-	//·ñÔòÇĞ»»Ëğ»ÙÍ¼Æ¬
-	else
-	{
-		destroyImageChangeFpsCounter_++;
-		if (destroyImageChangeFpsCounter_ == imageChangeFpsInterval_)
-		{
-			destroyImageChangeFpsCounter_ = 0;
-			//ÌÈÈôÒ»ÂÖÍ¼Æ¬ÏÔÊ¾ÍêÁËÖ®ºó£¬½øÈëÓÎÏ·½áÊø½×¶Î
-			if (nowDestroyImageIndex_ >= destroyImageVector_.size())
-			{
-				return false;
-			}
-			//·ñÔòÏÔÊ¾ÏÂÒ»ÕÅÍ¼Æ¬
-			else
-			{
-				rimage() = destroyImageVector_[nowDestroyImageIndex_];
-				nowDestroyImageIndex_++;
-			}
-		}
-	}
-	return true;
 }
