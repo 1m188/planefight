@@ -17,58 +17,8 @@ GameScene::~GameScene()
 
 void GameScene::init()
 {
-	//初始化游戏元素
-	//这里把所需的图片提前加载到内存之中，以提高调用的效率
-	backgroundImage.load(":/Resources/image/background.png");
-	backgroundImage = backgroundImage.scaled(size()); //将背景图片缩放至和窗口一样大，便于绘制
-
-	againImage.load(":/Resources/image/again.png");
-	gameOverImage.load(":/Resources/image/gameover.png");
-
-	pauseNorImage.load(":/Resources/image/pause_nor.png");
-	pausePressedImage.load(":/Resources/image/pause_pressed.png");
-	resumeNorImage.load(":/Resources/image/resume_nor.png");
-	resumePressedImage.load(":/Resources/image/resume_pressed.png");
-	pauseResumeImage = pauseNorImage;
-
-	playerNormalImageVector.append(QPixmap(":/Resources/image/me1.png"));
-	playerNormalImageVector.append(QPixmap(":/Resources/image/me2.png"));
-	playerDestroyImageVector.append(QPixmap(":/Resources/image/me_destroy_1.png"));
-	playerDestroyImageVector.append(QPixmap(":/Resources/image/me_destroy_2.png"));
-	playerDestroyImageVector.append(QPixmap(":/Resources/image/me_destroy_3.png"));
-	playerDestroyImageVector.append(QPixmap(":/Resources/image/me_destroy_4.png"));
-
-	enemy1NormalImageVector.append(QPixmap(":/Resources/image/enemy1.png"));
-	enemy1DestroyImageVector.append(QPixmap(":/Resources/image/enemy1_down1.png"));
-	enemy1DestroyImageVector.append(QPixmap(":/Resources/image/enemy1_down2.png"));
-	enemy1DestroyImageVector.append(QPixmap(":/Resources/image/enemy1_down3.png"));
-	enemy1DestroyImageVector.append(QPixmap(":/Resources/image/enemy1_down4.png"));
-
-	enemy2NormalImageVector.append(QPixmap(":/Resources/image/enemy2.png"));
-	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down1.png"));
-	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down2.png"));
-	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down3.png"));
-	enemy2DestroyImageVector.append(QPixmap(":/Resources/image/enemy2_down4.png"));
-	enemy2HitImageVector.append(QPixmap(":/Resources/image/enemy2_hit.png"));
-
-	enemy3NormalImageVector.append(QPixmap(":/Resources/image/enemy3_n1.png"));
-	enemy3NormalImageVector.append(QPixmap(":/Resources/image/enemy3_n2.png"));
-	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down1.png"));
-	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down2.png"));
-	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down3.png"));
-	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down4.png"));
-	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down5.png"));
-	enemy3DestroyImageVector.append(QPixmap(":/Resources/image/enemy3_down6.png"));
-	enemy3HitImageVector.append(QPixmap(":/Resources/image/enemy3_hit.png"));
-
-	playerBulletImage.load(":/Resources/image/bullet1.png");
-	enemyBulletImage.load(":/Resources/image/bullet2.png");
-
-	lifeImage.load(":/Resources/image/life.png");
-
-	bombImage.load(":/Resources/image/bomb.png");
-	bombPropsImage.load(":/Resources/image/bomb_supply.png");
-	bulletPropsImage.load(":/Resources/image/bullet_supply.png");
+	//初始化图片
+	image = Image::getInstance();
 
 	//初始化帧数
 	fps = 60;
@@ -81,10 +31,10 @@ void GameScene::init()
 	//没有被按下
 	isPauseResumeClicked = false;
 	//暂停/继续按钮位置
-	pauseResumeRect.setX(width() - pauseResumeImage.width());
+	pauseResumeRect.setX(width() - image->pauseResumeImage.width());
 	pauseResumeRect.setY(0);
-	pauseResumeRect.setWidth(pauseResumeImage.width());
-	pauseResumeRect.setHeight(pauseResumeImage.height());
+	pauseResumeRect.setWidth(image->pauseResumeImage.width());
+	pauseResumeRect.setHeight(image->pauseResumeImage.height());
 
 	//游戏没有结束
 	isGameOver = false;
@@ -93,20 +43,20 @@ void GameScene::init()
 	gameEndTextRect.setY(height() / 3);
 	gameEndTextRect.setWidth(width());
 	gameEndTextRect.setHeight(200);
-	againRect.setX(width() / 2 - againImage.width() / 2);
+	againRect.setX(width() / 2 - image->againImage.width() / 2);
 	againRect.setY(gameEndTextRect.y() + gameEndTextRect.height() + 50);
-	againRect.setWidth(againImage.width());
-	againRect.setHeight(againImage.height());
-	gameOverRect.setX(width() / 2 - gameOverImage.width() / 2);
+	againRect.setWidth(image->againImage.width());
+	againRect.setHeight(image->againImage.height());
+	gameOverRect.setX(width() / 2 - image->gameOverImage.width() / 2);
 	gameOverRect.setY(againRect.y() + againRect.height() + 50);
-	gameOverRect.setWidth(gameOverImage.width());
-	gameOverRect.setHeight(gameOverImage.height());
+	gameOverRect.setWidth(image->gameOverImage.width());
+	gameOverRect.setHeight(image->gameOverImage.height());
 
 	//初始化玩家飞机
 	//设置玩家飞机常态图片
-	player.rnormalImageVector() = playerNormalImageVector;
+	player.rnormalImageVector() = image->playerNormalImageVector;
 	//设置玩家飞机损毁图片
-	player.rdestroyImageVector() = playerDestroyImageVector;
+	player.rdestroyImageVector() = image->playerDestroyImageVector;
 	//设置每隔多少帧切换一张玩家飞机图片
 	player.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
 	//设置每隔多少帧产生一次子弹
@@ -197,11 +147,11 @@ void GameScene::mousePressEvent(QMouseEvent * event)
 		{
 			if (isPause)
 			{
-				pauseResumeImage = resumePressedImage;
+				image->pauseResumeImage = image->resumePressedImage;
 			}
 			else
 			{
-				pauseResumeImage = pausePressedImage;
+				image->pauseResumeImage = image->pausePressedImage;
 			}
 		}
 	}
@@ -222,22 +172,22 @@ void GameScene::mouseMoveEvent(QMouseEvent * event)
 			{
 				if (isPause)
 				{
-					pauseResumeImage = resumeNorImage;
+					image->pauseResumeImage = image->resumeNorImage;
 				}
 				else
 				{
-					pauseResumeImage = pauseNorImage;
+					image->pauseResumeImage = image->pauseNorImage;
 				}
 			}
 			else
 			{
 				if (isPause)
 				{
-					pauseResumeImage = resumePressedImage;
+					image->pauseResumeImage = image->resumePressedImage;
 				}
 				else
 				{
-					pauseResumeImage = pausePressedImage;
+					image->pauseResumeImage = image->pausePressedImage;
 				}
 			}
 		}
@@ -284,11 +234,11 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 		{
 			if (isPause)
 			{
-				pauseResumeImage = pauseNorImage;
+				image->pauseResumeImage = image->pauseNorImage;
 			}
 			else
 			{
-				pauseResumeImage = resumeNorImage;
+				image->pauseResumeImage = image->resumeNorImage;
 			}
 			isPause = !isPause;
 		}
@@ -319,7 +269,7 @@ void GameScene::paintEvent(QPaintEvent * event)
 	QPainter painter(this);
 
 	//绘制背景
-	painter.drawPixmap(frameGeometry(), backgroundImage);
+	painter.drawPixmap(frameGeometry(), image->backgroundImage);
 
 	//绘制玩家
 	painter.drawPixmap(player.x(), player.y(), player.width(), player.height(), player.image());
@@ -349,17 +299,17 @@ void GameScene::paintEvent(QPaintEvent * event)
 	}
 
 	//绘制暂停/继续按钮
-	painter.drawPixmap(pauseResumeRect, pauseResumeImage);
+	painter.drawPixmap(pauseResumeRect, image->pauseResumeImage);
 
 	//绘制生命
-	painter.drawPixmap(0, height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), lifeImage);
+	painter.drawPixmap(0, height() - image->lifeImage.height(), image->lifeImage.width(), image->lifeImage.height(), image->lifeImage);
 	painter.setFont(QFont(u8"微软雅黑", 25, QFont::Light));
-	painter.drawText(lifeImage.width(), height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), Qt::AlignCenter, QString::number(player.life()));
+	painter.drawText(image->lifeImage.width(), height() - image->lifeImage.height(), image->lifeImage.width(), image->lifeImage.height(), Qt::AlignCenter, QString::number(player.life()));
 
 	//绘制炸弹数目
-	painter.drawPixmap(width() - bombImage.width() * 2, height() - bombImage.height(), bombImage.width(), bombImage.height(), bombImage);
+	painter.drawPixmap(width() - image->bombImage.width() * 2, height() - image->bombImage.height(), image->bombImage.width(), image->bombImage.height(), image->bombImage);
 	painter.setFont(QFont(u8"微软雅黑", 25, QFont::Light));
-	painter.drawText(width() - bombImage.width(), height() - bombImage.height(), bombImage.width(), bombImage.height(), Qt::AlignCenter, QString::number(player.bombNum()));
+	painter.drawText(width() - image->bombImage.width(), height() - image->bombImage.height(), image->bombImage.width(), image->bombImage.height(), Qt::AlignCenter, QString::number(player.bombNum()));
 
 	//绘制分数
 	painter.setFont(QFont(u8"微软雅黑", 15, QFont::Light));
@@ -372,9 +322,9 @@ void GameScene::paintEvent(QPaintEvent * event)
 		painter.setFont(QFont(u8"华文行楷", 40));
 		painter.drawText(gameEndTextRect, Qt::AlignCenter, tr(u8"胜败乃兵家常事\n大侠请重新来过"));
 		//再来一次
-		painter.drawPixmap(againRect, againImage);
+		painter.drawPixmap(againRect, image->againImage);
 		//结束游戏
-		painter.drawPixmap(gameOverRect, gameOverImage);
+		painter.drawPixmap(gameOverRect, image->gameOverImage);
 	}
 
 	painter.end();
@@ -404,7 +354,7 @@ void GameScene::gameCycleSlot()
 					//初始化玩家子弹
 					PlayerBullet bullet;
 					//设置玩家子弹图片
-					bullet.rimage() = playerBulletImage;
+					bullet.rimage() = image->playerBulletImage;
 					//设置玩家子弹宽高
 					bullet.rwidth() = bullet.image().width();
 					bullet.rheight() = bullet.image().height();
@@ -429,7 +379,7 @@ void GameScene::gameCycleSlot()
 						//初始化玩家子弹
 						PlayerBullet bullet1;
 						//设置玩家子弹图片
-						bullet1.rimage() = playerBulletImage;
+						bullet1.rimage() = image->playerBulletImage;
 						//设置玩家子弹宽高
 						bullet1.rwidth() = bullet1.image().width();
 						bullet1.rheight() = bullet1.image().height();
@@ -444,7 +394,7 @@ void GameScene::gameCycleSlot()
 						//初始化玩家子弹
 						PlayerBullet bullet2;
 						//设置玩家子弹图片
-						bullet2.rimage() = playerBulletImage;
+						bullet2.rimage() = image->playerBulletImage;
 						//设置玩家子弹宽高
 						bullet2.rwidth() = bullet2.image().width();
 						bullet2.rheight() = bullet2.image().height();
@@ -521,9 +471,9 @@ void GameScene::gameCycleSlot()
 				//设置敌机类型
 				enemy.rtype() = Enemy::Type::Soldier;
 				//设置敌机的常态图片
-				enemy.rnormalImageVector() = enemy1NormalImageVector;
+				enemy.rnormalImageVector() = image->enemy1NormalImageVector;
 				//设置敌机的损毁图片
-				enemy.rdestroyImageVector() = enemy1DestroyImageVector;
+				enemy.rdestroyImageVector() = image->enemy1DestroyImageVector;
 				//设置敌机每隔多少帧产生一次子弹
 				enemy.rproductBulletFpsInterval() = 1000 / 60 * 50 / (1000 / fps);
 				//设置敌机每帧在y方向上的行进距离
@@ -534,9 +484,9 @@ void GameScene::gameCycleSlot()
 				//设置敌机类型
 				enemy.rtype() = Enemy::Type::Leader;
 				//设置敌机的常态图片
-				enemy.rnormalImageVector() = enemy2NormalImageVector;
+				enemy.rnormalImageVector() = image->enemy2NormalImageVector;
 				//设置敌机的损毁图片
-				enemy.rdestroyImageVector() = enemy2DestroyImageVector;
+				enemy.rdestroyImageVector() = image->enemy2DestroyImageVector;
 				//设置敌机每隔多少帧产生一次子弹
 				enemy.rproductBulletFpsInterval() = 1000 / 60 * 45 / (1000 / fps);
 				//设置敌机每帧在y方向上的行进距离
@@ -549,9 +499,9 @@ void GameScene::gameCycleSlot()
 				//设置敌机类型
 				enemy.rtype() = Enemy::Type::General;
 				//设置敌机的常态图片
-				enemy.rnormalImageVector() = enemy3NormalImageVector;
+				enemy.rnormalImageVector() = image->enemy3NormalImageVector;
 				//设置敌机的损毁图片
-				enemy.rdestroyImageVector() = enemy3DestroyImageVector;
+				enemy.rdestroyImageVector() = image->enemy3DestroyImageVector;
 				//设置敌机每隔多少帧产生一次子弹
 				enemy.rproductBulletFpsInterval() = 1000 / 60 * 40 / (1000 / fps);
 				//设置敌机每帧在y方向上的行进距离
@@ -600,7 +550,7 @@ void GameScene::gameCycleSlot()
 					//初始化敌机子弹
 					EnemyBullet bullet;
 					//设置敌机子弹图片
-					bullet.rimage() = enemyBulletImage;
+					bullet.rimage() = image->enemyBulletImage;
 					//设置敌机子弹宽高
 					bullet.rwidth() = bullet.image().width();
 					bullet.rheight() = bullet.image().height();
@@ -655,14 +605,14 @@ void GameScene::gameCycleSlot()
 						//获取分数
 						score += getScore(enemy);
 						//切换到损态图片
-						if (enemy.life() <= 4 && enemy.normalImageVector()[0].cacheKey() == enemy2NormalImageVector[0].cacheKey())
+						if (enemy.life() <= 4 && enemy.normalImageVector()[0].cacheKey() == image->enemy2NormalImageVector[0].cacheKey())
 						{
-							enemy.rnormalImageVector() = enemy2HitImageVector;
+							enemy.rnormalImageVector() = image->enemy2HitImageVector;
 							enemy.rnowNormalImageIndex() = 0;
 						}
-						else if (enemy.life() <= 8 && enemy.normalImageVector()[0].cacheKey() == enemy3NormalImageVector[0].cacheKey())
+						else if (enemy.life() <= 8 && enemy.normalImageVector()[0].cacheKey() == image->enemy3NormalImageVector[0].cacheKey())
 						{
-							enemy.rnormalImageVector() = enemy3HitImageVector;
+							enemy.rnormalImageVector() = image->enemy3HitImageVector;
 							enemy.rnowNormalImageIndex() = 0;
 						}
 						//子弹删除
@@ -712,11 +662,11 @@ void GameScene::gameCycleSlot()
 			//设置图片
 			if (props.type() == Props::Type::Bomb)
 			{
-				props.rimage() = bombPropsImage;
+				props.rimage() = image->bombPropsImage;
 			}
 			else if (props.type() == Props::Type::Bullet)
 			{
-				props.rimage() = bulletPropsImage;
+				props.rimage() = image->bulletPropsImage;
 			}
 			//设置宽高
 			props.rwidth() = props.image().width();

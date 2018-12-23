@@ -1,4 +1,4 @@
-#ifndef GAMESCENE_H
+ï»¿#ifndef GAMESCENE_H
 #define GAMESCENE_H
 
 #include "Scene.h"
@@ -8,126 +8,95 @@
 #include "Enemy.h"
 #include "EnemyBullet.h"
 #include "Props.h"
+#include "Image.h"
 
-//ÓÎÏ·³¡¾°
+//æ¸¸æˆåœºæ™¯
 class GameScene : public Scene
 {
 	Q_OBJECT
 
 private:
-	//Í¼Æ¬
-	QPixmap backgroundImage; //±³¾°Í¼Æ¬
+	//å›¾ç‰‡
+	Image *image;
 
-	QPixmap againImage; //ÔÙÀ´Ò»´ÎÓÎÏ·°´Å¥
-	QPixmap gameOverImage; //ÓÎÏ·½áÊø°´Å¥
-
-	QPixmap pauseNorImage; //ÔİÍ£°´Å¥£¨Ã»°´ÏÂÊ±£©
-	QPixmap pausePressedImage; //ÔİÍ£°´Å¥£¨°´ÏÂÊ±£©
-	QPixmap resumeNorImage; //¼ÌĞø°´Å¥£¨Ã»°´ÏÂÊ±£©
-	QPixmap resumePressedImage; //¼ÌĞø°´Å¥£¨°´ÏÂÊ±£©
-	QPixmap pauseResumeImage; //Êµ¼Ê±»»æÖÆµÄÔİÍ£/¼ÌĞø°´Å¥
-
-	QVector<QPixmap> playerNormalImageVector; //Íæ¼Ò³£Ì¬Í¼Æ¬
-	QVector<QPixmap> playerDestroyImageVector; //Íæ¼ÒËğ»ÙÍ¼Æ¬
-
-	QVector<QPixmap> enemy1NormalImageVector; //µĞ»ú1³£Ì¬Í¼Æ¬
-	QVector<QPixmap> enemy1DestroyImageVector; //µĞ»ú1Ëğ»ÙÍ¼Æ¬
-
-	QVector<QPixmap> enemy2NormalImageVector; //µĞ»ú2³£Ì¬Í¼Æ¬
-	QVector<QPixmap> enemy2DestroyImageVector; //µĞ»ú2Ëğ»ÙÍ¼Æ¬
-	QVector<QPixmap> enemy2HitImageVector; //µĞ»ú2ËğÌ¬Í¼Æ¬
-
-	QVector<QPixmap> enemy3NormalImageVector; //µĞ»ú3³£Ì¬Í¼Æ¬
-	QVector<QPixmap> enemy3DestroyImageVector; //µĞ»ú3Ëğ»ÙÍ¼Æ¬
-	QVector<QPixmap> enemy3HitImageVector; //µĞ»ú3ËğÌ¬Í¼Æ¬
-
-	QPixmap playerBulletImage; //Íæ¼Ò×Óµ¯Í¼Æ¬
-	QPixmap enemyBulletImage; //µĞ»ú×Óµ¯Í¼Æ¬
-
-	QPixmap lifeImage; //ÉúÃüÍ¼Æ¬
-
-	QPixmap bombImage; //Õ¨µ¯Í¼Æ¬
-	QPixmap bombPropsImage; //Õ¨µ¯µÀ¾ßÍ¼Æ¬
-	QPixmap bulletPropsImage; //µ¯Ò©²¹¸øÍ¼Æ¬
-
-	//Íæ¼Ò
+	//ç©å®¶
 	Player player;
-	//Íæ¼Ò×Óµ¯Êı×é
+	//ç©å®¶å­å¼¹æ•°ç»„
 	QVector<PlayerBullet> playerBulletVector;
-	//µĞ»úÊı×é
+	//æ•Œæœºæ•°ç»„
 	QVector<Enemy> enemyVector;
-	//µĞ»ú×Óµ¯Êı×é
+	//æ•Œæœºå­å¼¹æ•°ç»„
 	QVector<EnemyBullet> enemyBulletVector;
-	//µÀ¾ßÊı×é
+	//é“å…·æ•°ç»„
 	QVector<Props> propsVector;
 
-	//µĞ»ú²úÉú¼ÆÖ¡Æ÷
+	//æ•Œæœºäº§ç”Ÿè®¡å¸§å™¨
 	int productEnemyFpsCounter;
-	//Ã¿¸ô¶àÉÙÖ¡²úÉúÒ»¼ÜµĞ»ú
+	//æ¯éš”å¤šå°‘å¸§äº§ç”Ÿä¸€æ¶æ•Œæœº
 	int productEnemyFpsInterval;
 
-	//µÀ¾ß²úÉú¼ÆÖ¡Æ÷
+	//é“å…·äº§ç”Ÿè®¡å¸§å™¨
 	int productPropsFpsCounter;
-	//Ã¿¸ô¶àÉÙÖ¡²úÉúÒ»¸öËæ»úµÀ¾ß
+	//æ¯éš”å¤šå°‘å¸§äº§ç”Ÿä¸€ä¸ªéšæœºé“å…·
 	int productPropsFpsInterval;
 
-	//µ¯Ò©²¹¸ø¼ÆÖ¡Æ÷
+	//å¼¹è¯è¡¥ç»™è®¡å¸§å™¨
 	int bulletPropsLastFpsCounter;
-	//µ¯Ò©²¹¸øµÀ¾ß³ÖĞøÖ¡Êı
+	//å¼¹è¯è¡¥ç»™é“å…·æŒç»­å¸§æ•°
 	int bulletPropsLastFps;
 
-	//µ±Ç°·ÖÊı
+	//å½“å‰åˆ†æ•°
 	int score;
 
-	//Ö¡Êı
+	//å¸§æ•°
 	int fps;
 
-	//ÊÇ·ñÔİÍ£
+	//æ˜¯å¦æš‚åœ
 	bool isPause;
-	//ÔİÍ£/¼ÌĞø°´Å¥ÊÇ·ñ±»°´ÏÂ
+	//æš‚åœ/ç»§ç»­æŒ‰é’®æ˜¯å¦è¢«æŒ‰ä¸‹
 	bool isPauseResumeClicked;
-	//ÔİÍ£/¼ÌĞø°´Å¥µÄÎ»ÖÃ
+	//æš‚åœ/ç»§ç»­æŒ‰é’®çš„ä½ç½®
 	QRect pauseResumeRect;
 
-	//Êó±êÒ»¿ªÊ¼°´ÏÂµÄÊ±ºòµÄ×ø±ê
+	//é¼ æ ‡ä¸€å¼€å§‹æŒ‰ä¸‹çš„æ—¶å€™çš„åæ ‡
 	QPoint originalPoint;
 
-	//ÓÎÏ·ÊÇ·ñ½áÊø
+	//æ¸¸æˆæ˜¯å¦ç»“æŸ
 	bool isGameOver;
-	//ÓÎÏ·½áÊøÏà¹ØµÄĞÅÏ¢°´Å¥µÄ°Ú·ÅµÄÎ»ÖÃ
+	//æ¸¸æˆç»“æŸç›¸å…³çš„ä¿¡æ¯æŒ‰é’®çš„æ‘†æ”¾çš„ä½ç½®
 	QRect gameEndTextRect;
 	QRect againRect;
 	QRect gameOverRect;
 
-	//ÓÎÏ·Ñ­»·¶¨Ê±Æ÷
+	//æ¸¸æˆå¾ªç¯å®šæ—¶å™¨
 	QTimer gameCycleTimer;
 
-	//»ñÈ¡·ÖÊı
+	//è·å–åˆ†æ•°
 	int getScore(Enemy enemy);
 
 public:
 	GameScene(Window *parent);
 	~GameScene();
 
-	//³õÊ¼»¯ÓÎÏ·³¡¾°
+	//åˆå§‹åŒ–æ¸¸æˆåœºæ™¯
 	void init() override;
 
-	//ÖØĞ´°´¼üÊÂ¼ş
+	//é‡å†™æŒ‰é”®äº‹ä»¶
 	void keyPressEvent(QKeyEvent *event) override;
 	void keyReleaseEvent(QKeyEvent *event) override;
 
 protected:
-	//ÖØĞ´»æÖÆÊÂ¼ş
+	//é‡å†™ç»˜åˆ¶äº‹ä»¶
 	void paintEvent(QPaintEvent *event) override;
-	//ÖØĞ´Êó±ê°´ÏÂÊÂ¼ş
+	//é‡å†™é¼ æ ‡æŒ‰ä¸‹äº‹ä»¶
 	void mousePressEvent(QMouseEvent *event) override;
-	//ÖØĞ´Êó±êÊÍ·ÅÊÂ¼ş
+	//é‡å†™é¼ æ ‡é‡Šæ”¾äº‹ä»¶
 	void mouseReleaseEvent(QMouseEvent *event) override;
-	//ÖØĞ´Êó±ê°´×¡ºóµÄÒÆ¶¯ÊÂ¼ş
+	//é‡å†™é¼ æ ‡æŒ‰ä½åçš„ç§»åŠ¨äº‹ä»¶
 	void mouseMoveEvent(QMouseEvent *event) override;
 
 private slots:
-	//ÓÎÏ·Ñ­»·
+	//æ¸¸æˆå¾ªç¯
 	void gameCycleSlot();
 };
 
