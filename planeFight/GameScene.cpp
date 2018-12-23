@@ -1,4 +1,4 @@
-#include "GameScene.h"
+ï»¿#include "GameScene.h"
 #include "Director.h"
 #include "QPainter"
 #include "QKeyEvent"
@@ -17,10 +17,10 @@ GameScene::~GameScene()
 
 void GameScene::init()
 {
-	//³õÊ¼»¯ÓÎÏ·ÔªËØ
-	//ÕâÀï°ÑËùĞèµÄÍ¼Æ¬ÌáÇ°¼ÓÔØµ½ÄÚ´æÖ®ÖĞ£¬ÒÔÌá¸ßµ÷ÓÃµÄĞ§ÂÊ
+	//åˆå§‹åŒ–æ¸¸æˆå…ƒç´ 
+	//è¿™é‡ŒæŠŠæ‰€éœ€çš„å›¾ç‰‡æå‰åŠ è½½åˆ°å†…å­˜ä¹‹ä¸­ï¼Œä»¥æé«˜è°ƒç”¨çš„æ•ˆç‡
 	backgroundImage.load(":/Resources/image/background.png");
-	backgroundImage = backgroundImage.scaled(size()); //½«±³¾°Í¼Æ¬Ëõ·ÅÖÁºÍ´°¿ÚÒ»Ñù´ó£¬±ãÓÚ»æÖÆ
+	backgroundImage = backgroundImage.scaled(size()); //å°†èƒŒæ™¯å›¾ç‰‡ç¼©æ”¾è‡³å’Œçª—å£ä¸€æ ·å¤§ï¼Œä¾¿äºç»˜åˆ¶
 
 	againImage.load(":/Resources/image/again.png");
 	gameOverImage.load(":/Resources/image/gameover.png");
@@ -70,25 +70,25 @@ void GameScene::init()
 	bombPropsImage.load(":/Resources/image/bomb_supply.png");
 	bulletPropsImage.load(":/Resources/image/bullet_supply.png");
 
-	//³õÊ¼»¯Ö¡Êı
+	//åˆå§‹åŒ–å¸§æ•°
 	fps = 60;
 
-	//³õÊ¼»¯·ÖÊı
+	//åˆå§‹åŒ–åˆ†æ•°
 	score = 0;
 
-	//³õÊ¼»¯ÊÇ·ñÔİÍ£±êÖ¾
+	//åˆå§‹åŒ–æ˜¯å¦æš‚åœæ ‡å¿—
 	isPause = false;
-	//Ã»ÓĞ±»°´ÏÂ
+	//æ²¡æœ‰è¢«æŒ‰ä¸‹
 	isPauseResumeClicked = false;
-	//ÔİÍ£/¼ÌĞø°´Å¥Î»ÖÃ
+	//æš‚åœ/ç»§ç»­æŒ‰é’®ä½ç½®
 	pauseResumeRect.setX(width() - pauseResumeImage.width());
 	pauseResumeRect.setY(0);
 	pauseResumeRect.setWidth(pauseResumeImage.width());
 	pauseResumeRect.setHeight(pauseResumeImage.height());
 
-	//ÓÎÏ·Ã»ÓĞ½áÊø
+	//æ¸¸æˆæ²¡æœ‰ç»“æŸ
 	isGameOver = false;
-	//³õÊ¼»¯ÓÎÏ·½áÊøµÄĞÅÏ¢°´Å¥°Ú·ÅÎ»ÖÃ
+	//åˆå§‹åŒ–æ¸¸æˆç»“æŸçš„ä¿¡æ¯æŒ‰é’®æ‘†æ”¾ä½ç½®
 	gameEndTextRect.setX(0);
 	gameEndTextRect.setY(height() / 3);
 	gameEndTextRect.setWidth(width());
@@ -102,41 +102,41 @@ void GameScene::init()
 	gameOverRect.setWidth(gameOverImage.width());
 	gameOverRect.setHeight(gameOverImage.height());
 
-	//³õÊ¼»¯Íæ¼Ò·É»ú
-	//ÉèÖÃÍæ¼Ò·É»ú³£Ì¬Í¼Æ¬
+	//åˆå§‹åŒ–ç©å®¶é£æœº
+	//è®¾ç½®ç©å®¶é£æœºå¸¸æ€å›¾ç‰‡
 	player.rnormalImageVector() = playerNormalImageVector;
-	//ÉèÖÃÍæ¼Ò·É»úËğ»ÙÍ¼Æ¬
+	//è®¾ç½®ç©å®¶é£æœºæŸæ¯å›¾ç‰‡
 	player.rdestroyImageVector() = playerDestroyImageVector;
-	//ÉèÖÃÃ¿¸ô¶àÉÙÖ¡ÇĞ»»Ò»ÕÅÍæ¼Ò·É»úÍ¼Æ¬
+	//è®¾ç½®æ¯éš”å¤šå°‘å¸§åˆ‡æ¢ä¸€å¼ ç©å®¶é£æœºå›¾ç‰‡
 	player.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
-	//ÉèÖÃÃ¿¸ô¶àÉÙÖ¡²úÉúÒ»´Î×Óµ¯
+	//è®¾ç½®æ¯éš”å¤šå°‘å¸§äº§ç”Ÿä¸€æ¬¡å­å¼¹
 	player.rproductBulletFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
-	//ÉèÖÃÍæ¼Ò·É»úÒ»¿ªÊ¼µÄÍ¼Æ¬
+	//è®¾ç½®ç©å®¶é£æœºä¸€å¼€å§‹çš„å›¾ç‰‡
 	player.rimage() = player.normalImageVector()[0];
-	//ÉèÖÃÍæ¼Ò·É»ú¿í¸ß
+	//è®¾ç½®ç©å®¶é£æœºå®½é«˜
 	player.rwidth() = player.image().width();
 	player.rheight() = player.image().height();
-	//ÉèÖÃÍæ¼Ò·É»ú³õÊ¼×ø±ê
+	//è®¾ç½®ç©å®¶é£æœºåˆå§‹åæ ‡
 	player.rx() = width() / 2 - player.width() / 2;
 	player.ry() = height() - player.height();
-	//ÉèÖÃÍæ¼Ò·É»úÃ¿Ö¡ÔÚÁ½¸ö·½ÏòÉÏĞĞ½ø¾àÀë
+	//è®¾ç½®ç©å®¶é£æœºæ¯å¸§åœ¨ä¸¤ä¸ªæ–¹å‘ä¸Šè¡Œè¿›è·ç¦»
 	player.rdx() = 10 * 60 / fps;
 	player.rdy() = 10 * 60 / fps;
 
-	//³õÊ¼»¯µĞ»ú²úÉú
+	//åˆå§‹åŒ–æ•Œæœºäº§ç”Ÿ
 	productEnemyFpsCounter = 0;
 	productEnemyFpsInterval = 1000 / 60 * 100 / (1000 / fps);
-	srand(QTime::currentTime().msec()); //³õÊ¼»¯Ëæ»úÖÖ×Ó
+	srand(QTime::currentTime().msec()); //åˆå§‹åŒ–éšæœºç§å­
 
-	//³õÊ¼»¯µÀ¾ß²úÉú
+	//åˆå§‹åŒ–é“å…·äº§ç”Ÿ
 	productPropsFpsCounter = 0;
 	productPropsFpsInterval = 1000 / 60 * 1000 / (1000 / fps);
 
-	//³õÊ¼»¯µ¯Ò©²¹¸øµÄ³ÖĞø
+	//åˆå§‹åŒ–å¼¹è¯è¡¥ç»™çš„æŒç»­
 	bulletPropsLastFpsCounter = 0;
 	bulletPropsLastFps = 1000 / 60 * 700 / (1000 / fps);
 
-	//Æô¶¯ÓÎÏ·Ñ­»·
+	//å¯åŠ¨æ¸¸æˆå¾ªç¯
 	connect(&gameCycleTimer, &QTimer::timeout, this, &GameScene::gameCycleSlot);
 	gameCycleTimer.setInterval(1000 / fps);
 	gameCycleTimer.start();
@@ -146,7 +146,7 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 {
 	if (!event->isAutoRepeat())
 	{
-		//Íæ¼Ò·É»úÒÆ¶¯
+		//ç©å®¶é£æœºç§»åŠ¨
 		if (event->key() == Qt::Key::Key_W)
 		{
 			player.risUping() = true;
@@ -163,12 +163,12 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 		{
 			player.risRighting() = true;
 		}
-		//¿ª»ğ
+		//å¼€ç«
 		else if (event->key() == Qt::Key::Key_J)
 		{
 			player.risFiring() = true;
 		}
-		//Ê¹ÓÃÕ¨µ¯£¬È«Í¼ºäÕ¨
+		//ä½¿ç”¨ç‚¸å¼¹ï¼Œå…¨å›¾è½°ç‚¸
 		else if (event->key() == Qt::Key::Key_B)
 		{
 			if (player.bombNum() > 0)
@@ -177,7 +177,7 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 				for (Enemy &enemy : enemyVector)
 				{
 					enemy.rlife() = 0;
-					//·ÖÊı¸üĞÂ
+					//åˆ†æ•°æ›´æ–°
 					score += getScore(enemy);
 				}
 			}
@@ -189,10 +189,10 @@ void GameScene::keyPressEvent(QKeyEvent * event)
 void GameScene::mousePressEvent(QMouseEvent * event)
 {
 	originalPoint = event->pos();
-	//µ±Íæ¼Ò·É»ú»¹´æ»îµÄÊ±ºò£¬¼´ÓÎÏ·»¹Î´½áÊøµÄÊ±ºò
+	//å½“ç©å®¶é£æœºè¿˜å­˜æ´»çš„æ—¶å€™ï¼Œå³æ¸¸æˆè¿˜æœªç»“æŸçš„æ—¶å€™
 	if (player.life() > 0)
 	{
-		//°´µ½ÁËÔİÍ£/¼ÌĞø°´Å¥
+		//æŒ‰åˆ°äº†æš‚åœ/ç»§ç»­æŒ‰é’®
 		if (pauseResumeRect.contains(originalPoint))
 		{
 			if (isPause)
@@ -210,14 +210,14 @@ void GameScene::mousePressEvent(QMouseEvent * event)
 
 void GameScene::mouseMoveEvent(QMouseEvent * event)
 {
-	//µ±Íæ¼Ò·É»ú»¹´æ»îµÄÊ±ºò£¬¼´ÓÎÏ·»¹Î´½áÊøµÄÊ±ºò
+	//å½“ç©å®¶é£æœºè¿˜å­˜æ´»çš„æ—¶å€™ï¼Œå³æ¸¸æˆè¿˜æœªç»“æŸçš„æ—¶å€™
 	if (player.life() > 0)
 	{
 		QPoint pos = event->pos();
-		//Ô­À´µÄÊó±ê°´ÏÂ´¦Îª°´Å¥
+		//åŸæ¥çš„é¼ æ ‡æŒ‰ä¸‹å¤„ä¸ºæŒ‰é’®
 		if (pauseResumeRect.contains(originalPoint))
 		{
-			//Êó±êÒÆ¶¯µ½ÁË°´Å¥ÍâÃæ
+			//é¼ æ ‡ç§»åŠ¨åˆ°äº†æŒ‰é’®å¤–é¢
 			if (!pauseResumeRect.contains(pos))
 			{
 				if (isPause)
@@ -276,10 +276,10 @@ void GameScene::keyReleaseEvent(QKeyEvent * event)
 void GameScene::mouseReleaseEvent(QMouseEvent * event)
 {
 	QPoint pos = event->pos();
-	//µ±Íæ¼Ò·É»ú»¹´æ»îµÄÊ±ºò£¬¼´ÓÎÏ·»¹Î´½áÊøµÄÊ±ºò
+	//å½“ç©å®¶é£æœºè¿˜å­˜æ´»çš„æ—¶å€™ï¼Œå³æ¸¸æˆè¿˜æœªç»“æŸçš„æ—¶å€™
 	if (player.life() > 0)
 	{
-		//´ÓÔİÍ£/¼ÌĞø°´Å¥´¦ÊÍ·ÅÇÒÔ­À´Êó±ê°´ÏÂµÄ×ø±êÒ²ÒªÎª°´Å¥´¦
+		//ä»æš‚åœ/ç»§ç»­æŒ‰é’®å¤„é‡Šæ”¾ä¸”åŸæ¥é¼ æ ‡æŒ‰ä¸‹çš„åæ ‡ä¹Ÿè¦ä¸ºæŒ‰é’®å¤„
 		if (pauseResumeRect.contains(pos) && pauseResumeRect.contains(originalPoint))
 		{
 			if (isPause)
@@ -293,10 +293,10 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 			isPause = !isPause;
 		}
 	}
-	//·ñÔòµ±ÓÎÏ·½áÊøµÄÊ±ºò
+	//å¦åˆ™å½“æ¸¸æˆç»“æŸçš„æ—¶å€™
 	else if (isGameOver)
 	{
-		//µã»÷ÊÍ·Å¶¼ÔÚÖØĞÂÔÙÀ´°´Å¥ÔòÖØĞÂÔÙÀ´
+		//ç‚¹å‡»é‡Šæ”¾éƒ½åœ¨é‡æ–°å†æ¥æŒ‰é’®åˆ™é‡æ–°å†æ¥
 		if (againRect.contains(pos) && againRect.contains(originalPoint))
 		{
 			GameScene *gameScene = new GameScene(Director::getInstance()->getWindow());
@@ -305,7 +305,7 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 			gameScene->show();
 			deleteLater();
 		}
-		//...½áÊøÓÎÏ·
+		//...ç»“æŸæ¸¸æˆ
 		else if (gameOverRect.contains(pos) && gameOverRect.contains(originalPoint))
 		{
 
@@ -318,62 +318,62 @@ void GameScene::paintEvent(QPaintEvent * event)
 {
 	QPainter painter(this);
 
-	//»æÖÆ±³¾°
+	//ç»˜åˆ¶èƒŒæ™¯
 	painter.drawPixmap(frameGeometry(), backgroundImage);
 
-	//»æÖÆÍæ¼Ò
+	//ç»˜åˆ¶ç©å®¶
 	painter.drawPixmap(player.x(), player.y(), player.width(), player.height(), player.image());
 
-	//»æÖÆµĞ»ú
+	//ç»˜åˆ¶æ•Œæœº
 	for (Enemy &enemy : enemyVector)
 	{
 		painter.drawPixmap(enemy.x(), enemy.y(), enemy.width(), enemy.height(), enemy.image());
 	}
 
-	//»æÖÆÍæ¼Ò×Óµ¯
+	//ç»˜åˆ¶ç©å®¶å­å¼¹
 	for (Bullet &playerBullet : playerBulletVector)
 	{
 		painter.drawPixmap(playerBullet.x(), playerBullet.y(), playerBullet.width(), playerBullet.height(), playerBullet.image());
 	}
 
-	//»æÖÆµĞ»ú×Óµ¯
+	//ç»˜åˆ¶æ•Œæœºå­å¼¹
 	for (Bullet &enemyBullet : enemyBulletVector)
 	{
 		painter.drawPixmap(enemyBullet.x(), enemyBullet.y(), enemyBullet.width(), enemyBullet.height(), enemyBullet.image());
 	}
 
-	//»æÖÆµÀ¾ß
+	//ç»˜åˆ¶é“å…·
 	for (Props &props : propsVector)
 	{
 		painter.drawPixmap(props.x(), props.y(), props.width(), props.height(), props.image());
 	}
 
-	//»æÖÆÔİÍ£/¼ÌĞø°´Å¥
+	//ç»˜åˆ¶æš‚åœ/ç»§ç»­æŒ‰é’®
 	painter.drawPixmap(pauseResumeRect, pauseResumeImage);
 
-	//»æÖÆÉúÃü
+	//ç»˜åˆ¶ç”Ÿå‘½
 	painter.drawPixmap(0, height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), lifeImage);
-	painter.setFont(QFont(u8"Î¢ÈíÑÅºÚ", 25, QFont::Light));
+	painter.setFont(QFont(u8"å¾®è½¯é›…é»‘", 25, QFont::Light));
 	painter.drawText(lifeImage.width(), height() - lifeImage.height(), lifeImage.width(), lifeImage.height(), Qt::AlignCenter, QString::number(player.life()));
 
-	//»æÖÆÕ¨µ¯ÊıÄ¿
+	//ç»˜åˆ¶ç‚¸å¼¹æ•°ç›®
 	painter.drawPixmap(width() - bombImage.width() * 2, height() - bombImage.height(), bombImage.width(), bombImage.height(), bombImage);
-	painter.setFont(QFont(u8"Î¢ÈíÑÅºÚ", 25, QFont::Light));
+	painter.setFont(QFont(u8"å¾®è½¯é›…é»‘", 25, QFont::Light));
 	painter.drawText(width() - bombImage.width(), height() - bombImage.height(), bombImage.width(), bombImage.height(), Qt::AlignCenter, QString::number(player.bombNum()));
 
-	//»æÖÆ·ÖÊı
-	painter.setFont(QFont(u8"Î¢ÈíÑÅºÚ", 15, QFont::Light));
-	painter.drawText(0, 0, 120, 50, Qt::AlignCenter, tr(u8"·ÖÊı£º%1").arg(score));
+	//ç»˜åˆ¶åˆ†æ•°
+	painter.setFont(QFont(u8"å¾®è½¯é›…é»‘", 15, QFont::Light));
+	painter.drawText(0, 0, 120, 50, Qt::AlignCenter, tr(u8"åˆ†æ•°ï¼š%1").arg(score));
 
-	//ÓÎÏ·½áÊøÔò»æÖÆÏà¹ØĞÅÏ¢ºÍÑ¡Ôñ
+	//æ¸¸æˆç»“æŸåˆ™ç»˜åˆ¶ç›¸å…³ä¿¡æ¯å’Œé€‰æ‹©
 	if (isGameOver)
 	{
-		//ÓÎÏ·½áÊøĞÅÏ¢
-		painter.setFont(QFont(u8"»ªÎÄĞĞ¿¬", 40));
-		painter.drawText(gameEndTextRect, Qt::AlignCenter, tr(u8"Ê¤°ÜÄË±ø¼Ò³£ÊÂ\n´óÏÀÇëÖØĞÂÀ´¹ı"));
-		//ÔÙÀ´Ò»´Î
+		//æ¸¸æˆç»“æŸä¿¡æ¯
+		painter.setFont(QFont(u8"åæ–‡è¡Œæ¥·", 40));
+		painter.drawText(gameEndTextRect, Qt::AlignCenter, tr(u8"èƒœè´¥ä¹ƒå…µå®¶å¸¸äº‹\nå¤§ä¾ è¯·é‡æ–°æ¥è¿‡"));
+		//å†æ¥ä¸€æ¬¡
 		painter.drawPixmap(againRect, againImage);
-		//½áÊøÓÎÏ·
+		//ç»“æŸæ¸¸æˆ
 		painter.drawPixmap(gameOverRect, gameOverImage);
 	}
 
@@ -383,40 +383,40 @@ void GameScene::paintEvent(QPaintEvent * event)
 
 void GameScene::gameCycleSlot()
 {
-	//Èç¹ûÃ»ÓĞÔİÍ£ÇÒÓÎÏ·Ã»ÓĞ½áÊø£¬Ôò¼ÆËã×´Ì¬
+	//å¦‚æœæ²¡æœ‰æš‚åœä¸”æ¸¸æˆæ²¡æœ‰ç»“æŸï¼Œåˆ™è®¡ç®—çŠ¶æ€
 	if (!isPause && !isGameOver)
 	{
-		//¼ÆËã×´Ì¬
-		//¼ÆËãÍæ¼Ò×´Ì¬
-		//Èç¹ûÍæ¼Ò´æ»î
+		//è®¡ç®—çŠ¶æ€
+		//è®¡ç®—ç©å®¶çŠ¶æ€
+		//å¦‚æœç©å®¶å­˜æ´»
 		if (player.life() > 0)
 		{
-			//ÒÆ¶¯
+			//ç§»åŠ¨
 			player.move(0, height(), 0, width());
 
-			//¿ª»ğ
+			//å¼€ç«
 			player.rproductBulletFpsCounter()++;
 			if (player.productBulletFpsCounter() == player.productBulletFpsInterval())
 			{
 				player.rproductBulletFpsCounter() = 0;
 				if (player.isFiring())
 				{
-					//³õÊ¼»¯Íæ¼Ò×Óµ¯
+					//åˆå§‹åŒ–ç©å®¶å­å¼¹
 					PlayerBullet bullet;
-					//ÉèÖÃÍæ¼Ò×Óµ¯Í¼Æ¬
+					//è®¾ç½®ç©å®¶å­å¼¹å›¾ç‰‡
 					bullet.rimage() = playerBulletImage;
-					//ÉèÖÃÍæ¼Ò×Óµ¯¿í¸ß
+					//è®¾ç½®ç©å®¶å­å¼¹å®½é«˜
 					bullet.rwidth() = bullet.image().width();
 					bullet.rheight() = bullet.image().height();
-					//ÉèÖÃÍæ¼Ò×Óµ¯×ø±ê
+					//è®¾ç½®ç©å®¶å­å¼¹åæ ‡
 					bullet.rx() = player.x() + player.width() / 2 - bullet.width() / 2;
 					bullet.ry() = player.y() - bullet.y();
-					//ÉèÖÃÍæ¼Ò×Óµ¯Ã¿Ö¡ĞĞ½ø¾àÀë
+					//è®¾ç½®ç©å®¶å­å¼¹æ¯å¸§è¡Œè¿›è·ç¦»
 					bullet.rdy() = 10 * 60 / fps;
-					//½«Íæ¼Ò×Óµ¯Ñ¹ÈëÍæ¼Ò×Óµ¯Êı×é±ãÓÚ¹ÜÀí¼ÆËã
+					//å°†ç©å®¶å­å¼¹å‹å…¥ç©å®¶å­å¼¹æ•°ç»„ä¾¿äºç®¡ç†è®¡ç®—
 					playerBulletVector.append(bullet);
 
-					//»ğÁ¦¼ÓÇ¿
+					//ç«åŠ›åŠ å¼º
 					if (player.isStrengthenFire())
 					{
 						bulletPropsLastFpsCounter++;
@@ -426,43 +426,43 @@ void GameScene::gameCycleSlot()
 							player.risStrengthenFire() = false;
 						}
 
-						//³õÊ¼»¯Íæ¼Ò×Óµ¯
+						//åˆå§‹åŒ–ç©å®¶å­å¼¹
 						PlayerBullet bullet1;
-						//ÉèÖÃÍæ¼Ò×Óµ¯Í¼Æ¬
+						//è®¾ç½®ç©å®¶å­å¼¹å›¾ç‰‡
 						bullet1.rimage() = playerBulletImage;
-						//ÉèÖÃÍæ¼Ò×Óµ¯¿í¸ß
+						//è®¾ç½®ç©å®¶å­å¼¹å®½é«˜
 						bullet1.rwidth() = bullet1.image().width();
 						bullet1.rheight() = bullet1.image().height();
-						//ÉèÖÃÍæ¼Ò×Óµ¯×ø±ê
+						//è®¾ç½®ç©å®¶å­å¼¹åæ ‡
 						bullet1.rx() = player.x() + player.width() / 6;
 						bullet1.ry() = player.y() - bullet1.y();
-						//ÉèÖÃÍæ¼Ò×Óµ¯Ã¿Ö¡ĞĞ½ø¾àÀë
+						//è®¾ç½®ç©å®¶å­å¼¹æ¯å¸§è¡Œè¿›è·ç¦»
 						bullet1.rdy() = 10 * 60 / fps;
-						//½«Íæ¼Ò×Óµ¯Ñ¹ÈëÍæ¼Ò×Óµ¯Êı×é±ãÓÚ¹ÜÀí¼ÆËã
+						//å°†ç©å®¶å­å¼¹å‹å…¥ç©å®¶å­å¼¹æ•°ç»„ä¾¿äºç®¡ç†è®¡ç®—
 						playerBulletVector.append(bullet1);
 
-						//³õÊ¼»¯Íæ¼Ò×Óµ¯
+						//åˆå§‹åŒ–ç©å®¶å­å¼¹
 						PlayerBullet bullet2;
-						//ÉèÖÃÍæ¼Ò×Óµ¯Í¼Æ¬
+						//è®¾ç½®ç©å®¶å­å¼¹å›¾ç‰‡
 						bullet2.rimage() = playerBulletImage;
-						//ÉèÖÃÍæ¼Ò×Óµ¯¿í¸ß
+						//è®¾ç½®ç©å®¶å­å¼¹å®½é«˜
 						bullet2.rwidth() = bullet2.image().width();
 						bullet2.rheight() = bullet2.image().height();
-						//ÉèÖÃÍæ¼Ò×Óµ¯×ø±ê
+						//è®¾ç½®ç©å®¶å­å¼¹åæ ‡
 						bullet2.rx() = player.x() + player.width() - player.width() / 6;
 						bullet2.ry() = player.y() - bullet2.y();
-						//ÉèÖÃÍæ¼Ò×Óµ¯Ã¿Ö¡ĞĞ½ø¾àÀë
+						//è®¾ç½®ç©å®¶å­å¼¹æ¯å¸§è¡Œè¿›è·ç¦»
 						bullet2.rdy() = 10 * 60 / fps;
-						//½«Íæ¼Ò×Óµ¯Ñ¹ÈëÍæ¼Ò×Óµ¯Êı×é±ãÓÚ¹ÜÀí¼ÆËã
+						//å°†ç©å®¶å­å¼¹å‹å…¥ç©å®¶å­å¼¹æ•°ç»„ä¾¿äºç®¡ç†è®¡ç®—
 						playerBulletVector.append(bullet2);
 					}
 				}
 			}
 
-			//ÇĞ»»³£Ì¬Í¼Æ¬
+			//åˆ‡æ¢å¸¸æ€å›¾ç‰‡
 			player.changeImage();
 
-			//Èç¹û×²ÉÏµĞ»ú
+			//å¦‚æœæ’ä¸Šæ•Œæœº
 			for (int i = 0; i < enemyVector.size(); i++)
 			{
 				Enemy &enemy = enemyVector[i];
@@ -474,18 +474,18 @@ void GameScene::gameCycleSlot()
 				}
 			}
 
-			//Èç¹û×²ÉÏµÀ¾ß
+			//å¦‚æœæ’ä¸Šé“å…·
 			for (int i = 0; i < propsVector.size(); i++)
 			{
 				Props &props = propsVector[i];
 				if (player.isCollided(props))
 				{
-					//Èç¹ûÊÇÕ¨µ¯
+					//å¦‚æœæ˜¯ç‚¸å¼¹
 					if (props.type() == Props::Type::Bomb)
 					{
 						player.rbombNum()++;
 					}
-					//Èç¹ûÊÇµ¯Ò©²¹¸ø
+					//å¦‚æœæ˜¯å¼¹è¯è¡¥ç»™
 					else if (props.type() == Props::Type::Bullet)
 					{
 						player.risStrengthenFire() = true;
@@ -494,19 +494,19 @@ void GameScene::gameCycleSlot()
 				}
 			}
 		}
-		//·ñÔòÏÔÊ¾Ëğ»Ù¹ı³Ì
+		//å¦åˆ™æ˜¾ç¤ºæŸæ¯è¿‡ç¨‹
 		else
 		{
 			if (!player.changeImage())
 			{
-				//ÓÎÏ·½áÊø
+				//æ¸¸æˆç»“æŸ
 				isGameOver = true;
 			}
 		}
 
 
-		//¼ÆËãµĞ»ú×´Ì¬
-		//µĞ»ú²úÉú
+		//è®¡ç®—æ•ŒæœºçŠ¶æ€
+		//æ•Œæœºäº§ç”Ÿ
 		productEnemyFpsCounter++;
 		if (productEnemyFpsCounter == productEnemyFpsInterval)
 		{
@@ -514,76 +514,76 @@ void GameScene::gameCycleSlot()
 
 			int enemyIndex = qrand() % 13;
 
-			//³õÊ¼»¯µĞ»ú
+			//åˆå§‹åŒ–æ•Œæœº
 			Enemy enemy;
 			if (enemyIndex >= 0 & enemyIndex <= 8)
 			{
-				//ÉèÖÃµĞ»úÀàĞÍ
+				//è®¾ç½®æ•Œæœºç±»å‹
 				enemy.rtype() = Enemy::Type::Soldier;
-				//ÉèÖÃµĞ»úµÄ³£Ì¬Í¼Æ¬
+				//è®¾ç½®æ•Œæœºçš„å¸¸æ€å›¾ç‰‡
 				enemy.rnormalImageVector() = enemy1NormalImageVector;
-				//ÉèÖÃµĞ»úµÄËğ»ÙÍ¼Æ¬
+				//è®¾ç½®æ•Œæœºçš„æŸæ¯å›¾ç‰‡
 				enemy.rdestroyImageVector() = enemy1DestroyImageVector;
-				//ÉèÖÃµĞ»úÃ¿¸ô¶àÉÙÖ¡²úÉúÒ»´Î×Óµ¯
+				//è®¾ç½®æ•Œæœºæ¯éš”å¤šå°‘å¸§äº§ç”Ÿä¸€æ¬¡å­å¼¹
 				enemy.rproductBulletFpsInterval() = 1000 / 60 * 50 / (1000 / fps);
-				//ÉèÖÃµĞ»úÃ¿Ö¡ÔÚy·½ÏòÉÏµÄĞĞ½ø¾àÀë
+				//è®¾ç½®æ•Œæœºæ¯å¸§åœ¨yæ–¹å‘ä¸Šçš„è¡Œè¿›è·ç¦»
 				enemy.rdy() = 3 * 60 / fps;
 			}
 			else if (enemyIndex >= 9 && enemyIndex <= 11)
 			{
-				//ÉèÖÃµĞ»úÀàĞÍ
+				//è®¾ç½®æ•Œæœºç±»å‹
 				enemy.rtype() = Enemy::Type::Leader;
-				//ÉèÖÃµĞ»úµÄ³£Ì¬Í¼Æ¬
+				//è®¾ç½®æ•Œæœºçš„å¸¸æ€å›¾ç‰‡
 				enemy.rnormalImageVector() = enemy2NormalImageVector;
-				//ÉèÖÃµĞ»úµÄËğ»ÙÍ¼Æ¬
+				//è®¾ç½®æ•Œæœºçš„æŸæ¯å›¾ç‰‡
 				enemy.rdestroyImageVector() = enemy2DestroyImageVector;
-				//ÉèÖÃµĞ»úÃ¿¸ô¶àÉÙÖ¡²úÉúÒ»´Î×Óµ¯
+				//è®¾ç½®æ•Œæœºæ¯éš”å¤šå°‘å¸§äº§ç”Ÿä¸€æ¬¡å­å¼¹
 				enemy.rproductBulletFpsInterval() = 1000 / 60 * 45 / (1000 / fps);
-				//ÉèÖÃµĞ»úÃ¿Ö¡ÔÚy·½ÏòÉÏµÄĞĞ½ø¾àÀë
+				//è®¾ç½®æ•Œæœºæ¯å¸§åœ¨yæ–¹å‘ä¸Šçš„è¡Œè¿›è·ç¦»
 				enemy.rdy() = 2 * 60 / fps;
-				//ÉèÖÃµĞ»úÉúÃü
+				//è®¾ç½®æ•Œæœºç”Ÿå‘½
 				enemy.rlife() = 6;
 			}
 			else if (enemyIndex == 12)
 			{
-				//ÉèÖÃµĞ»úÀàĞÍ
+				//è®¾ç½®æ•Œæœºç±»å‹
 				enemy.rtype() = Enemy::Type::General;
-				//ÉèÖÃµĞ»úµÄ³£Ì¬Í¼Æ¬
+				//è®¾ç½®æ•Œæœºçš„å¸¸æ€å›¾ç‰‡
 				enemy.rnormalImageVector() = enemy3NormalImageVector;
-				//ÉèÖÃµĞ»úµÄËğ»ÙÍ¼Æ¬
+				//è®¾ç½®æ•Œæœºçš„æŸæ¯å›¾ç‰‡
 				enemy.rdestroyImageVector() = enemy3DestroyImageVector;
-				//ÉèÖÃµĞ»úÃ¿¸ô¶àÉÙÖ¡²úÉúÒ»´Î×Óµ¯
+				//è®¾ç½®æ•Œæœºæ¯éš”å¤šå°‘å¸§äº§ç”Ÿä¸€æ¬¡å­å¼¹
 				enemy.rproductBulletFpsInterval() = 1000 / 60 * 40 / (1000 / fps);
-				//ÉèÖÃµĞ»úÃ¿Ö¡ÔÚy·½ÏòÉÏµÄĞĞ½ø¾àÀë
+				//è®¾ç½®æ•Œæœºæ¯å¸§åœ¨yæ–¹å‘ä¸Šçš„è¡Œè¿›è·ç¦»
 				enemy.rdy() = 1 * 60 / fps;
-				//ÉèÖÃµĞ»úÉúÃü
+				//è®¾ç½®æ•Œæœºç”Ÿå‘½
 				enemy.rlife() = 16;
 			}
-			//ÉèÖÃµĞ»úÃ¿¸ô¶àÉÙÖ¡ÇĞ»»Ò»ÕÅÍ¼Æ¬
+			//è®¾ç½®æ•Œæœºæ¯éš”å¤šå°‘å¸§åˆ‡æ¢ä¸€å¼ å›¾ç‰‡
 			enemy.rimageChangeFpsInterval() = 1000 / 60 * 13 / (1000 / fps);
-			//ÉèÖÃµĞ»úÒ»¿ªÊ¼µÄÍ¼Æ¬
+			//è®¾ç½®æ•Œæœºä¸€å¼€å§‹çš„å›¾ç‰‡
 			enemy.rimage() = enemy.normalImageVector()[0];
-			//ÉèÖÃµĞ»úÒ»¿ªÊ¼µÄ¿í¸ß
+			//è®¾ç½®æ•Œæœºä¸€å¼€å§‹çš„å®½é«˜
 			enemy.rwidth() = enemy.image().width();
 			enemy.rheight() = enemy.image().height();
-			//ÉèÖÃµĞ»úÒ»¿ªÊ¼µÄËæ»ú×ø±ê
+			//è®¾ç½®æ•Œæœºä¸€å¼€å§‹çš„éšæœºåæ ‡
 			enemy.rx() = qrand() % (width() - enemy.width() + 1);
 			enemy.ry() = -enemy.height();
 
-			//µĞ»ú¼ÓÈëÊı×é
+			//æ•ŒæœºåŠ å…¥æ•°ç»„
 			enemyVector.append(enemy);
 		}
 
-		//¼ÆËã×´Ì¬
+		//è®¡ç®—çŠ¶æ€
 		for (int i = 0; i < enemyVector.size(); i++)
 		{
 			Enemy &enemy = enemyVector[i];
 
-			//Èç¹ûµĞ»ú»î×Å
+			//å¦‚æœæ•Œæœºæ´»ç€
 			if (enemy.life() > 0)
 			{
-				//ÒÆ¶¯
-				//³¬³öµØÍ¼±ß½çÔò´ÓÄÚ´æÖĞÉ¾³ı
+				//ç§»åŠ¨
+				//è¶…å‡ºåœ°å›¾è¾¹ç•Œåˆ™ä»å†…å­˜ä¸­åˆ é™¤
 				if (!enemy.move(height()))
 				{
 					enemyVector.removeAt(i);
@@ -591,35 +591,35 @@ void GameScene::gameCycleSlot()
 					continue;
 				}
 
-				//¿ª»ğ
+				//å¼€ç«
 				enemy.rproductBulletFpsCounter()++;
 				if (enemy.productBulletFpsCounter() == enemy.productBulletFpsInterval())
 				{
 					enemy.rproductBulletFpsCounter() = 0;
 
-					//³õÊ¼»¯µĞ»ú×Óµ¯
+					//åˆå§‹åŒ–æ•Œæœºå­å¼¹
 					EnemyBullet bullet;
-					//ÉèÖÃµĞ»ú×Óµ¯Í¼Æ¬
+					//è®¾ç½®æ•Œæœºå­å¼¹å›¾ç‰‡
 					bullet.rimage() = enemyBulletImage;
-					//ÉèÖÃµĞ»ú×Óµ¯¿í¸ß
+					//è®¾ç½®æ•Œæœºå­å¼¹å®½é«˜
 					bullet.rwidth() = bullet.image().width();
 					bullet.rheight() = bullet.image().height();
-					//ÉèÖÃµĞ»ú×Óµ¯×ø±ê
+					//è®¾ç½®æ•Œæœºå­å¼¹åæ ‡
 					bullet.rx() = enemy.x() + enemy.width() / 2 - bullet.width() / 2;
 					bullet.ry() = enemy.y() + enemy.height();
-					//ÉèÖÃµĞ»ú×Óµ¯Ã¿Ö¡µÄĞĞ½ø¾àÀë
+					//è®¾ç½®æ•Œæœºå­å¼¹æ¯å¸§çš„è¡Œè¿›è·ç¦»
 					bullet.rdy() = 5 * 60 / fps;
-					//Ñ¹ÈëµĞ»ú×Óµ¯Êı×é
+					//å‹å…¥æ•Œæœºå­å¼¹æ•°ç»„
 					enemyBulletVector.append(bullet);
 				}
 
-				//ÇĞ»»³£Ì¬Í¼Æ¬
-				enemy.changImage();
+				//åˆ‡æ¢å¸¸æ€å›¾ç‰‡
+				enemy.changeImage();
 			}
-			//·ñÔòÕ¹Ê¾Ëğ»ÙÍ¼Æ¬£¬Õ¹Ê¾ÍêÁËÖ®ºó´ÓÊı×éÖĞÍÆ³öÈ¥
+			//å¦åˆ™å±•ç¤ºæŸæ¯å›¾ç‰‡ï¼Œå±•ç¤ºå®Œäº†ä¹‹åä»æ•°ç»„ä¸­æ¨å‡ºå»
 			else
 			{
-				if (!enemy.changImage())
+				if (!enemy.changeImage())
 				{
 					enemyVector.removeAt(i);
 					i--;
@@ -629,32 +629,32 @@ void GameScene::gameCycleSlot()
 		}
 
 
-		//¼ÆËã×Óµ¯×´Ì¬
-		//Íæ¼Ò×Óµ¯
+		//è®¡ç®—å­å¼¹çŠ¶æ€
+		//ç©å®¶å­å¼¹
 		for (int i = 0; i < playerBulletVector.size(); i++)
 		{
 			PlayerBullet &bullet = playerBulletVector[i];
-			//×Óµ¯ÒÆ¶¯
-			//³¬³öµØÍ¼±ß½çÔò´ÓÄÚ´æÖĞÉ¾³ı
+			//å­å¼¹ç§»åŠ¨
+			//è¶…å‡ºåœ°å›¾è¾¹ç•Œåˆ™ä»å†…å­˜ä¸­åˆ é™¤
 			if (!bullet.move(0))
 			{
 				playerBulletVector.removeAt(i);
 				i--;
 			}
-			//·ñÔòÅĞ¶ÏÊÇ·ñ×²µ½ÁË´æ»îµĞ»ú
+			//å¦åˆ™åˆ¤æ–­æ˜¯å¦æ’åˆ°äº†å­˜æ´»æ•Œæœº
 			else
 			{
 				for (int j = 0; j < enemyVector.size(); j++)
 				{
 					Enemy &enemy = enemyVector[j];
-					//Èç¹û×²µ½ÁË
+					//å¦‚æœæ’åˆ°äº†
 					if (bullet.isCollided(enemy) && enemy.life() > 0)
 					{
-						//µĞ»úÉúÃüÖµ¿Û¼õ
+						//æ•Œæœºç”Ÿå‘½å€¼æ‰£å‡
 						enemy.rlife()--;
-						//»ñÈ¡·ÖÊı
+						//è·å–åˆ†æ•°
 						score += getScore(enemy);
-						//ÇĞ»»µ½ËğÌ¬Í¼Æ¬
+						//åˆ‡æ¢åˆ°æŸæ€å›¾ç‰‡
 						if (enemy.life() <= 4 && enemy.normalImageVector()[0].cacheKey() == enemy2NormalImageVector[0].cacheKey())
 						{
 							enemy.rnormalImageVector() = enemy2HitImageVector;
@@ -665,7 +665,7 @@ void GameScene::gameCycleSlot()
 							enemy.rnormalImageVector() = enemy3HitImageVector;
 							enemy.rnowNormalImageIndex() = 0;
 						}
-						//×Óµ¯É¾³ı
+						//å­å¼¹åˆ é™¤
 						playerBulletVector.removeAt(i);
 						i--;
 						break;
@@ -674,19 +674,19 @@ void GameScene::gameCycleSlot()
 			}
 		}
 
-		//µĞ»ú×Óµ¯
-		//×Óµ¯ÒÆ¶¯
+		//æ•Œæœºå­å¼¹
+		//å­å¼¹ç§»åŠ¨
 		for (int i = 0; i < enemyBulletVector.size(); i++)
 		{
 			EnemyBullet &bullet = enemyBulletVector[i];
-			//ÒÆ¶¯
-			//Èç¹û×Óµ¯³¬³öµØÍ¼±ß½ç
+			//ç§»åŠ¨
+			//å¦‚æœå­å¼¹è¶…å‡ºåœ°å›¾è¾¹ç•Œ
 			if (!bullet.move(height()))
 			{
 				enemyBulletVector.removeAt(i);
 				i--;
 			}
-			//·ñÔòÅĞ¶ÏÊÇ·ñ´òµ½ÁËÍæ¼Ò·É»ú
+			//å¦åˆ™åˆ¤æ–­æ˜¯å¦æ‰“åˆ°äº†ç©å®¶é£æœº
 			else
 			{
 				if (bullet.isCollided(player) && player.life() > 0)
@@ -698,18 +698,18 @@ void GameScene::gameCycleSlot()
 			}
 		}
 
-		//¼ÆËãµÀ¾ß
-		//µÀ¾ß²úÉú
+		//è®¡ç®—é“å…·
+		//é“å…·äº§ç”Ÿ
 		productPropsFpsCounter++;
 		if (productPropsFpsCounter == productPropsFpsInterval)
 		{
 			productPropsFpsCounter = 0;
 
-			//³õÊ¼»¯µÀ¾ß
+			//åˆå§‹åŒ–é“å…·
 			Props props;
-			//ÉèÖÃÀàĞÍ
+			//è®¾ç½®ç±»å‹
 			props.rtype() = static_cast<Props::Type>(qrand() % 2 + 1);
-			//ÉèÖÃÍ¼Æ¬
+			//è®¾ç½®å›¾ç‰‡
 			if (props.type() == Props::Type::Bomb)
 			{
 				props.rimage() = bombPropsImage;
@@ -718,19 +718,19 @@ void GameScene::gameCycleSlot()
 			{
 				props.rimage() = bulletPropsImage;
 			}
-			//ÉèÖÃ¿í¸ß
+			//è®¾ç½®å®½é«˜
 			props.rwidth() = props.image().width();
 			props.rheight() = props.image().height();
-			//ÉèÖÃ×ø±ê
+			//è®¾ç½®åæ ‡
 			props.rx() = qrand() % (width() - props.width() + 1);
 			props.ry() = -props.height();
-			//ÉèÖÃÃ¿Ö¡ÒÆ¶¯¾àÀë
+			//è®¾ç½®æ¯å¸§ç§»åŠ¨è·ç¦»
 			props.rdy() = 3 * 60 / fps;
-			//¼ÓÈëÊı×é·½±ãÍ³Ò»¹ÜÀí
+			//åŠ å…¥æ•°ç»„æ–¹ä¾¿ç»Ÿä¸€ç®¡ç†
 			propsVector.append(props);
 		}
 
-		//µÀ¾ßÒÆ¶¯
+		//é“å…·ç§»åŠ¨
 		for (int i = 0; i < propsVector.size(); i++)
 		{
 			Props &props = propsVector[i];
@@ -744,7 +744,7 @@ void GameScene::gameCycleSlot()
 	}
 
 
-	//»æÖÆÓÎÏ·»­Ãæ
+	//ç»˜åˆ¶æ¸¸æˆç”»é¢
 	update();
 }
 
