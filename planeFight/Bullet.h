@@ -1,23 +1,44 @@
-#ifndef BULLET_H
+ï»¿#ifndef BULLET_H
 #define BULLET_H
 
 #include "Sprite.h"
 
-//×Óµ¯Àà
+//å­å¼¹ç±»
 class Bullet :public Sprite
 {
 private:
-	//Ã¿Ö¡ÔÚy·½ÏòÉÏÒÆ¶¯µÄ¾àÀë
+	//æ¯å¸§åœ¨yæ–¹å‘ä¸Šç§»åŠ¨çš„è·ç¦»
 	int dy_ = 0;
 
 public:
 	Bullet();
 	~Bullet();
 
-	//»ñÈ¡Ã¿Ö¡ÔÚy·½ÏòÉÏÒÆ¶¯µÄ¾àÀë
+	//å­å¼¹ç±»åˆ«ç±»å‹
+	enum Type
+	{
+		None,
+		Player,
+		Enemy,
+	};
+
+	//è·å–å­å¼¹ç±»åˆ«
+	const Bullet::Type type() const { return type_; }
+	//è·å–å­å¼¹ç±»åˆ«çš„å¼•ç”¨
+	Bullet::Type &rtype() { return type_; }
+
+	//è·å–æ¯å¸§åœ¨yæ–¹å‘ä¸Šç§»åŠ¨çš„è·ç¦»
 	const int dy() const { return dy_; }
-	//»ñÈ¡Ã¿Ö¡ÔÚy·½ÏòÉÏÒÆ¶¯µÄ¾àÀëµÄÒıÓÃ
+	//è·å–æ¯å¸§åœ¨yæ–¹å‘ä¸Šç§»åŠ¨çš„è·ç¦»çš„å¼•ç”¨
 	int &rdy() { return dy_; }
+
+	//ç§»åŠ¨
+	//ä¼ å…¥è¾¹ç•Œï¼Œè¿”å›trueæ²¡äº‹ï¼Œè¿”å›falseè¯´æ˜å­å¼¹è¶…å‡ºè¾¹ç•Œ
+	bool move(int border);
+
+private:
+	//å­å¼¹ç±»åˆ«
+	Bullet::Type type_ = Bullet::Type::None;
 };
 
 #endif // BULLET_H
