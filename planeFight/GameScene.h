@@ -4,9 +4,8 @@
 #include "Scene.h"
 #include "QTimer.h"
 #include "Player.h"
-#include "PlayerBullet.h"
 #include "Enemy.h"
-#include "EnemyBullet.h"
+#include "Bullet.h"
 #include "Props.h"
 #include "Image.h"
 
@@ -22,11 +21,11 @@ private:
 	//玩家
 	Player player;
 	//玩家子弹数组
-	QVector<PlayerBullet> playerBulletVector;
+	QVector<Bullet> playerBulletVector;
 	//敌机数组
 	QVector<Enemy> enemyVector;
 	//敌机子弹数组
-	QVector<EnemyBullet> enemyBulletVector;
+	QVector<Bullet> enemyBulletVector;
 	//道具数组
 	QVector<Props> propsVector;
 
