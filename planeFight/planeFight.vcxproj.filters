@@ -57,6 +57,9 @@
     <Filter Include="设置\图片">
       <UniqueIdentifier>{d78e0ddc-c6b6-40ef-a50b-d5cc9a5442cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="设置\数据设置">
+      <UniqueIdentifier>{2b870e79-e344-4482-be30-b5477976a676}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -114,6 +117,9 @@
     <ClCompile Include="Image.cpp">
       <Filter>设置\图片</Filter>
     </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>设置\数据设置</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PlaneFight.qrc">
@@ -153,6 +159,9 @@
     </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>设置\图片</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>设置\数据设置</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
