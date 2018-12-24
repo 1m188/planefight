@@ -1,5 +1,6 @@
 ﻿#include "GameScene.h"
 #include "Director.h"
+#include "Config.h"
 #include "QPainter"
 #include "QKeyEvent"
 #include "QTime"
@@ -21,7 +22,7 @@ void GameScene::init()
 	image = Image::getInstance();
 
 	//初始化帧数
-	fps = 60;
+	fps = Config::getInstance()->fps();
 
 	//初始化分数
 	score = 0;
