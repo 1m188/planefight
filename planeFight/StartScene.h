@@ -12,6 +12,9 @@ public:
 
 	//初始化场景
 	void init() override;
+
+private slots:
+	void newGameButtonClicked(); //单击开始新游戏
 };
 
 #endif // !STARTSCENE_H
