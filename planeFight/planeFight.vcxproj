@@ -81,6 +81,7 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Director.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FpsChooseScene.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_GameScene.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -160,6 +161,20 @@
     <ClInclude Include="Director.h" />
     <ClInclude Include="Enemy.h" />
     <CustomBuild Include="HighestScoreScene.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+    </CustomBuild>
+    <CustomBuild Include="FpsChooseScene.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

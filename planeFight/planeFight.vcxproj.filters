@@ -69,6 +69,9 @@
     <Filter Include="场景\设置场景">
       <UniqueIdentifier>{c0afc0a0-c917-4b8f-ae81-fd5565e42aaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="场景\帧数选择场景">
+      <UniqueIdentifier>{40b7f9ee-393b-4c6f-bfcd-42c951948939}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -144,6 +147,15 @@
     <ClCompile Include="SettingScene.cpp">
       <Filter>场景\设置场景</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FpsChooseScene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FpsChooseScene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsChooseScene.cpp">
+      <Filter>场景\帧数选择场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PlaneFight.qrc">
@@ -163,6 +175,9 @@
     </CustomBuild>
     <CustomBuild Include="SettingScene.h">
       <Filter>场景\设置场景</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FpsChooseScene.h">
+      <Filter>场景\帧数选择场景</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
