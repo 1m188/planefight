@@ -60,6 +60,9 @@
     <Filter Include="设置\数据设置">
       <UniqueIdentifier>{2b870e79-e344-4482-be30-b5477976a676}</UniqueIdentifier>
     </Filter>
+    <Filter Include="场景\开始场景">
+      <UniqueIdentifier>{0c8ad60e-285d-41af-8368-685efd2be2d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -120,6 +123,9 @@
     <ClCompile Include="Config.cpp">
       <Filter>设置\数据设置</Filter>
     </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>场景\开始场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PlaneFight.qrc">
@@ -162,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>设置\数据设置</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>场景\开始场景</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
