@@ -1,6 +1,7 @@
 ﻿#include "StartScene.h"
 #include "Director.h"
 #include "GameScene.h"
+#include "HighestScoreScene.h"
 #include "QLabel"
 #include "QPushButton"
 #include "QGridLayout"
@@ -30,6 +31,7 @@ void StartScene::init()
 	QPushButton *highestScoreButton = new QPushButton(this);
 	highestScoreButton->setFont(QFont(u8"微软雅黑", 15));
 	highestScoreButton->setText(tr(u8"最高分"));
+	connect(highestScoreButton, &QPushButton::clicked, this, &StartScene::highestScoreButtonClicked);
 
 	QPushButton *settingButton = new QPushButton(this);
 	settingButton->setFont(QFont(u8"微软雅黑", 15));
@@ -55,5 +57,14 @@ void StartScene::newGameButtonClicked()
 	Director::getInstance()->setNowScene(gameScene);
 	gameScene->init();
 	gameScene->show();
+	deleteLater();
+}
+
+void StartScene::highestScoreButtonClicked()
+{
+	HighestScoreScene *highestScoreScene = new HighestScoreScene(Director::getInstance()->getWindow());
+	Director::getInstance()->setNowScene(highestScoreScene);
+	highestScoreScene->init();
+	highestScoreScene->show();
 	deleteLater();
 }
