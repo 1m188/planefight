@@ -1,5 +1,6 @@
 ﻿#include "GameScene.h"
 #include "Director.h"
+#include "StartScene.h"
 #include "Config.h"
 #include "QPainter"
 #include "QKeyEvent"
@@ -260,7 +261,11 @@ void GameScene::mouseReleaseEvent(QMouseEvent * event)
 		//...结束游戏
 		else if (gameOverRect.contains(pos) && gameOverRect.contains(originalPoint))
 		{
-
+			StartScene *startScene = new StartScene(Director::getInstance()->getWindow());
+			Director::getInstance()->setNowScene(startScene);
+			startScene->init();
+			startScene->show();
+			deleteLater();
 		}
 	}
 	Scene::mouseReleaseEvent(event);
