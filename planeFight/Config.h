@@ -12,7 +12,7 @@ private:
 	static Config *instance; //单例指针
 
 	//帧数
-	int fps_ = 0;
+	int fps_ = 30;
 	//最高分
 	int highestScore_ = 0;
 	//最高分保持者
