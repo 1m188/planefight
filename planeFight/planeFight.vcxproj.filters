@@ -66,6 +66,9 @@
     <Filter Include="场景\最高分场景">
       <UniqueIdentifier>{12a3d53d-c8ed-43fe-8f1b-645171259fe6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="场景\设置场景">
+      <UniqueIdentifier>{c0afc0a0-c917-4b8f-ae81-fd5565e42aaf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -129,14 +132,17 @@
     <ClCompile Include="StartScene.cpp">
       <Filter>场景\开始场景</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_HighestScoreScene.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_HighestScoreScene.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="HighestScoreScene.cpp">
       <Filter>场景\最高分场景</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SettingScene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SettingScene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingScene.cpp">
+      <Filter>场景\设置场景</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +160,9 @@
     </CustomBuild>
     <CustomBuild Include="HighestScoreScene.h">
       <Filter>场景\最高分场景</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SettingScene.h">
+      <Filter>场景\设置场景</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

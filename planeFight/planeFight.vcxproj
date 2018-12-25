@@ -113,6 +113,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Props.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SettingScene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -176,6 +177,20 @@
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Props.h" />
+    <CustomBuild Include="SettingScene.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+    </CustomBuild>
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StartScene.h" />
     <CustomBuild Include="Scene.h">
