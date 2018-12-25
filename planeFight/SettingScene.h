@@ -14,6 +14,7 @@ public:
 	void init() override;
 
 private slots:
+	void fpsChooseButtonClicked(); //单击帧数选择按钮
 	void returnToStartSceneButtonClicked(); //单击返回开始场景按钮
 };
 
