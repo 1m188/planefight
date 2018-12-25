@@ -63,6 +63,9 @@
     <Filter Include="场景\开始场景">
       <UniqueIdentifier>{0c8ad60e-285d-41af-8368-685efd2be2d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="场景\最高分场景">
+      <UniqueIdentifier>{12a3d53d-c8ed-43fe-8f1b-645171259fe6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -126,6 +129,15 @@
     <ClCompile Include="StartScene.cpp">
       <Filter>场景\开始场景</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_HighestScoreScene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_HighestScoreScene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="HighestScoreScene.cpp">
+      <Filter>场景\最高分场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="PlaneFight.qrc">
@@ -139,6 +151,9 @@
     </CustomBuild>
     <CustomBuild Include="Scene.h">
       <Filter>场景</Filter>
+    </CustomBuild>
+    <CustomBuild Include="HighestScoreScene.h">
+      <Filter>场景\最高分场景</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
