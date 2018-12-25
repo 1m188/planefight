@@ -1,6 +1,6 @@
-#include "Window.h"
+ï»¿#include "Window.h"
 #include "Director.h"
-#include "GameScene.h"
+#include "StartScene.h"
 #include "QApplication"
 #include "QDeskTopWidget"
 #include "QStyle"
@@ -8,18 +8,18 @@
 Window::Window()
 	: QWidget()
 {
-	//»ù±¾ÉèÖÃ
+	//åŸºæœ¬è®¾ç½®
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	setAttribute(Qt::WA_QuitOnClose, true);
 
-	//»ñÈ¡³ýÈÎÎñÀ¸Ö®ÍâµÄÆÁÄ»ÇøÓò
+	//èŽ·å–é™¤ä»»åŠ¡æ ä¹‹å¤–çš„å±å¹•åŒºåŸŸ
 	QRect screenWithoutTaskBar = QApplication::desktop()->availableGeometry();
 
-	//´°¿Ú±êÌâºÍ´óÐ¡
-	setWindowTitle(tr(u8"·É»ú´óÕ½"));
+	//çª—å£æ ‡é¢˜å’Œå¤§å°
+	setWindowTitle(tr(u8"é£žæœºå¤§æˆ˜"));
 	setFixedSize(900, screenWithoutTaskBar.height() - style()->pixelMetric(QStyle::PM_TitleBarHeight));
 
-	//ÒÆ¶¯µ½ÆÁÄ»ÖÐÑë
+	//ç§»åŠ¨åˆ°å±å¹•ä¸­å¤®
 	move(screenWithoutTaskBar.width() / 2 - width() / 2, 0);
 }
 
@@ -40,9 +40,9 @@ void Window::keyReleaseEvent(QKeyEvent * event)
 
 void Window::show()
 {
-	GameScene *gameScene = new GameScene(this);
-	Director::getInstance()->setNowScene(gameScene);
-	gameScene->init();
-	gameScene->show();
+	StartScene *startScene = new StartScene(this);
+	Director::getInstance()->setNowScene(startScene);
+	startScene->init();
+	startScene->show();
 	QWidget::show();
 }
