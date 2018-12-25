@@ -1,6 +1,8 @@
 ﻿#ifndef CONFIG_H
 #define CONFIG_H
 
+#include "QString"
+
 //设置类
 class Config
 {
@@ -11,6 +13,10 @@ private:
 
 	//帧数
 	int fps_ = 0;
+	//最高分
+	int highestScore_ = 0;
+	//最高分保持者
+	QString highestScorePlayer_;
 
 public:
 	Config(const Config &) = delete;
@@ -28,6 +34,16 @@ public:
 	const int fps() const { return fps_; }
 	//获取帧数的引用
 	int &rfps() { return fps_; }
+
+	//获取最高分
+	const int highestScore() const { return highestScore_; }
+	//获取最高分的引用
+	int &rhighestScore() { return highestScore_; }
+
+	//获取最高分保持者
+	const QString highestScorePlayer() const { return highestScorePlayer_; }
+	//获取最高分保持者的引用
+	QString &rhighestScorePlayer() { return highestScorePlayer_; }
 };
 
 #endif // !CONFIG_H

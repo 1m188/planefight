@@ -35,6 +35,16 @@ void Config::init()
 		temp.chop(1);
 		fps_ = temp.toInt();
 
+		//读取最高分
+		temp = f.readLine();
+		temp.chop(1);
+		highestScore_ = temp.toInt();
+
+		//读取最高分保持者
+		temp = f.readLine();
+		temp.chop(1);
+		highestScorePlayer_ = temp;
+
 		f.close();
 	}
 	//否则创建一个新的文件
@@ -51,5 +61,9 @@ void Config::uninit()
 	f.open(QIODevice::WriteOnly | QIODevice::Truncate);
 	//写入保存fps值
 	f.write((QString::number(fps_) + "\n").toStdString().c_str());
+	//写入保存最高分
+	f.write((QString::number(highestScore_) + "\n").toStdString().c_str());
+	//写入保存最高分保持者
+	f.write((highestScorePlayer_ + "\n").toStdString().c_str());
 	f.close();
 }
