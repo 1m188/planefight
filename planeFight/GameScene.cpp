@@ -4,6 +4,7 @@
 #include "QPainter"
 #include "QKeyEvent"
 #include "QTime"
+#include "QInputDialog"
 
 GameScene::GameScene(Window *parent)
 	: Scene(parent)
@@ -458,6 +459,16 @@ void GameScene::gameCycleSlot()
 			{
 				//游戏结束
 				isGameOver = true;
+
+				//如果是最高分
+				if (score > Config::getInstance()->highestScore())
+				{
+					Config::getInstance()->rhighestScore() = score;
+					bool ok = false;
+					while ((Config::getInstance()->rhighestScorePlayer() = QInputDialog::getText(this, tr(u8"游戏结束"), tr(u8"游戏结束了，你的分数是%1，为最高分！请在这里留下你的大名").arg(score), QLineEdit::EchoMode::Normal, QString::null, &ok)) == "" || !ok);
+				}
+
+				return;
 			}
 		}
 
