@@ -1,5 +1,7 @@
 ﻿#include "Config.h"
 #include "QFile"
+#include "QJsonDocument"
+#include "QJsonObject"
 
 Config *Config::instance = nullptr; //初始化单例指针
 
@@ -26,26 +28,17 @@ void Config::init()
 	//如果设置文件存在则读取数据
 	if (f.exists())
 	{
+		//从文件中读取
 		f.open(QIODevice::ReadOnly);
-
-		QString temp;
-
-		//读取fps值
-		temp = f.readLine();
-		temp.chop(1);
-		fps_ = temp.toInt();
-
-		//读取最高分
-		temp = f.readLine();
-		temp.chop(1);
-		highestScore_ = temp.toInt();
-
-		//读取最高分保持者
-		temp = f.readLine();
-		temp.chop(1);
-		highestScorePlayer_ = temp;
-
+		QByteArray temp = f.readAll();
 		f.close();
+
+		//从json中获取相应的属性
+		QJsonDocument jsonDocument = QJsonDocument::fromJson(temp);
+		QJsonObject jsonObject = jsonDocument.object();
+		fps_ = jsonObject.value("Fps").toInt(); //读取帧数
+		highestScore_ = jsonObject.value("HighestScore").toInt(); //读取最高分
+		highestScorePlayer_ = jsonObject.value("HighestScorePlayer").toString(); //读取最高分保持者
 	}
 	//否则创建一个新的文件
 	else
@@ -57,13 +50,19 @@ void Config::init()
 
 void Config::uninit()
 {
+	//json格式保存入文件之中
+	QJsonObject json;
+	json.insert("Fps", fps_); //写入保存fps值
+	json.insert("HighestScore", highestScore_); //写入保存最高分
+	json.insert("HighestScorePlayer", highestScorePlayer_); //写入保存最高分保持者
+
+	QJsonDocument jsonDocument;
+	jsonDocument.setObject(json);
+	QString strJson = QString(jsonDocument.toJson());
+
+	//写入文件
 	QFile f("config.ini");
 	f.open(QIODevice::WriteOnly | QIODevice::Truncate);
-	//写入保存fps值
-	f.write((QString::number(fps_) + "\n").toStdString().c_str());
-	//写入保存最高分
-	f.write((QString::number(highestScore_) + "\n").toStdString().c_str());
-	//写入保存最高分保持者
-	f.write((highestScorePlayer_ + "\n").toStdString().c_str());
+	f.write(strJson.toStdString().c_str());
 	f.close();
 }
