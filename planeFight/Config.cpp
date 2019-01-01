@@ -37,6 +37,15 @@ void Config::init()
 		QJsonDocument jsonDocument = QJsonDocument::fromJson(temp);
 		QJsonObject jsonObject = jsonDocument.object();
 		fps_ = jsonObject.value("Fps").toInt(); //读取帧数
+		//控制帧数范围
+		if (fps_ > 60)
+		{
+			fps_ = 60;
+		}
+		else if (fps_ < 30)
+		{
+			fps_ = 30;
+		}
 		highestScore_ = jsonObject.value("HighestScore").toInt(); //读取最高分
 		highestScorePlayer_ = jsonObject.value("HighestScorePlayer").toString(); //读取最高分保持者
 	}
