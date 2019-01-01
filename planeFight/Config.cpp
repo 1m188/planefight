@@ -58,11 +58,11 @@ void Config::uninit()
 
 	QJsonDocument jsonDocument;
 	jsonDocument.setObject(json);
-	QString strJson = QString(jsonDocument.toJson());
+	QByteArray byteArray = jsonDocument.toJson();
 
 	//写入文件
 	QFile f("config.ini");
 	f.open(QIODevice::WriteOnly | QIODevice::Truncate);
-	f.write(strJson.toStdString().c_str());
+	f.write(byteArray);
 	f.close();
 }
