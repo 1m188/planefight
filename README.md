@@ -1,4 +1,4 @@
-# PlaneFight_Qt
+# planefight
 用Qt框架写的飞机大战
 1. 使用vs2015（后改用vs2017），Qt 5.9.1 32bit 进行开发。
 2. 按住j发射子弹，按下b使用炸弹，wasd进行玩家飞机的移动。
