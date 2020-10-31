@@ -1,5 +1,5 @@
 # vscode 配置
 .vscode
 
-# planefight_qt5生成文件
-planefight_qt5/build
+# 构建生成文件
+build

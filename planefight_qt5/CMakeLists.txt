@@ -7,7 +7,7 @@ set(CMAKE_AUTORCC ON)
 
 aux_source_directory(src sources)
 add_executable(${PROJECT_NAME} ${sources})
-target_sources(${PROJECT_NAME} PRIVATE res/planefight_qt5.qrc)
+target_sources(${PROJECT_NAME} PRIVATE planefight_qt5.qrc)
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<CONFIG:Debug>:DEBUG> $<$<CONFIG:Release>:RELEASE>)
 
