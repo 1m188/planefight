@@ -6,6 +6,7 @@ find_package(Qt5 REQUIRED Widgets)
 set(target planefight_qt5)
 aux_source_directory(src sources)
 add_executable(${target} ${sources})
+target_sources(${target} PRIVATE asset/${target}.qrc)
 
 target_compile_definitions(${target} PRIVATE
 $<$<CONFIG:Debug>:DEBUG>
