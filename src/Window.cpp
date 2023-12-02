@@ -4,6 +4,7 @@
 #include "QApplication"
 #include "QDeskTopWidget"
 #include "QStyle"
+#include <QScreen>
 
 Window::Window() : QWidget()
 {
@@ -12,7 +13,11 @@ Window::Window() : QWidget()
     setAttribute(Qt::WA_QuitOnClose, true);
 
     //获取除任务栏之外的屏幕区域
-    QRect screenWithoutTaskBar = QApplication::desktop()->availableGeometry();
+    #if defined(QT_VERSION) && QT_VERSION >= QT_VERSION_CHECK(5, 14, 2)
+        QRect screenWithoutTaskBar = QGuiApplication::primaryScreen()->availableGeometry();
+    #else
+        QRect screenWithoutTaskBar = QApplication::desktop()->availableGeometry();
+    #endif
 
     //窗口标题和大小
     setWindowTitle(tr(u8"飞机大战"));

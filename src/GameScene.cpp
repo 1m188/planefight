@@ -467,7 +467,12 @@ void GameScene::gameCycleSlot()
                 {
                     Config::getInstance()->rhighestScore() = score;
                     bool ok = false;
-                    while ((Config::getInstance()->rhighestScorePlayer() = QInputDialog::getText(this, tr(u8"游戏结束"), tr(u8"游戏结束了，你的分数是%1，为最高分！请在这里留下你的大名").arg(score), QLineEdit::EchoMode::Normal, QString::null, &ok)) == "" || !ok)
+                    #if defined (QT_VERSION) && QT_VERSION >= QT_VERSION_CHECK(5, 14, 2)
+                        auto nul = QString();
+                    #else
+                        auto nul = QString::null;
+                    #endif
+                    while ((Config::getInstance()->rhighestScorePlayer() = QInputDialog::getText(this, tr(u8"游戏结束"), tr(u8"游戏结束了，你的分数是%1，为最高分！请在这里留下你的大名").arg(score), QLineEdit::EchoMode::Normal, nul, &ok)) == "" || !ok)
                         ;
                 }
 
