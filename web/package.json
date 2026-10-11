@@ -1,0 +1,18 @@
+{
+  "name": "planefight-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "飞机大战 Qt 版核心逻辑的纯静态 Web 复刻",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.4"
+  }
+}
